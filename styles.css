@@ -1,0 +1,410 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ice: #e8f4f8;
+  --ice-mid: #c8dfe8;
+  --blue: #1a4a6e;
+  --blue-dark: #0d2d45;
+  --blue-light: #2a6090;
+  --gold: #c8a84b;
+  --gold-light: #e8c860;
+  --red: #c0392b;
+  --charcoal: #2c3e50;
+  --gray: #7f8c8d;
+  --gray-light: #ecf0f1;
+  --win: #d5f5e3;
+  --win-border: #27ae60;
+  --loss: #fadbd8;
+  --loss-border: #e74c3c;
+  --ot: #fef9e7;
+  --ot-border: #f39c12;
+  --white: #ffffff;
+  --text: #1a2533;
+  --text-muted: #5d6d7e;
+  --shadow: 0 2px 8px rgba(0,0,0,0.12);
+  --shadow-lg: 0 4px 20px rgba(0,0,0,0.18);
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--blue-dark);
+  color: var(--text);
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===== HEADER ===== */
+.site-header {
+  background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, var(--blue-light) 100%);
+  color: var(--white);
+  padding: 40px 24px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    rgba(255,255,255,0.02) 10px,
+    rgba(255,255,255,0.02) 20px
+  );
+}
+.header-inner { position: relative; max-width: 900px; margin: 0 auto; }
+
+.team-name {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+.team-formerly {
+  font-size: 1rem;
+  color: var(--gold-light);
+  font-weight: 500;
+  margin-top: 4px;
+}
+.header-league {
+  font-size: 0.9rem;
+  color: var(--ice-mid);
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.name-transition-badge {
+  display: inline-block;
+  background: rgba(200, 168, 75, 0.2);
+  border: 1px solid var(--gold);
+  color: var(--gold-light);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.82rem;
+  margin-top: 14px;
+}
+
+.archive-notice {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: rgba(200, 220, 235, 0.7);
+}
+.archive-notice span {
+  background: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 3px 10px;
+}
+
+/* ===== NAV ===== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--blue-dark);
+  border-bottom: 2px solid var(--gold);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sticky-nav::-webkit-scrollbar { display: none; }
+.sticky-nav button {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  color: var(--ice-mid);
+  padding: 14px 22px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+.sticky-nav button:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+.sticky-nav button.active { color: var(--gold-light); border-bottom-color: var(--gold-light); }
+
+/* ===== MAIN CONTAINER ===== */
+.main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 60px;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.section-header {
+  background: var(--blue);
+  color: var(--white);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.section-header h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.section-body { padding: 0; }
+
+/* ===== CHART ===== */
+.chart-wrapper {
+  padding: 20px 24px;
+  background: var(--gray-light);
+}
+#season-chart { max-height: 260px; }
+
+/* ===== TABLES ===== */
+.table-scroll { overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+thead th {
+  background: var(--blue-dark);
+  color: var(--ice-mid);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  position: sticky;
+  top: 0;
+}
+thead th:hover { color: var(--white); }
+thead th.sorted { color: var(--gold-light); }
+thead th.sorted::after { content: ' ↕'; font-size: 0.7em; }
+tbody tr { border-bottom: 1px solid var(--gray-light); transition: background 0.1s; }
+tbody tr:hover { background: rgba(26, 74, 110, 0.04); }
+tbody tr:last-child { border-bottom: none; }
+td { padding: 9px 12px; vertical-align: middle; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+td.name-cell { font-weight: 600; }
+td.team-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Highlight our team in standings */
+tr.our-team { background: rgba(200, 168, 75, 0.08) !important; }
+tr.our-team td { font-weight: 600; }
+
+/* ===== SEASON TABLE RESULT COLORS ===== */
+tr.season-win { background: var(--win); }
+tr.season-loss { background: var(--loss); }
+tr.season-mid { background: var(--ot); }
+
+/* ===== GAME ROWS ===== */
+tr.game-win td:first-child { border-left: 3px solid var(--win-border); }
+tr.game-loss td:first-child { border-left: 3px solid var(--loss-border); }
+tr.game-ot td:first-child { border-left: 3px solid var(--ot-border); }
+tr.game-pending td { color: var(--gray); }
+.badge {
+  display: inline-block;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.badge-w { background: var(--win-border); color: #fff; }
+.badge-l { background: var(--loss-border); color: #fff; }
+.badge-ot { background: var(--ot-border); color: #fff; }
+.badge-playoff { background: var(--blue); color: #fff; margin-left: 4px; font-size: 0.65rem; }
+.badge-home { background: var(--blue-light); color: #fff; font-size: 0.7rem; }
+.badge-away { background: var(--gray); color: #fff; font-size: 0.7rem; }
+
+/* ===== SOURCE LINKS ===== */
+.source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--blue);
+  font-size: 0.8rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.source-link:hover { color: var(--blue-light); text-decoration: underline; }
+.source-link svg { flex-shrink: 0; }
+
+/* ===== SEASON BROWSER ===== */
+.season-selector {
+  padding: 16px 24px;
+  background: var(--gray-light);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.season-selector select {
+  flex: 1;
+  min-width: 180px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--ice-mid);
+  font-size: 0.95rem;
+  background: var(--white);
+  cursor: pointer;
+}
+.season-selector select:focus { outline: none; border-color: var(--blue); }
+
+.season-card {
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+  border-bottom: 1px solid var(--gray-light);
+}
+.season-stat-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.stat-pill {
+  background: var(--ice);
+  border: 1px solid var(--ice-mid);
+  border-radius: 8px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 64px;
+}
+.stat-pill .val {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--blue-dark);
+  line-height: 1;
+}
+.stat-pill .lbl {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-top: 2px;
+}
+.standing-badge {
+  background: var(--gold);
+  color: var(--blue-dark);
+  border-radius: 8px;
+  padding: 10px 16px;
+  text-align: center;
+  font-weight: 700;
+  white-space: nowrap;
+  font-size: 1.1rem;
+}
+.standing-badge .lbl { font-size: 0.7rem; font-weight: 500; display: block; }
+
+.source-links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(26, 74, 110, 0.03);
+  border-bottom: 1px solid var(--gray-light);
+}
+
+.section-sub-header {
+  padding: 10px 24px 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--gray-light);
+  background: var(--gray-light);
+}
+
+/* ===== CAREER PLAYER EXPAND ===== */
+.player-row { cursor: pointer; }
+.player-row:hover td { background: rgba(26, 74, 110, 0.06) !important; }
+.player-expand-row { display: none; background: var(--ice) !important; }
+.player-expand-row.open { display: table-row; }
+.player-expand-cell { padding: 0 !important; }
+.player-expand-inner {
+  padding: 12px 24px;
+  font-size: 0.84rem;
+}
+.player-season-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 6px;
+}
+.player-season-table th {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 4px 8px;
+  text-align: left;
+  background: none;
+  position: static;
+  cursor: default;
+}
+.player-season-table td { padding: 4px 8px; border-bottom: 1px solid var(--ice-mid); }
+.player-season-table tr:last-child td { border-bottom: none; }
+
+/* ===== SHOW MORE BUTTON ===== */
+.show-more-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: var(--gray-light);
+  border: none;
+  color: var(--blue);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.show-more-btn:hover { background: var(--ice-mid); }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 24px 16px;
+  font-size: 0.8rem;
+  color: rgba(200, 220, 235, 0.6);
+}
+footer a { color: rgba(200, 220, 235, 0.8); }
+footer a:hover { color: var(--white); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .season-card { grid-template-columns: 1fr; }
+  .section-header { padding: 14px 16px; }
+  td, th { padding: 8px 8px; }
+  .season-selector { padding: 12px 16px; }
+  .source-links-grid { padding: 10px 16px; }
+  .player-expand-inner { padding: 10px 16px; }
+  .stat-pill { min-width: 52px; padding: 6px 10px; }
+  .stat-pill .val { font-size: 1.1rem; }
+}

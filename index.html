@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parking Lot Beers — ICAHL Wednesday B2 History</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="team-name">Parking Lot Beers</div>
+    <div class="team-formerly">(formerly Vinegar Strokes)</div>
+    <div class="header-league">ICAHL · Wednesday B2 · Ice Centre Adult Hockey League</div>
+    <div class="name-transition-badge" id="name-transition-text">Loading…</div>
+    <div style="margin-top:8px;color:rgba(200,220,235,0.75);font-size:0.85rem">
+      <span id="total-seasons-count">12</span> seasons · <span id="total-games-count">—</span> games tracked
+    </div>
+    <div class="archive-notice">
+      <span>📦 Source data archived from PointStreak before decommission on 5/31/2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="sticky-nav">
+  <button data-target="section-upcoming" class="active">📅 Current Season</button>
+  <button data-target="section-chart">📈 Season Trend</button>
+  <button data-target="section-seasons">🏒 All Seasons</button>
+  <button data-target="section-career">⭐ Career Leaders</button>
+  <button data-target="section-browser">🔍 Season Browser</button>
+</nav>
+
+<!-- ===== MAIN ===== -->
+<div class="main-container">
+
+  <!-- UPCOMING SCHEDULE SECTION -->
+  <div class="section" id="section-upcoming">
+    <div class="section-header">
+      <h2>📅 Current Season — Summer 2026</h2>
+      <span style="font-size:0.8rem;color:var(--ice-mid)">Live from GameSheet · updates weekly</span>
+    </div>
+    <div class="section-body">
+      <!-- PLB next games from parsed data -->
+      <div class="section-sub-header">🏒 Parking Lot Beers Games</div>
+      <div id="upcoming-plb-games"></div>
+
+      <!-- Full division schedule via iframe -->
+      <div class="section-sub-header" style="display:flex;align-items:center;justify-content:space-between">
+        <span>📋 Full Division Schedule</span>
+        <a class="source-link" href="https://icecentre.com/programs/adult-hockey/icahl-summer-2026/b2/" target="_blank" rel="noopener noreferrer">
+          icecentre.com ↗
+        </a>
+      </div>
+      <div style="padding:0">
+        <iframe
+          src="https://gamesheetstats.com/seasons/14815/schedule?filter[division]=79347&filter[start_time_from]=default:today&configuration[secondary-colour]=0077cc&configuration[logo]=false&configuration[navigation]=false&configuration[filters]=false"
+          width="100%" height="700" frameborder="0"
+          style="display:block;border:none"
+          title="Summer 2026 Schedule — GameSheet">
+        </iframe>
+      </div>
+
+      <!-- Live standings via iframe -->
+      <div class="section-sub-header">📊 Live Division Standings</div>
+      <div style="padding:0">
+        <iframe
+          src="https://gamesheetstats.com/seasons/14815/standings?filter[division]=79347&configuration[secondary-colour]=0077cc&configuration[logo]=false&configuration[navigation]=false&configuration[filters]=false"
+          width="100%" height="420" frameborder="0"
+          style="display:block;border:none"
+          title="Summer 2026 Standings — GameSheet">
+        </iframe>
+      </div>
+
+      <!-- Live player stats via iframe -->
+      <div class="section-sub-header">⭐ Live Player Stats</div>
+      <div style="padding:0">
+        <iframe
+          src="https://gamesheetstats.com/seasons/14815/players?filter[division]=79347&configuration[secondary-colour]=0077cc&configuration[logo]=false&configuration[navigation]=false&configuration[filters]=false"
+          width="100%" height="500" frameborder="0"
+          style="display:block;border:none"
+          title="Summer 2026 Player Stats — GameSheet">
+        </iframe>
+      </div>
+
+      <div style="padding:10px 16px;font-size:0.78rem;color:var(--text-muted);background:var(--gray-light)">
+        Live data embedded from <a href="https://gamesheetstats.com" target="_blank" rel="noopener noreferrer">GameSheet</a>.
+        Run <code>python3 update.py</code> each Thursday to sync scores into the Season Browser and Career Leaders.
+      </div>
+    </div>
+  </div>
+
+  <!-- CHART SECTION -->
+  <div class="section" id="section-chart">
+    <div class="section-header">
+      <h2>📈 Points & Wins Per Season</h2>
+    </div>
+    <div class="chart-wrapper">
+      <canvas id="season-chart"></canvas>
+    </div>
+  </div>
+
+  <!-- ALL-TIME SEASONS TABLE -->
+  <div class="section" id="section-seasons">
+    <div class="section-header">
+      <h2>🏒 All-Time Record by Season</h2>
+      <span style="font-size:0.8rem;color:var(--ice-mid)">Click column headers to sort · 🔗 opens PointStreak source</span>
+    </div>
+    <div class="section-body">
+      <div class="table-scroll">
+        <table id="season-table">
+          <tbody><tr><td colspan="13" style="text-align:center;padding:40px;color:#aaa">Loading…</td></tr></tbody>
+        </table>
+      </div>
+      <div style="padding:10px 16px;font-size:0.78rem;color:var(--text-muted);background:var(--gray-light)">
+        Row colors: <span style="background:var(--win);padding:1px 6px;border-radius:3px">green = winning record</span>
+        <span style="background:var(--loss);padding:1px 6px;border-radius:3px;margin:0 4px">red = losing record</span>
+        <span style="background:var(--ot);padding:1px 6px;border-radius:3px">yellow = near .500</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAREER LEADERS -->
+  <div class="section" id="section-career">
+    <div class="section-header">
+      <h2>⭐ All-Time Career Point Leaders</h2>
+      <span style="font-size:0.8rem;color:var(--ice-mid)">Click a player name to expand season breakdown</span>
+    </div>
+    <div class="section-body" id="career-table-wrap">
+      <div style="text-align:center;padding:40px;color:#aaa">Loading…</div>
+    </div>
+  </div>
+
+  <!-- SEASON BROWSER -->
+  <div class="section" id="section-browser">
+    <div class="section-header">
+      <h2>🔍 Season Browser</h2>
+    </div>
+    <div class="section-body">
+
+      <div class="season-selector">
+        <label for="season-select" style="font-weight:600;color:var(--blue-dark);white-space:nowrap">Select Season:</label>
+        <select id="season-select"></select>
+      </div>
+
+      <!-- Season Summary Card -->
+      <div class="season-card" id="season-card">
+        <div style="color:#aaa">Loading season data…</div>
+      </div>
+
+      <!-- Source Links -->
+      <div class="section-sub-header" id="source-links-header">🔗 Source Links</div>
+      <div class="source-links-grid" id="season-source-links"></div>
+
+      <!-- Schedule -->
+      <div class="section-sub-header">📅 Schedule</div>
+      <div id="season-schedule"></div>
+
+      <!-- Points Leaders -->
+      <div class="section-sub-header">⭐ Season Points Leaders</div>
+      <div id="season-leaders"></div>
+
+      <!-- Goalies -->
+      <div class="section-sub-header">🥅 Goalies</div>
+      <div id="season-goalies"></div>
+
+      <!-- Division Standings -->
+      <div class="section-sub-header">📊 Division Standings</div>
+      <div id="season-standings"></div>
+
+    </div>
+  </div>
+
+</div><!-- /main-container -->
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>
+    All data sourced from
+    <a href="http://stats.pointstreak.com" target="_blank" rel="noopener noreferrer">PointStreak</a>
+    (decommissioned 5/31/2026).
+    Click any 🔗 to view the original source page.
+    Raw HTML archive saved in <code>data/raw/</code> (279 files).
+  </p>
+  <p style="margin-top:6px">
+    ICAHL Wednesday B2 · Vinegar Strokes / Parking Lot Beers · Seasons 2020–2026
+  </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

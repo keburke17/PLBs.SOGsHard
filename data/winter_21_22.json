@@ -1,0 +1,977 @@
+{
+  "season": "Winter 21/22",
+  "slug": "winter_21_22",
+  "divisionid": "116997",
+  "seasonid": "20626",
+  "teamid": "780172",
+  "team_name": "Vinegar Strokes",
+  "source_urls": {
+    "division": "http://stats.pointstreak.com/players/players-division.html?divisionid=116997&seasonid=20626",
+    "team_home": "http://stats.pointstreak.com/players/players-team.html?teamid=780172&seasonid=20626",
+    "schedule": "http://stats.pointstreak.com/players/players-team-schedule.html?teamid=780172&seasonid=20626",
+    "roster": "http://stats.pointstreak.com/players/players-team-roster.html?teamid=780172&seasonid=20626",
+    "standings": "http://stats.pointstreak.com/players/players-division-standings.html?divisionid=116997&seasonid=20626"
+  },
+  "record": {
+    "page_title": "Vinegar Strokes - Ice Centre Adult Hockey League -  team home | Pointstreak Sports Technologies",
+    "record_raw": {
+      "GP": "24",
+      "W": "21",
+      "L": "2",
+      "OTL": "0",
+      "SOL": "1",
+      "PTS": "43",
+      "GF": "130",
+      "GA": "61"
+    },
+    "leaders": {
+      "goals": {
+        "player": "Kyle Prust",
+        "value": 17
+      },
+      "assists": {
+        "player": "Marc Erickson",
+        "value": 14
+      },
+      "points": {
+        "player": "Marc Erickson",
+        "value": 30
+      },
+      "pim": {
+        "player": "Jason Hanson",
+        "value": 29
+      }
+    }
+  },
+  "standings": [
+    {
+      "rank": 1,
+      "TEAM NAME": "Vinegar Strokes",
+      "GP": "24",
+      "W": "21",
+      "L": "2",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "1",
+      "PTS": "43",
+      "GF": "130",
+      "GA": "61",
+      "PIM": "93",
+      "LAST 5": "3-2-0-0",
+      "STREAK": "0-1-0-0",
+      "teamid": "780172",
+      "TEAM": "Vinegar Strokes"
+    },
+    {
+      "rank": 2,
+      "TEAM NAME": "CDs Wings",
+      "GP": "23",
+      "W": "14",
+      "L": "9",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "0",
+      "PTS": "28",
+      "GF": "122",
+      "GA": "87",
+      "PIM": "109",
+      "LAST 5": "2-3-0-0",
+      "STREAK": "0-1-0-0",
+      "teamid": "780167",
+      "TEAM": "CDs Wings"
+    },
+    {
+      "rank": 3,
+      "TEAM NAME": "Green Belly Hot Sauce",
+      "GP": "24",
+      "W": "14",
+      "L": "10",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "0",
+      "PTS": "28",
+      "GF": "103",
+      "GA": "103",
+      "PIM": "134",
+      "LAST 5": "4-1-0-0",
+      "STREAK": "4-0-0-0",
+      "teamid": "780170",
+      "TEAM": "Green Belly Hot Sauce"
+    },
+    {
+      "rank": 4,
+      "TEAM NAME": "Whalers",
+      "GP": "25",
+      "W": "8",
+      "L": "13",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "4",
+      "PTS": "20",
+      "GF": "105",
+      "GA": "119",
+      "PIM": "178",
+      "LAST 5": "3-1-0-1",
+      "STREAK": "0-1-0-0",
+      "teamid": "780171",
+      "TEAM": "Whalers"
+    },
+    {
+      "rank": 5,
+      "TEAM NAME": "The Young Biscuits",
+      "GP": "22",
+      "W": "9",
+      "L": "12",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "1",
+      "PTS": "19",
+      "GF": "102",
+      "GA": "127",
+      "PIM": "100",
+      "LAST 5": "1-4-0-0",
+      "STREAK": "0-3-0-0",
+      "teamid": "780168",
+      "TEAM": "The Young Biscuits"
+    },
+    {
+      "rank": 6,
+      "TEAM NAME": "Rocky Hockey",
+      "GP": "22",
+      "W": "4",
+      "L": "17",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "1",
+      "PTS": "9",
+      "GF": "77",
+      "GA": "142",
+      "PIM": "102",
+      "LAST 5": "1-4-0-0",
+      "STREAK": "0-2-0-0",
+      "teamid": "780169",
+      "TEAM": "Rocky Hockey"
+    }
+  ],
+  "schedule": [
+    {
+      "raw": [
+        "Whalers0",
+        "Vinegar Strokes4",
+        "Wed, Oct 06",
+        "9:21 pm",
+        "final"
+      ],
+      "gameid": "3571048",
+      "home": "Whalers0",
+      "away": "Vinegar Strokes4",
+      "date": "Wed, Oct 06",
+      "time": "9:21 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "CDs Wings2",
+        "Vinegar Strokes5",
+        "Wed, Oct 13",
+        "10:43 pm",
+        "final"
+      ],
+      "gameid": "3571108",
+      "home": "CDs Wings2",
+      "away": "Vinegar Strokes5",
+      "date": "Wed, Oct 13",
+      "time": "10:43 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "The Young Biscuits5",
+        "Vinegar Strokes12",
+        "Wed, Oct 27",
+        "10:14 pm",
+        "final"
+      ],
+      "gameid": "3571224",
+      "home": "The Young Biscuits5",
+      "away": "Vinegar Strokes12",
+      "date": "Wed, Oct 27",
+      "time": "10:14 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes7",
+        "Rocky Hockey3",
+        "Wed, Nov 03",
+        "7:42 pm",
+        "final"
+      ],
+      "gameid": "3571289",
+      "home": "Vinegar Strokes7",
+      "away": "Rocky Hockey3",
+      "date": "Wed, Nov 03",
+      "time": "7:42 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Whalers1",
+        "Vinegar Strokes7",
+        "Wed, Nov 10",
+        "7:41 pm",
+        "final"
+      ],
+      "gameid": "3571425",
+      "home": "Whalers1",
+      "away": "Vinegar Strokes7",
+      "date": "Wed, Nov 10",
+      "time": "7:41 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "CDs Wings4",
+        "Vinegar Strokes8",
+        "Wed, Nov 17",
+        "10:48 pm",
+        "final"
+      ],
+      "gameid": "3571357",
+      "home": "CDs Wings4",
+      "away": "Vinegar Strokes8",
+      "date": "Wed, Nov 17",
+      "time": "10:48 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes3",
+        "Green Belly Hot Sauce0",
+        "Wed, Dec 01",
+        "9:32 pm",
+        "final"
+      ],
+      "gameid": "3571482",
+      "home": "Vinegar Strokes3",
+      "away": "Green Belly Hot Sauce0",
+      "date": "Wed, Dec 01",
+      "time": "9:32 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "The Young Biscuits3",
+        "Vinegar Strokes8",
+        "Wed, Dec 08",
+        "9:25 pm",
+        "final"
+      ],
+      "gameid": "3571563",
+      "home": "The Young Biscuits3",
+      "away": "Vinegar Strokes8",
+      "date": "Wed, Dec 08",
+      "time": "9:25 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes8",
+        "Rocky Hockey1",
+        "Wed, Dec 15",
+        "8:02 pm",
+        "final"
+      ],
+      "gameid": "3571567",
+      "home": "Vinegar Strokes8",
+      "away": "Rocky Hockey1",
+      "date": "Wed, Dec 15",
+      "time": "8:02 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes6",
+        "Whalers3",
+        "Wed, Jan 05",
+        "10:51 pm",
+        "final"
+      ],
+      "gameid": "3571729",
+      "home": "Vinegar Strokes6",
+      "away": "Whalers3",
+      "date": "Wed, Jan 05",
+      "time": "10:51 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes4",
+        "CDs Wings3",
+        "Wed, Jan 12",
+        "9:06 pm",
+        "final"
+      ],
+      "gameid": "3571733",
+      "home": "Vinegar Strokes4",
+      "away": "CDs Wings3",
+      "date": "Wed, Jan 12",
+      "time": "9:06 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Green Belly Hot Sauce2",
+        "Vinegar Strokes1",
+        "Wed, Jan 19",
+        "10:51 pm",
+        "finalSO"
+      ],
+      "gameid": "3571743",
+      "home": "Green Belly Hot Sauce2",
+      "away": "Vinegar Strokes1",
+      "date": "Wed, Jan 19",
+      "time": "10:51 pm",
+      "rink/gs": "finalSO"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes5",
+        "The Young Biscuits4",
+        "Wed, Jan 26",
+        "9:20 pm",
+        "finalSO"
+      ],
+      "gameid": "3571749",
+      "home": "Vinegar Strokes5",
+      "away": "The Young Biscuits4",
+      "date": "Wed, Jan 26",
+      "time": "9:20 pm",
+      "rink/gs": "finalSO"
+    },
+    {
+      "raw": [
+        "Rocky Hockey0",
+        "Vinegar Strokes1",
+        "Wed, Feb 02",
+        "9:00 pm",
+        "forfeit"
+      ],
+      "gameid": "3572040",
+      "home": "Rocky Hockey0",
+      "away": "Vinegar Strokes1",
+      "date": "Wed, Feb 02",
+      "time": "9:00 pm",
+      "rink/gs": "forfeit"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes6",
+        "Whalers1",
+        "Wed, Feb 09",
+        "9:16 pm",
+        "final"
+      ],
+      "gameid": "3572005",
+      "home": "Vinegar Strokes6",
+      "away": "Whalers1",
+      "date": "Wed, Feb 09",
+      "time": "9:16 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Green Belly Hot Sauce3",
+        "Vinegar Strokes5",
+        "Wed, Feb 23",
+        "8:45 pm",
+        "final"
+      ],
+      "gameid": "3572015",
+      "home": "Green Belly Hot Sauce3",
+      "away": "Vinegar Strokes5",
+      "date": "Wed, Feb 23",
+      "time": "8:45 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes10",
+        "The Young Biscuits4",
+        "Wed, Mar 02",
+        "8:44 pm",
+        "final"
+      ],
+      "gameid": "3572206",
+      "home": "Vinegar Strokes10",
+      "away": "The Young Biscuits4",
+      "date": "Wed, Mar 02",
+      "time": "8:44 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Rocky Hockey2",
+        "Vinegar Strokes7",
+        "Wed, Mar 09",
+        "9:57 pm",
+        "final"
+      ],
+      "gameid": "3572264",
+      "home": "Rocky Hockey2",
+      "away": "Vinegar Strokes7",
+      "date": "Wed, Mar 09",
+      "time": "9:57 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes1",
+        "CDs Wings0",
+        "Wed, Mar 16",
+        "10:28 pm",
+        "forfeit"
+      ],
+      "gameid": "3583702",
+      "home": "Vinegar Strokes1",
+      "away": "CDs Wings0",
+      "date": "Wed, Mar 16",
+      "time": "10:28 pm",
+      "rink/gs": "forfeit"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes4",
+        "Green Belly Hot Sauce1",
+        "Thu, Mar 17",
+        "7:23 pm",
+        "final"
+      ],
+      "gameid": "3583945",
+      "home": "Vinegar Strokes4",
+      "away": "Green Belly Hot Sauce1",
+      "date": "Thu, Mar 17",
+      "time": "7:23 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes2",
+        "Whalers4",
+        "Thu, Mar 24",
+        "8:45 pm",
+        "final"
+      ],
+      "gameid": "3583967",
+      "home": "Vinegar Strokes2",
+      "away": "Whalers4",
+      "date": "Thu, Mar 24",
+      "time": "8:45 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes6",
+        "Rocky Hockey4",
+        "Wed, Mar 30",
+        "7:04 pm",
+        "final"
+      ],
+      "gameid": "3589436",
+      "home": "Vinegar Strokes6",
+      "away": "Rocky Hockey4",
+      "date": "Wed, Mar 30",
+      "time": "7:04 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Vinegar Strokes5",
+        "CDs Wings4",
+        "Thu, Mar 31",
+        "10:29 pm",
+        "final"
+      ],
+      "gameid": "3589450",
+      "home": "Vinegar Strokes5",
+      "away": "CDs Wings4",
+      "date": "Thu, Mar 31",
+      "time": "10:29 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Whalers7",
+        "Vinegar Strokes5",
+        "Wed, Apr 13",
+        "9:53 pm",
+        "final"
+      ],
+      "gameid": "3589480",
+      "home": "Whalers7",
+      "away": "Vinegar Strokes5",
+      "date": "Wed, Apr 13",
+      "time": "9:53 pm",
+      "rink/gs": "final"
+    }
+  ],
+  "roster": {
+    "skaters": [
+      {
+        "#": "22",
+        "NAME (POSITION)": "Marc Erickson",
+        "GP": "19",
+        "G": "16",
+        "A": "14",
+        "PTS": "30",
+        "PIM": "0",
+        "PP": "2",
+        "SH": "2",
+        "GWG": "3",
+        "PPGA": "1.58",
+        "player_link": "playerpage.html?playerid=11816553&seasonid=20626",
+        "NAME": "Marc Erickson"
+      },
+      {
+        "#": "24",
+        "NAME (POSITION)": "Kyle Prust",
+        "GP": "15",
+        "G": "17",
+        "A": "6",
+        "PTS": "23",
+        "PIM": "4",
+        "PP": "0",
+        "SH": "2",
+        "GWG": "0",
+        "PPGA": "1.53",
+        "player_link": "playerpage.html?playerid=11816568&seasonid=20626",
+        "NAME": "Kyle Prust"
+      },
+      {
+        "#": "36",
+        "NAME (POSITION)": "Jason Hanson",
+        "GP": "18",
+        "G": "13",
+        "A": "10",
+        "PTS": "23",
+        "PIM": "29",
+        "PP": "2",
+        "SH": "0",
+        "GWG": "2",
+        "PPGA": "1.28",
+        "player_link": "playerpage.html?playerid=11816555&seasonid=20626",
+        "NAME": "Jason Hanson"
+      },
+      {
+        "#": "14",
+        "NAME (POSITION)": "Braden Schmid(F)",
+        "GP": "19",
+        "G": "13",
+        "A": "8",
+        "PTS": "21",
+        "PIM": "4",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "1.11",
+        "player_link": "playerpage.html?playerid=11816575&seasonid=20626",
+        "NAME": "Braden Schmid"
+      },
+      {
+        "#": "13",
+        "NAME (POSITION)": "Alec Brooks",
+        "GP": "19",
+        "G": "10",
+        "A": "10",
+        "PTS": "20",
+        "PIM": "22",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "2",
+        "PPGA": "1.05",
+        "player_link": "playerpage.html?playerid=11816549&seasonid=20626",
+        "NAME": "Alec Brooks"
+      },
+      {
+        "#": "3",
+        "NAME (POSITION)": "Bryan Sallico",
+        "GP": "17",
+        "G": "8",
+        "A": "9",
+        "PTS": "17",
+        "PIM": "14",
+        "PP": "0",
+        "SH": "1",
+        "GWG": "2",
+        "PPGA": "1.00",
+        "player_link": "playerpage.html?playerid=11816573&seasonid=20626",
+        "NAME": "Bryan Sallico"
+      },
+      {
+        "#": "5",
+        "NAME (POSITION)": "Justin Comer",
+        "GP": "16",
+        "G": "7",
+        "A": "9",
+        "PTS": "16",
+        "PIM": "2",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "1.00",
+        "player_link": "playerpage.html?playerid=11816552&seasonid=20626",
+        "NAME": "Justin Comer"
+      },
+      {
+        "#": "17",
+        "NAME (POSITION)": "Kyle Burke",
+        "GP": "16",
+        "G": "7",
+        "A": "9",
+        "PTS": "16",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "1.00",
+        "player_link": "playerpage.html?playerid=11816550&seasonid=20626",
+        "NAME": "Kyle Burke"
+      },
+      {
+        "#": "9",
+        "NAME (POSITION)": "Michael Park",
+        "GP": "17",
+        "G": "6",
+        "A": "10",
+        "PTS": "16",
+        "PIM": "4",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "0.94",
+        "player_link": "playerpage.html?playerid=11816563&seasonid=20626",
+        "NAME": "Michael Park"
+      },
+      {
+        "#": "42",
+        "NAME (POSITION)": "Nick Ligocki",
+        "GP": "23",
+        "G": "7",
+        "A": "8",
+        "PTS": "15",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "0.65",
+        "player_link": "playerpage.html?playerid=11816559&seasonid=20626",
+        "NAME": "Nick Ligocki"
+      },
+      {
+        "#": "16",
+        "NAME (POSITION)": "Nate Jenson",
+        "GP": "21",
+        "G": "7",
+        "A": "8",
+        "PTS": "15",
+        "PIM": "6",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "2",
+        "PPGA": "0.71",
+        "player_link": "playerpage.html?playerid=11816557&seasonid=20626",
+        "NAME": "Nate Jenson"
+      },
+      {
+        "#": "21",
+        "NAME (POSITION)": "Peter Bernardi",
+        "GP": "16",
+        "G": "6",
+        "A": "8",
+        "PTS": "14",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "0.88",
+        "player_link": "playerpage.html?playerid=11816548&seasonid=20626",
+        "NAME": "Peter Bernardi"
+      },
+      {
+        "#": "86",
+        "NAME (POSITION)": "Kevin Campbell",
+        "GP": "11",
+        "G": "4",
+        "A": "10",
+        "PTS": "14",
+        "PIM": "0",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "1.27",
+        "player_link": "playerpage.html?playerid=11816551&seasonid=20626",
+        "NAME": "Kevin Campbell"
+      },
+      {
+        "#": "40",
+        "NAME (POSITION)": "Andrew Paulosky",
+        "GP": "15",
+        "G": "6",
+        "A": "3",
+        "PTS": "9",
+        "PIM": "6",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "2",
+        "PPGA": "0.60",
+        "player_link": "playerpage.html?playerid=11816565&seasonid=20626",
+        "NAME": "Andrew Paulosky"
+      },
+      {
+        "#": "4",
+        "NAME (POSITION)": "Gary Stimson",
+        "GP": "20",
+        "G": "0",
+        "A": "6",
+        "PTS": "6",
+        "PIM": "2",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.30",
+        "player_link": "playerpage.html?playerid=11816577&seasonid=20626",
+        "NAME": "Gary Stimson"
+      },
+      {
+        "#": "20",
+        "NAME (POSITION)": "Andy Pung",
+        "GP": "7",
+        "G": "0",
+        "A": "2",
+        "PTS": "2",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.29",
+        "player_link": "playerpage.html?playerid=11816570&seasonid=20626",
+        "NAME": "Andy Pung"
+      },
+      {
+        "#": "10",
+        "NAME (POSITION)": "Brian AndersonDisabled",
+        "GP": "4",
+        "G": "0",
+        "A": "0",
+        "PTS": "0",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.00",
+        "player_link": "playerpage.html?playerid=11816547&seasonid=20626",
+        "NAME": "Brian Anderson"
+      }
+    ],
+    "goalies": [
+      {
+        "#": "30",
+        "NAME": "Chris Moore",
+        "GP": "15",
+        "MIN": "935",
+        "W": "14",
+        "L": "1",
+        "T": "0",
+        "SO": "2",
+        "GA": "40",
+        "GAA": "2.35",
+        "SV": "254",
+        "SV%": "0.864"
+      },
+      {
+        "#": "00",
+        "NAME": "Sub Goalie",
+        "GP": "7",
+        "MIN": "395",
+        "W": "5",
+        "L": "1",
+        "T": "0",
+        "SO": "0",
+        "GA": "19",
+        "GAA": "2.65",
+        "SV": "139",
+        "SV%": "0.880"
+      }
+    ]
+  },
+  "boxscores": [
+    {
+      "gameid": "3571048",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at Whalers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats relat"
+    },
+    {
+      "gameid": "3571108",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at CDs Wings - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3571224",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at The Young Biscuits - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all "
+    },
+    {
+      "gameid": "3571289",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Rocky Hockey at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats "
+    },
+    {
+      "gameid": "3571425",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at Whalers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats relat"
+    },
+    {
+      "gameid": "3571357",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at CDs Wings - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3571482",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Green Belly Hot Sauce at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For a"
+    },
+    {
+      "gameid": "3571563",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at The Young Biscuits - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all "
+    },
+    {
+      "gameid": "3571567",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Rocky Hockey at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats "
+    },
+    {
+      "gameid": "3571729",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Whalers at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats relat"
+    },
+    {
+      "gameid": "3571733",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "CDs Wings at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3571743",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at Green Belly Hot Sauce - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For a"
+    },
+    {
+      "gameid": "3571749",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "The Young Biscuits at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all "
+    },
+    {
+      "gameid": "3572040",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at Rocky Hockey - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats "
+    },
+    {
+      "gameid": "3572005",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Whalers at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats relat"
+    },
+    {
+      "gameid": "3572015",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at Green Belly Hot Sauce - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For a"
+    },
+    {
+      "gameid": "3572206",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "The Young Biscuits at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all "
+    },
+    {
+      "gameid": "3572264",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at Rocky Hockey - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats "
+    },
+    {
+      "gameid": "3583702",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "CDs Wings at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3583945",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Green Belly Hot Sauce at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For a"
+    },
+    {
+      "gameid": "3583967",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Whalers at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats relat"
+    },
+    {
+      "gameid": "3589436",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Rocky Hockey at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats "
+    },
+    {
+      "gameid": "3589450",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "CDs Wings at Vinegar Strokes - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3589480",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Vinegar Strokes at Whalers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats relat"
+    }
+  ],
+  "leaders": {
+    "goals": {
+      "player": "Kyle Prust",
+      "value": 17
+    },
+    "assists": {
+      "player": "Marc Erickson",
+      "value": 14
+    },
+    "points": {
+      "player": "Marc Erickson",
+      "value": 30
+    },
+    "pim": {
+      "player": "Jason Hanson",
+      "value": 29
+    }
+  }
+}

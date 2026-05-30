@@ -1,0 +1,1052 @@
+{
+  "season": "Winter 24/25",
+  "slug": "winter_24_25",
+  "divisionid": "120503",
+  "seasonid": "21463",
+  "teamid": "807621",
+  "team_name": "Parking Lot Beers",
+  "source_urls": {
+    "division": "http://stats.pointstreak.com/players/players-division.html?divisionid=120503&seasonid=21463",
+    "team_home": "http://stats.pointstreak.com/players/players-team.html?teamid=807621&seasonid=21463",
+    "schedule": "http://stats.pointstreak.com/players/players-team-schedule.html?teamid=807621&seasonid=21463",
+    "roster": "http://stats.pointstreak.com/players/players-team-roster.html?teamid=807621&seasonid=21463",
+    "standings": "http://stats.pointstreak.com/players/players-division-standings.html?divisionid=120503&seasonid=21463"
+  },
+  "record": {
+    "page_title": "Parking Lot Beers - Ice Centre Adult Hockey League -  team home | Pointstreak Sports Technologies",
+    "record_raw": {
+      "GP": "24",
+      "W": "8",
+      "L": "12",
+      "OTL": "0",
+      "SOL": "4",
+      "PTS": "20",
+      "GF": "93",
+      "GA": "120"
+    },
+    "leaders": {
+      "goals": {
+        "player": "Nate Jenson",
+        "value": 17
+      },
+      "assists": {
+        "player": "Kevin Campbell",
+        "value": 15
+      },
+      "points": {
+        "player": "Nate Jenson",
+        "value": 29
+      },
+      "pim": {
+        "player": "Alec Brooks",
+        "value": 58
+      }
+    }
+  },
+  "standings": [
+    {
+      "rank": 1,
+      "TEAM NAME": "Brown Baggers",
+      "GP": "27",
+      "W": "20",
+      "L": "6",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "1",
+      "SOL": "0",
+      "PTS": "41",
+      "GF": "172",
+      "GA": "109",
+      "PIM": "146",
+      "LAST 5": "4-0-1-0",
+      "STREAK": "0-0-1-0",
+      "teamid": "807619",
+      "TEAM": "Brown Baggers"
+    },
+    {
+      "rank": 2,
+      "TEAM NAME": "Short Bench",
+      "GP": "25",
+      "W": "15",
+      "L": "9",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "1",
+      "PTS": "31",
+      "GF": "146",
+      "GA": "135",
+      "PIM": "66",
+      "LAST 5": "3-2-0-0",
+      "STREAK": "1-0-0-0",
+      "teamid": "807622",
+      "TEAM": "Short Bench"
+    },
+    {
+      "rank": 3,
+      "TEAM NAME": "Green Belly Hot Sauce",
+      "GP": "25",
+      "W": "12",
+      "L": "11",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "2",
+      "PTS": "26",
+      "GF": "121",
+      "GA": "113",
+      "PIM": "149",
+      "LAST 5": "2-2-0-1",
+      "STREAK": "0-2-0-0",
+      "teamid": "807620",
+      "TEAM": "Green Belly Hot Sauce"
+    },
+    {
+      "rank": 4,
+      "TEAM NAME": "Whalers",
+      "GP": "23",
+      "W": "11",
+      "L": "11",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "1",
+      "PTS": "23",
+      "GF": "80",
+      "GA": "111",
+      "PIM": "186",
+      "LAST 5": "0-5-0-0",
+      "STREAK": "0-5-0-0",
+      "teamid": "807623",
+      "TEAM": "Whalers"
+    },
+    {
+      "rank": 5,
+      "TEAM NAME": "Parking Lot Beers",
+      "GP": "24",
+      "W": "8",
+      "L": "12",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "4",
+      "PTS": "20",
+      "GF": "93",
+      "GA": "120",
+      "PIM": "194",
+      "LAST 5": "3-1-0-1",
+      "STREAK": "0-1-0-0",
+      "teamid": "807621",
+      "TEAM": "Parking Lot Beers"
+    },
+    {
+      "rank": 6,
+      "TEAM NAME": "Young Biscuits",
+      "GP": "24",
+      "W": "8",
+      "L": "15",
+      "OTW": "0",
+      "SOW": "0",
+      "OTL": "0",
+      "SOL": "1",
+      "PTS": "17",
+      "GF": "116",
+      "GA": "140",
+      "PIM": "99",
+      "LAST 5": "2-3-0-0",
+      "STREAK": "0-2-0-0",
+      "teamid": "807624",
+      "TEAM": "Young Biscuits"
+    }
+  ],
+  "schedule": [
+    {
+      "raw": [
+        "Parking Lot Beers4",
+        "Brown Baggers10",
+        "Wed, Oct 02",
+        "7:36 pm",
+        "final"
+      ],
+      "gameid": "3667252",
+      "home": "Parking Lot Beers4",
+      "away": "Brown Baggers10",
+      "date": "Wed, Oct 02",
+      "time": "7:36 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Young Biscuits9",
+        "Parking Lot Beers1",
+        "Wed, Oct 09",
+        "9:09 pm",
+        "final"
+      ],
+      "gameid": "3667312",
+      "home": "Young Biscuits9",
+      "away": "Parking Lot Beers1",
+      "date": "Wed, Oct 09",
+      "time": "9:09 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Whalers5",
+        "Parking Lot Beers3",
+        "Wed, Oct 16",
+        "10:15 pm",
+        "final"
+      ],
+      "gameid": "3667372",
+      "home": "Whalers5",
+      "away": "Parking Lot Beers3",
+      "date": "Wed, Oct 16",
+      "time": "10:15 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers4",
+        "Short Bench9",
+        "Wed, Oct 23",
+        "8:47 pm",
+        "final"
+      ],
+      "gameid": "3667430",
+      "home": "Parking Lot Beers4",
+      "away": "Short Bench9",
+      "date": "Wed, Oct 23",
+      "time": "8:47 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers3",
+        "Green Belly Hot Sauce1",
+        "Wed, Nov 06",
+        "10:26 pm",
+        "final"
+      ],
+      "gameid": "3668772",
+      "home": "Parking Lot Beers3",
+      "away": "Green Belly Hot Sauce1",
+      "date": "Wed, Nov 06",
+      "time": "10:26 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Brown Baggers4",
+        "Parking Lot Beers3",
+        "Wed, Nov 13",
+        "8:43 pm",
+        "finalSO"
+      ],
+      "gameid": "3670204",
+      "home": "Brown Baggers4",
+      "away": "Parking Lot Beers3",
+      "date": "Wed, Nov 13",
+      "time": "8:43 pm",
+      "rink/gs": "finalSO"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers5",
+        "Young Biscuits1",
+        "Wed, Nov 20",
+        "8:47 pm",
+        "final"
+      ],
+      "gameid": "3670263",
+      "home": "Parking Lot Beers5",
+      "away": "Young Biscuits1",
+      "date": "Wed, Nov 20",
+      "time": "8:47 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers2",
+        "Whalers5",
+        "Wed, Dec 04",
+        "10:47 pm",
+        "final"
+      ],
+      "gameid": "3671030",
+      "home": "Parking Lot Beers2",
+      "away": "Whalers5",
+      "date": "Wed, Dec 04",
+      "time": "10:47 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Short Bench9",
+        "Parking Lot Beers8",
+        "Wed, Dec 11",
+        "8:45 pm",
+        "final"
+      ],
+      "gameid": "3671780",
+      "home": "Short Bench9",
+      "away": "Parking Lot Beers8",
+      "date": "Wed, Dec 11",
+      "time": "8:45 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Green Belly Hot Sauce9",
+        "Parking Lot Beers3",
+        "Wed, Dec 18",
+        "8:50 pm",
+        "final"
+      ],
+      "gameid": "3671836",
+      "home": "Green Belly Hot Sauce9",
+      "away": "Parking Lot Beers3",
+      "date": "Wed, Dec 18",
+      "time": "8:50 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers7",
+        "Brown Baggers5",
+        "Wed, Jan 08",
+        "11:14 pm",
+        "final"
+      ],
+      "gameid": "3673364",
+      "home": "Parking Lot Beers7",
+      "away": "Brown Baggers5",
+      "date": "Wed, Jan 08",
+      "time": "11:14 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Young Biscuits6",
+        "Parking Lot Beers5",
+        "Wed, Jan 15",
+        "10:26 pm",
+        "finalSO"
+      ],
+      "gameid": "3673445",
+      "home": "Young Biscuits6",
+      "away": "Parking Lot Beers5",
+      "date": "Wed, Jan 15",
+      "time": "10:26 pm",
+      "rink/gs": "finalSO"
+    },
+    {
+      "raw": [
+        "Whalers4",
+        "Parking Lot Beers3",
+        "Wed, Jan 29",
+        "10:16 pm",
+        "final"
+      ],
+      "gameid": "3675497",
+      "home": "Whalers4",
+      "away": "Parking Lot Beers3",
+      "date": "Wed, Jan 29",
+      "time": "10:16 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers1",
+        "Short Bench4",
+        "Wed, Feb 05",
+        "8:45 pm",
+        "final"
+      ],
+      "gameid": "3675705",
+      "home": "Parking Lot Beers1",
+      "away": "Short Bench4",
+      "date": "Wed, Feb 05",
+      "time": "8:45 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers3",
+        "Green Belly Hot Sauce4",
+        "Wed, Feb 12",
+        "10:29 pm",
+        "final"
+      ],
+      "gameid": "3675864",
+      "home": "Parking Lot Beers3",
+      "away": "Green Belly Hot Sauce4",
+      "date": "Wed, Feb 12",
+      "time": "10:29 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Brown Baggers5",
+        "Parking Lot Beers4",
+        "Wed, Feb 19",
+        "10:13 pm",
+        "finalSO"
+      ],
+      "gameid": "3675933",
+      "home": "Brown Baggers5",
+      "away": "Parking Lot Beers4",
+      "date": "Wed, Feb 19",
+      "time": "10:13 pm",
+      "rink/gs": "finalSO"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers7",
+        "Young Biscuits4",
+        "Wed, Feb 26",
+        "9:15 pm",
+        "final"
+      ],
+      "gameid": "3675991",
+      "home": "Parking Lot Beers7",
+      "away": "Young Biscuits4",
+      "date": "Wed, Feb 26",
+      "time": "9:15 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers4",
+        "Whalers5",
+        "Wed, Mar 05",
+        "7:34 pm",
+        "final"
+      ],
+      "gameid": "3677058",
+      "home": "Parking Lot Beers4",
+      "away": "Whalers5",
+      "date": "Wed, Mar 05",
+      "time": "7:34 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Parking Lot Beers3",
+        "Whalers1",
+        "Wed, Mar 12",
+        "7:59 pm",
+        "final"
+      ],
+      "gameid": "3677127",
+      "home": "Parking Lot Beers3",
+      "away": "Whalers1",
+      "date": "Wed, Mar 12",
+      "time": "7:59 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Short Bench3",
+        "Parking Lot Beers4",
+        "Wed, Mar 19",
+        "10:45 pm",
+        "final"
+      ],
+      "gameid": "3677302",
+      "home": "Short Bench3",
+      "away": "Parking Lot Beers4",
+      "date": "Wed, Mar 19",
+      "time": "10:45 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Green Belly Hot Sauce3",
+        "Parking Lot Beers4",
+        "Wed, Mar 26",
+        "7:21 pm",
+        "finalSO"
+      ],
+      "gameid": "3677359",
+      "home": "Green Belly Hot Sauce3",
+      "away": "Parking Lot Beers4",
+      "date": "Wed, Mar 26",
+      "time": "7:21 pm",
+      "rink/gs": "finalSO"
+    },
+    {
+      "raw": [
+        "Green Belly Hot Sauce4",
+        "Parking Lot Beers3",
+        "Wed, Apr 02",
+        "7:51 pm",
+        "finalSO"
+      ],
+      "gameid": "3677479",
+      "home": "Green Belly Hot Sauce4",
+      "away": "Parking Lot Beers3",
+      "date": "Wed, Apr 02",
+      "time": "7:51 pm",
+      "rink/gs": "finalSO"
+    },
+    {
+      "raw": [
+        "Young Biscuits3",
+        "Parking Lot Beers6",
+        "Wed, Apr 16",
+        "10:17 pm",
+        "final"
+      ],
+      "gameid": "3677579",
+      "home": "Young Biscuits3",
+      "away": "Parking Lot Beers6",
+      "date": "Wed, Apr 16",
+      "time": "10:17 pm",
+      "rink/gs": "final"
+    },
+    {
+      "raw": [
+        "Brown Baggers7",
+        "Parking Lot Beers3",
+        "Wed, Apr 23",
+        "8:15 pm",
+        "final"
+      ],
+      "gameid": "3679290",
+      "home": "Brown Baggers7",
+      "away": "Parking Lot Beers3",
+      "date": "Wed, Apr 23",
+      "time": "8:15 pm",
+      "rink/gs": "final"
+    }
+  ],
+  "roster": {
+    "skaters": [
+      {
+        "#": "16",
+        "NAME (POSITION)": "Nate Jenson",
+        "GP": "22",
+        "G": "17",
+        "A": "12",
+        "PTS": "29",
+        "PIM": "2",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "2",
+        "PPGA": "1.32",
+        "player_link": "playerpage.html?playerid=12156595&seasonid=21463",
+        "NAME": "Nate Jenson"
+      },
+      {
+        "#": "86",
+        "NAME (POSITION)": "Kevin Campbell",
+        "GP": "20",
+        "G": "12",
+        "A": "15",
+        "PTS": "27",
+        "PIM": "14",
+        "PP": "0",
+        "SH": "1",
+        "GWG": "0",
+        "PPGA": "1.35",
+        "player_link": "playerpage.html?playerid=12156590&seasonid=21463",
+        "NAME": "Kevin Campbell"
+      },
+      {
+        "#": "36",
+        "NAME (POSITION)": "Jason Hanson",
+        "GP": "19",
+        "G": "9",
+        "A": "11",
+        "PTS": "20",
+        "PIM": "36",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "1.05",
+        "player_link": "playerpage.html?playerid=12156594&seasonid=21463",
+        "NAME": "Jason Hanson"
+      },
+      {
+        "#": "42",
+        "NAME (POSITION)": "Nick Ligocki",
+        "GP": "20",
+        "G": "4",
+        "A": "15",
+        "PTS": "19",
+        "PIM": "22",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.95",
+        "player_link": "playerpage.html?playerid=12156597&seasonid=21463",
+        "NAME": "Nick Ligocki"
+      },
+      {
+        "#": "13",
+        "NAME (POSITION)": "Alec Brooks",
+        "GP": "18",
+        "G": "10",
+        "A": "7",
+        "PTS": "17",
+        "PIM": "58",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.94",
+        "player_link": "playerpage.html?playerid=12156591&seasonid=21463",
+        "NAME": "Alec Brooks"
+      },
+      {
+        "#": "40",
+        "NAME (POSITION)": "Andrew Pavlosky",
+        "GP": "18",
+        "G": "13",
+        "A": "3",
+        "PTS": "16",
+        "PIM": "6",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "2",
+        "PPGA": "0.89",
+        "player_link": "playerpage.html?playerid=12156592&seasonid=21463",
+        "NAME": "Andrew Pavlosky"
+      },
+      {
+        "#": "3",
+        "NAME (POSITION)": "Matt Zagers(F)",
+        "GP": "18",
+        "G": "1",
+        "A": "13",
+        "PTS": "14",
+        "PIM": "12",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.78",
+        "player_link": "playerpage.html?playerid=12156600&seasonid=21463",
+        "NAME": "Matt Zagers"
+      },
+      {
+        "#": "21",
+        "NAME (POSITION)": "Peter Bernardi",
+        "GP": "11",
+        "G": "6",
+        "A": "5",
+        "PTS": "11",
+        "PIM": "6",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "1.00",
+        "player_link": "playerpage.html?playerid=12156593&seasonid=21463",
+        "NAME": "Peter Bernardi"
+      },
+      {
+        "#": "14",
+        "NAME (POSITION)": "Braden Schmid",
+        "GP": "11",
+        "G": "5",
+        "A": "5",
+        "PTS": "10",
+        "PIM": "4",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.91",
+        "player_link": "playerpage.html?playerid=12156596&seasonid=21463",
+        "NAME": "Braden Schmid"
+      },
+      {
+        "#": "9",
+        "NAME (POSITION)": "Michael Park",
+        "GP": "15",
+        "G": "2",
+        "A": "5",
+        "PTS": "7",
+        "PIM": "16",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.47",
+        "player_link": "playerpage.html?playerid=12156605&seasonid=21463",
+        "NAME": "Michael Park"
+      },
+      {
+        "#": "6",
+        "NAME (POSITION)": "Dave Hollingshed",
+        "GP": "17",
+        "G": "1",
+        "A": "6",
+        "PTS": "7",
+        "PIM": "2",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.41",
+        "player_link": "playerpage.html?playerid=12156599&seasonid=21463",
+        "NAME": "Dave Hollingshed"
+      },
+      {
+        "#": "17",
+        "NAME (POSITION)": "Kyle Burke",
+        "GP": "19",
+        "G": "4",
+        "A": "2",
+        "PTS": "6",
+        "PIM": "2",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "0.32",
+        "player_link": "playerpage.html?playerid=12156602&seasonid=21463",
+        "NAME": "Kyle Burke"
+      },
+      {
+        "#": "81",
+        "NAME (POSITION)": "Dan Armstrong",
+        "GP": "4",
+        "G": "4",
+        "A": "0",
+        "PTS": "4",
+        "PIM": "4",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "1.00",
+        "player_link": "playerpage.html?playerid=12156838&seasonid=21463",
+        "NAME": "Dan Armstrong"
+      },
+      {
+        "#": "4",
+        "NAME (POSITION)": "Gabe Aigner",
+        "GP": "2",
+        "G": "3",
+        "A": "1",
+        "PTS": "4",
+        "PIM": "2",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "2.00",
+        "player_link": "playerpage.html?playerid=12156841&seasonid=21463",
+        "NAME": "Gabe Aigner"
+      },
+      {
+        "#": "5",
+        "NAME (POSITION)": "Justin Comer",
+        "GP": "2",
+        "G": "1",
+        "A": "1",
+        "PTS": "2",
+        "PIM": "0",
+        "PP": "1",
+        "SH": "0",
+        "GWG": "1",
+        "PPGA": "1.00",
+        "player_link": "playerpage.html?playerid=12156604&seasonid=21463",
+        "NAME": "Justin Comer"
+      },
+      {
+        "#": "20",
+        "NAME (POSITION)": "Andy Pung",
+        "GP": "3",
+        "G": "0",
+        "A": "2",
+        "PTS": "2",
+        "PIM": "2",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.67",
+        "player_link": "playerpage.html?playerid=12156607&seasonid=21463",
+        "NAME": "Andy Pung"
+      },
+      {
+        "#": "19",
+        "NAME (POSITION)": "Brian Pickert",
+        "GP": "4",
+        "G": "0",
+        "A": "1",
+        "PTS": "1",
+        "PIM": "6",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.25",
+        "player_link": "playerpage.html?playerid=12156601&seasonid=21463",
+        "NAME": "Brian Pickert"
+      },
+      {
+        "#": "8",
+        "NAME (POSITION)": "Max Legere(F)Disabled",
+        "GP": "1",
+        "G": "0",
+        "A": "0",
+        "PTS": "0",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.00",
+        "player_link": "playerpage.html?playerid=12156606&seasonid=21463",
+        "NAME": "Max Legere"
+      },
+      {
+        "#": "10",
+        "NAME (POSITION)": "Brian Anderson",
+        "GP": "1",
+        "G": "0",
+        "A": "0",
+        "PTS": "0",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.00",
+        "player_link": "playerpage.html?playerid=12156598&seasonid=21463",
+        "NAME": "Brian Anderson"
+      },
+      {
+        "#": "61",
+        "NAME (POSITION)": "Jeremy Roberts",
+        "GP": "1",
+        "G": "0",
+        "A": "0",
+        "PTS": "0",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "0.00",
+        "player_link": "playerpage.html?playerid=12156603&seasonid=21463",
+        "NAME": "Jeremy Roberts"
+      },
+      {
+        "#": "24",
+        "NAME (POSITION)": "Kyle Prust",
+        "GP": "0",
+        "G": "0",
+        "A": "0",
+        "PTS": "0",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "",
+        "player_link": "playerpage.html?playerid=12156589&seasonid=21463",
+        "NAME": "Kyle Prust"
+      },
+      {
+        "#": "",
+        "NAME (POSITION)": "Kevin Oneill",
+        "GP": "0",
+        "G": "0",
+        "A": "0",
+        "PTS": "0",
+        "PIM": "0",
+        "PP": "0",
+        "SH": "0",
+        "GWG": "0",
+        "PPGA": "",
+        "player_link": "playerpage.html?playerid=12156839&seasonid=21463",
+        "NAME": "Kevin Oneill"
+      }
+    ],
+    "goalies": [
+      {
+        "#": "30",
+        "NAME": "Chris Moore",
+        "GP": "15",
+        "MIN": "840",
+        "W": "5",
+        "L": "8",
+        "T": "0",
+        "SO": "0",
+        "GA": "72",
+        "GAA": "4.71",
+        "SV": "306",
+        "SV%": "0.810"
+      },
+      {
+        "#": "01",
+        "NAME": "Sub Goalie",
+        "GP": "9",
+        "MIN": "505",
+        "W": "3",
+        "L": "4",
+        "T": "0",
+        "SO": "0",
+        "GA": "40",
+        "GAA": "4.36",
+        "SV": "192",
+        "SV%": "0.828"
+      }
+    ]
+  },
+  "boxscores": [
+    {
+      "gameid": "3667252",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Brown Baggers at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all sta"
+    },
+    {
+      "gameid": "3667312",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Young Biscuits - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all st"
+    },
+    {
+      "gameid": "3667372",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Whalers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3667430",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Short Bench at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats"
+    },
+    {
+      "gameid": "3668772",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Green Belly Hot Sauce at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For"
+    },
+    {
+      "gameid": "3670204",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Brown Baggers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all sta"
+    },
+    {
+      "gameid": "3670263",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Young Biscuits at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all st"
+    },
+    {
+      "gameid": "3671030",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Whalers at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3671780",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Short Bench - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats"
+    },
+    {
+      "gameid": "3671836",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Green Belly Hot Sauce - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For"
+    },
+    {
+      "gameid": "3673364",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Brown Baggers at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all sta"
+    },
+    {
+      "gameid": "3673445",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Young Biscuits - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all st"
+    },
+    {
+      "gameid": "3675497",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Whalers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3675705",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Short Bench at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats"
+    },
+    {
+      "gameid": "3675864",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Green Belly Hot Sauce at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For"
+    },
+    {
+      "gameid": "3675933",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Brown Baggers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all sta"
+    },
+    {
+      "gameid": "3675991",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Young Biscuits at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all st"
+    },
+    {
+      "gameid": "3677058",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Whalers at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3677127",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Whalers at Parking Lot Beers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats rel"
+    },
+    {
+      "gameid": "3677302",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Short Bench - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all stats"
+    },
+    {
+      "gameid": "3677359",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Green Belly Hot Sauce - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For"
+    },
+    {
+      "gameid": "3677479",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Green Belly Hot Sauce - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For"
+    },
+    {
+      "gameid": "3677579",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Young Biscuits - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all st"
+    },
+    {
+      "gameid": "3679290",
+      "goals": [],
+      "penalties": [],
+      "full_text_snippet": "Parking Lot Beers at Brown Baggers - Ice Centre Adult Hockey League -  boxscore | Pointstreak Sports Technologies Toggle navigation support | admin login Toggle navigation Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products support admin login Search Home News Hockey Baseball Softball Lacrosse Soccer The Zone Products Division Menu SCOREBOARD STANDINGS SCORING LEADERS GOALIE LEADERS RECORDS SCHEDULE SUSPENSIONS League Menu HOME SCOREBOARD SCHEDULE SUSPENSIONS PLAYERS For all sta"
+    }
+  ],
+  "leaders": {
+    "goals": {
+      "player": "Nate Jenson",
+      "value": 17
+    },
+    "assists": {
+      "player": "Kevin Campbell",
+      "value": 15
+    },
+    "points": {
+      "player": "Nate Jenson",
+      "value": 29
+    },
+    "pim": {
+      "player": "Alec Brooks",
+      "value": 58
+    }
+  }
+}

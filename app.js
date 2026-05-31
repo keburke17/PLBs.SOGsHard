@@ -521,11 +521,6 @@ function initSeasonSelector() {
 
 /* ===== HEADER ===== */
 function populateHeader() {
-  // The team first used "Parking Lot Beers" in Summer 2022, reverted to "Vinegar Strokes"
-  // for Winter 22/23, then permanently switched starting Summer 2023.
-  const transNote = `First used <strong>Parking Lot Beers</strong> in <strong>Summer 2022</strong>; permanent from <strong>Summer 2023</strong>`;
-
-  document.getElementById('name-transition-text').innerHTML = transNote;
   document.getElementById('total-games-count').textContent = APP.total_games;
   document.getElementById('total-seasons-count').textContent = APP.seasons.length;
 }

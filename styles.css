@@ -397,8 +397,39 @@ footer {
 footer a { color: rgba(200, 220, 235, 0.8); }
 footer a:hover { color: var(--white); }
 
+/* ===== NAV ICON/TEXT SPANS ===== */
+.nav-icon { font-size: 1em; }
+.nav-short { display: none; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 640px) {
+  /* Mobile icon toolbar */
+  .sticky-nav {
+    gap: 0;
+  }
+  .sticky-nav button {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 2px 5px;
+    gap: 3px;
+    min-width: 0;
+  }
+  .nav-icon { font-size: 1.45rem; line-height: 1; }
+  .nav-text { display: none; }
+  .nav-short {
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+    color: inherit;
+  }
+
+  /* Content layout */
   .season-card { grid-template-columns: 1fr; }
   .section-header { padding: 14px 16px; }
   td, th { padding: 8px 8px; }

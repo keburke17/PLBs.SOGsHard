@@ -2,7 +2,8 @@ name: Weekly Stats Update
 
 on:
   schedule:
-    - cron: '0 4 * * 5'  # Friday 4am UTC = Thursday 11pm ET
+    - cron: '0 8 * * 4'   # Thursday 8am UTC = Thursday 4am ET  (catches Wed night results early)
+    - cron: '0 4 * * 5'   # Friday 4am UTC = Thursday 11pm ET   (backup run)
   workflow_dispatch:       # allows manual trigger from GitHub UI
 
 jobs:

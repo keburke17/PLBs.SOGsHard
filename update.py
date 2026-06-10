@@ -15,9 +15,10 @@ from playwright.sync_api import sync_playwright
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
-GS_SEASON   = "14815"
-GS_DIVISION = "79347"
-GS_BASE     = f"https://gamesheetstats.com/seasons/{GS_SEASON}"
+GS_SEASON        = "14815"
+GS_DIVISION      = "79347"
+GS_BASE          = f"https://gamesheetstats.com/seasons/{GS_SEASON}"
+GS_SEASON_START  = "2026-05-01"   # used to fetch full season scores history
 
 OUR_TEAM    = "parking lot beers"
 TEAMS       = ["Alaskan Bull Worms", "Brown Baggers", "Buff Stuff",
@@ -57,8 +58,12 @@ def parse_schedule(text):
         i += 1
         time_str  = lines[i] if i < len(lines) else ""; i += 1
         game_type = lines[i] if i < len(lines) else ""; i += 1
-        if i < len(lines) and "VIEW GAME" in lines[i]: i += 1
-        if i < len(lines) and "FINAL"     in lines[i].upper(): i += 1
+        if i < len(lines) and "VIEW GAME" in lines[i].upper(): i += 1
+        ot_so_hint = "REG"
+        if i < len(lines) and "FINAL" in lines[i].upper():
+            if "OT" in lines[i].upper(): ot_so_hint = "OT"
+            elif "SO" in lines[i].upper(): ot_so_hint = "SO"
+            i += 1
 
         home_team = lines[i].strip() if i < len(lines) else ""; i += 1
         if i < len(lines) and "B2" in lines[i]: i += 1
@@ -100,7 +105,7 @@ def parse_schedule(text):
         result = None
         rtype  = "pending"
         if home_score is not None and away_score is not None:
-            rtype = "REG"
+            rtype = ot_so_hint
             if is_home:
                 result = "W" if home_score > away_score else "L" if home_score < away_score else "T"
             elif is_away:
@@ -255,11 +260,17 @@ def main():
         page = browser.new_page(viewport={"width": 1280, "height": 900})
         page.set_extra_http_headers({"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"})
 
-        print("  Fetching schedule...")
+        print("  Fetching scores (completed games)...")
+        scores_text = load_page(page, f"{GS_BASE}/scores?filter[division]={GS_DIVISION}&filter[start_time_from]={GS_SEASON_START}")
+        all_scored  = parse_schedule(scores_text)
+        plb_scored  = [g for g in all_scored if g.get("is_our_game") and g.get("result")]
+        print(f"    {len(all_scored)} division completed games, {len(plb_scored)} PLB completed games")
+
+        print("  Fetching schedule (upcoming games)...")
         sched_text = load_page(page, f"{GS_BASE}/schedule?filter[division]={GS_DIVISION}")
-        all_games = parse_schedule(sched_text)
-        plb_games = [g for g in all_games if g.get("is_our_game")]
-        print(f"    {len(all_games)} division games, {len(plb_games)} PLB games")
+        all_games  = parse_schedule(sched_text)
+        plb_games  = [g for g in all_games if g.get("is_our_game")]
+        print(f"    {len(all_games)} division games, {len(plb_games)} PLB upcoming games")
 
         print("  Fetching standings...")
         stand_text = load_page(page, f"{GS_BASE}/standings?filter[division]={GS_DIVISION}")
@@ -281,9 +292,32 @@ def main():
 
         browser.close()
 
+    # Merge into a complete game list:
+    #   1. Start from cached games (never lose history)
+    #   2. Overlay completed games from /scores (authoritative — includes full season)
+    #   3. Add any new upcoming games from /schedule not already present
+    def game_key(g):
+        if g.get("gm_num"):
+            return g["gm_num"]
+        return f"{g['date']}|{g.get('home_team','')}|{g.get('away_team','')}"
+
+    old_games  = season.get("schedule", [])
+    merged_map = {game_key(g): g for g in old_games}
+
+    for g in plb_scored:                          # scores page wins for completed games
+        merged_map[game_key(g)] = g
+
+    for g in plb_games:                           # schedule page adds new upcoming games
+        k = game_key(g)
+        if k not in merged_map:
+            merged_map[k] = g
+
+    merged = sorted(merged_map.values(), key=lambda g: g["date"])
+    print(f"    Merge: {len(old_games)} cached + {len(plb_scored)} scored + {len(plb_games)} upcoming → {len(merged)} total")
+
     # Update season data
-    record = derive_record(plb_games)
-    season["schedule"]           = plb_games
+    record = derive_record(merged)
+    season["schedule"]           = merged
     season["all_division_games"] = all_games
     season["record"]             = record
     season["standings"]          = standings
@@ -311,8 +345,8 @@ def main():
         print(f"⚠  process.py failed: {result.stderr[:200]}")
 
     # Summary
-    played = [g for g in plb_games if g.get("result")]
-    upcoming = [g for g in plb_games if not g.get("result")]
+    played   = [g for g in merged if g.get("result")]
+    upcoming = [g for g in merged if not g.get("result")]
     print(f"\n=== SUMMARY ===")
     print(f"Record:    {record['w']}-{record['l']}-{record['otl']}-{record['sol']}  ({record['pts']} PTS)")
     print(f"Games:     {len(played)} played, {len(upcoming)} upcoming")

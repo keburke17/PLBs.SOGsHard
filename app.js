@@ -156,8 +156,8 @@ function renderSeasonTable() {
     `<th class="${seasonSortKey === c.key ? 'sorted' : ''}" data-col="${c.key}" ${c.num ? 'style="text-align:right"' : ''}>${c.label}</th>`
   ).join('')}</tr></thead>`;
 
-  const tbody = sorted.map(s => {
-    const wPct = s.record.gp > 0 ? s.record.w / s.record.gp : 0;
+  const tbody = sorted.filter(s => s.record.gp > 0).map(s => {
+    const wPct = s.record.w / s.record.gp;
     const rowCls = wPct >= 0.6 ? 'season-win' : wPct <= 0.4 ? 'season-loss' : 'season-mid';
     const pm = (s.record.gf || 0) - (s.record.ga || 0);
     const pmStr = pm >= 0 ? `+${pm}` : `${pm}`;
@@ -587,7 +587,7 @@ function renderUpcomingPLB() {
 /* ===== INIT ===== */
 async function init() {
   try {
-    const res = await fetch('data/app_data.json');
+    const res = await fetch('data/app_data.json?v=' + Date.now());
     APP = await res.json();
   } catch (e) {
     document.body.innerHTML = `<div style="color:red;padding:40px;font-size:1.2rem">

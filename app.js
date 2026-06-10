@@ -203,10 +203,15 @@ function renderCareerTable() {
     { key: 'career_g',    label: 'G',   num: true },
     { key: 'career_a',    label: 'A',   num: true },
     { key: 'career_pts',  label: 'PTS', num: true },
+    { key: 'career_ppg',  label: 'PPG', num: true },
     { key: 'career_pim',  label: 'PIM', num: true },
   ];
 
-  let players = sortBy(APP.career_stats, careerSortKey, careerSortDir);
+  let players = APP.career_stats.map(p => ({
+    ...p,
+    career_ppg: p.career_gp > 0 ? p.career_pts / p.career_gp : 0,
+  }));
+  players = sortBy(players, careerSortKey, careerSortDir);
   const total = players.length;
   if (!careerShowAll) players = players.slice(0, 25);
 
@@ -240,10 +245,11 @@ function renderCareerTable() {
       <td class="num">${p.career_g}</td>
       <td class="num">${p.career_a}</td>
       <td class="num" style="font-weight:700;color:var(--blue-dark)">${p.career_pts}</td>
+      <td class="num">${p.career_ppg.toFixed(2)}</td>
       <td class="num">${p.career_pim}</td>
     </tr>
     <tr class="player-expand-row ${expanded ? 'open' : ''}" id="expand-${encodeURIComponent(p.name)}">
-      <td class="player-expand-cell" colspan="8">
+      <td class="player-expand-cell" colspan="9">
         <div class="player-expand-inner">
           <table class="player-season-table">
             <thead><tr>

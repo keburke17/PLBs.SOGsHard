@@ -8389,7 +8389,7 @@
         "gf": 0,
         "ga": 0
       },
-      "our_rank": 1,
+      "our_rank": 2,
       "total_teams": 6,
       "leaders": {},
       "schedule": [
@@ -8586,7 +8586,7 @@
       "standings": [
         {
           "rank": 1,
-          "team": "Parking Lot Beers",
+          "team": "Buff Stuff",
           "teamid": null,
           "gp": "0",
           "w": "0",
@@ -8602,7 +8602,7 @@
         },
         {
           "rank": 2,
-          "team": "Buff Stuff",
+          "team": "Parking Lot Beers",
           "teamid": null,
           "gp": "0",
           "w": "0",
@@ -8634,7 +8634,7 @@
         },
         {
           "rank": 4,
-          "team": "Brown Baggers",
+          "team": "Alaskan Bull Worms",
           "teamid": null,
           "gp": "0",
           "w": "0",
@@ -8650,7 +8650,7 @@
         },
         {
           "rank": 5,
-          "team": "Alaskan Bull Worms",
+          "team": "Brown Baggers",
           "teamid": null,
           "gp": "0",
           "w": "0",
@@ -8668,14 +8668,14 @@
           "rank": 6,
           "team": "Short Bench",
           "teamid": null,
-          "gp": "3",
-          "w": "2",
-          "l": "3",
-          "t": "3",
-          "otw": "2",
-          "otl": "3",
-          "sow": "2",
-          "sol": "2",
+          "gp": "4",
+          "w": "4",
+          "l": "4",
+          "t": "4",
+          "otw": "4",
+          "otl": "4",
+          "sow": "4",
+          "sol": "3",
           "pts": "2",
           "gf": "0",
           "ga": "0"
@@ -8683,7 +8683,7 @@
       ],
       "skaters": [],
       "goalies": [],
-      "last_updated": "2026-06-05"
+      "last_updated": "2026-06-11"
     }
   ],
   "career_stats": [

@@ -298,11 +298,6 @@ function renderCareerTable() {
   if (smBtn) smBtn.addEventListener('click', () => { careerShowAll = !careerShowAll; renderCareerTable(); });
 }
 
-function gsIframe(url, height = 500) {
-  return `<iframe src="${url}&configuration[secondary-colour]=0077cc&configuration[logo]=false&configuration[navigation]=false&configuration[filters]=false"
-    width="100%" height="${height}" frameborder="0" style="display:block;border:none"></iframe>`;
-}
-
 /* ===== SECTION: SEASON BROWSER ===== */
 function renderSeasonBrowser() {
   const s = APP.seasons[selectedSeasonIdx];
@@ -335,23 +330,6 @@ function renderSeasonBrowser() {
       </div>
     </div>`;
 
-  // Update source links header label
-  const srcHeader = document.getElementById('source-links-header');
-  if (srcHeader) srcHeader.textContent = s.live ? '🔗 GameSheet Source Links' : '🔗 PointStreak Source Links';
-
-  // Source links
-  const urls = s.source_urls || {};
-  const linkItems = [
-    ['team_home', '🏒 Team Home'],
-    ['schedule', '📅 Schedule'],
-    ['roster', '👥 Roster'],
-    ['standings', '📊 Standings'],
-  ].filter(([k]) => urls[k]);
-
-  document.getElementById('season-source-links').innerHTML = linkItems.length
-    ? linkItems.map(([k, label]) => extLink(urls[k], label)).join('')
-    : '<span style="color:#aaa;font-size:0.85rem">No source links available</span>';
-
   // Schedule table
   const games = s.schedule || [];
   const schedRows = games.map(g => {
@@ -379,12 +357,8 @@ function renderSeasonBrowser() {
       </table>
     </div>`;
 
-  // Points leaders top 10 — live iframe for GameSheet seasons, table for archived
-  const iurls = s.iframe_urls || {};
-  if (s.live && iurls.players) {
-    document.getElementById('season-leaders').innerHTML =
-      gsIframe(iurls.players, 480);
-  } else {
+  // Points leaders top 10 (internal data for all seasons)
+  {
     const top10 = [...(s.skaters || [])].sort((a, b) => b.pts - a.pts).slice(0, 10);
     const leaderRows = top10.map((p, i) =>
       `<tr>
@@ -411,13 +385,15 @@ function renderSeasonBrowser() {
       </div>`;
   }
 
-  // Standings — live iframe for GameSheet seasons
-  if (s.live && iurls.standings) {
-    document.getElementById('season-standings').innerHTML = gsIframe(iurls.standings, 380);
-  } else {
-    const ourId = String(s.teamid);
+  // Division standings (internal data for all seasons)
+  {
+    const ourName = (s.team_name || '').toLowerCase();
     const standRows = (s.standings || []).map(t => {
-      const isUs = String(t.teamid) === ourId || t.team?.toLowerCase() === 'parking lot beers';
+      // Match by teamid only when both are present (GameSheet standings have
+      // null teamids), otherwise by the season's own team name.
+      const idMatch = s.teamid != null && t.teamid != null && String(t.teamid) === String(s.teamid);
+      const nameMatch = !!ourName && t.team?.toLowerCase() === ourName;
+      const isUs = idMatch || nameMatch;
       return `<tr class="${isUs ? 'our-team' : ''}">
         <td style="color:#aaa;text-align:center">${t.rank || ''}</td>
         <td class="name-cell">${t.team || '—'}${isUs ? ' ⬅' : ''}</td>
@@ -446,10 +422,8 @@ function renderSeasonBrowser() {
       </div>`;
   }
 
-  // Goalies — live iframe for GameSheet seasons
-  if (s.live && iurls.goalies) {
-    document.getElementById('season-goalies').innerHTML = gsIframe(iurls.goalies, 380);
-  } else {
+  // Goalies (internal data for all seasons)
+  {
     const goalieRows = (s.goalies || []).map(g =>
       `<tr>
         <td class="name-cell">${g.name}</td>

@@ -264,69 +264,92 @@ def derive_record(plb_games):
             "pts": pts, "gf": gf, "ga": ga}
 
 
-def parse_players(text):
-    """Parse the GameSheet /players page into PLB skater dicts.
+# GameSheet's /players and /goalies pages share a multi-line, tab-delimited
+# row layout: <rank> / <NAME> / <tab jersey [tab pos]> / <team> / <tab-stats>.
+# Jersey lines like "\t01" strip to bare integers (look like rank lines), so we
+# anchor on the unambiguous TEAM line instead: name is 2 lines above, stats 1
+# line below. Names are upper-cased on GameSheet; we title-case them so brand-new
+# players display consistently with the title-case PointStreak history (returning
+# players merge by lower-cased key in aggregate_career_stats).
+_PLAYER_FLAGS = {"R", "+", "S", "A", "C", "X", "I"}
 
-    Each player spans several lines following the tab-delimited header row:
-        <rank> / <NAME> / <tab jersey [tab pos]> / <team> / <tab-stats line>
-    The stats line's numeric fields are, in order: GP G A PTS PIM (PPG, ...).
-    Names are upper-cased on GameSheet; we title-case them so brand-new
-    players display consistently with the title-case PointStreak history
-    (returning players merge by lower-cased key in aggregate_career_stats).
-    """
-    FLAGS = {"R", "+", "S", "A", "C", "X", "I"}
-    lines = [l.rstrip() for l in text.split("\n")]
 
-    # Header row: tab-delimited line containing PLAYER and PTS
+def _stat_region(lines, *must_have):
+    """Return (start, end) line indices of the data region: the line after the
+    tab-delimited header containing all `must_have` tokens, up to EXPORT/footer."""
     start = None
     for i, l in enumerate(lines):
-        if "PLAYER" in l.upper() and "PTS" in l.upper() and "\t" in l:
+        up = l.upper()
+        if "\t" in l and all(t in up for t in must_have):
             start = i + 1
             break
     if start is None:
-        return []
-
-    # Rank lines (bare integers) mark the start of each player block
-    rank_idx, end = [], len(lines)
+        return None, None
+    end = len(lines)
     for i in range(start, len(lines)):
         s = lines[i].strip()
         if s == "EXPORT" or s.startswith("Powered by"):
             end = i
             break
-        if re.match(r"^\d+$", s):
-            rank_idx.append(i)
+    return start, end
 
+
+def _row_nums(line):
+    """Numeric fields (ints/floats) from a tab-delimited stats line, in order."""
+    return [t.strip() for t in line.split("\t") if re.match(r"^-?\d+\.?\d*$", t.strip())]
+
+
+def _anchored_rows(lines, start, end):
+    """Yield (name, nums) for each PLB row, anchoring on the team line."""
+    for i in range(start, end):
+        if lines[i].strip() != "Parking Lot Beers":
+            continue
+        name = lines[i - 2].strip() if i >= 2 else ""
+        nums = _row_nums(lines[i + 1]) if i + 1 < len(lines) else []
+        if name and name not in _PLAYER_FLAGS and len(name) > 1:
+            yield name, nums
+
+
+def parse_players(text):
+    """Parse the GameSheet /players page into PLB skater dicts.
+    Stats line numeric order: GP G A PTS PIM (PPG, ...)."""
+    lines = [l.rstrip() for l in text.split("\n")]
+    start, end = _stat_region(lines, "PLAYER", "PTS")
+    if start is None:
+        return []
     players = []
-    for k, ri in enumerate(rank_idx):
-        nxt = rank_idx[k + 1] if k + 1 < len(rank_idx) else end
-        block = lines[ri + 1:nxt]
-
-        name, team, best = "", "", []
-        for b in block:
-            bs = b.strip()
-            if not bs or b.startswith("\t"):
-                continue
-            if bs in TEAMS:
-                team = bs
-                continue
-            if not name and bs not in FLAGS and len(bs) > 1:
-                name = bs
-        # Stats line = the block line with the most numeric tab fields
-        for b in block:
-            nums = [t.strip() for t in b.split("\t") if re.match(r"^-?\d+\.?\d*$", t.strip())]
-            if len(nums) > len(best):
-                best = nums
-
-        if team.lower() == OUR_TEAM and name and len(best) >= 4:
-            players.append({
-                "number": "", "name": name.title(),
-                "gp": int(float(best[0])), "g": int(float(best[1])),
-                "a": int(float(best[2])), "pts": int(float(best[3])),
-                "pim": int(float(best[4])) if len(best) >= 5 else 0,
-                "pp": 0, "sh": 0, "gwg": 0,
-            })
-
+    for name, nums in _anchored_rows(lines, start, end):
+        if len(nums) < 4:
+            continue
+        players.append({
+            "number": "", "name": name.title(),
+            "gp": int(float(nums[0])), "g": int(float(nums[1])),
+            "a": int(float(nums[2])), "pts": int(float(nums[3])),
+            "pim": int(float(nums[4])) if len(nums) >= 5 else 0,
+            "pp": 0, "sh": 0, "gwg": 0,
+        })
     return players
+
+
+def parse_goalies(text):
+    """Parse the GameSheet /goalies page into PLB goalie dicts.
+    Stats line numeric order: GP GS SA GA GAA SV% W L T OTL PPGA SHGA SO ..."""
+    lines = [l.rstrip() for l in text.split("\n")]
+    start, end = _stat_region(lines, "GOALIE", "GAA")
+    if start is None:
+        return []
+    goalies = []
+    for name, nums in _anchored_rows(lines, start, end):
+        if len(nums) < 8:
+            continue
+        f = lambda idx: float(nums[idx]) if idx < len(nums) else 0
+        goalies.append({
+            "name": name.title(),
+            "gp": int(f(0)), "w": int(f(6)), "l": int(f(7)),
+            "gaa": f(4), "sv_pct": f(5),
+            "so": int(f(12)) if len(nums) > 12 else 0,
+        })
+    return goalies
 
 
 # ── main ──────────────────────────────────────────────────────────────────────
@@ -378,6 +401,15 @@ def main():
             except Exception as e:
                 print(f"    /{stats_path} failed: {e}")
 
+        print("  Fetching goalie stats...")
+        plb_goalies = []
+        try:
+            goalie_text = load_page(page, f"{GS_BASE}/goalies?filter[division]={GS_DIVISION}", wait=3000)
+            plb_goalies = parse_goalies(goalie_text)
+            print(f"    {len(plb_goalies)} PLB goalies")
+        except Exception as e:
+            print(f"    /goalies failed: {e}")
+
         browser.close()
 
     # Merge into a complete game list:
@@ -412,6 +444,7 @@ def main():
     season["record"]             = record
     season["standings"]          = standings
     season["skaters"]            = plb_skaters
+    season["goalies"]            = plb_goalies
     season["last_updated"]       = str(date.today())
 
     # Derive our standing from standings
@@ -447,6 +480,8 @@ def main():
     if plb_skaters:
         top = sorted(plb_skaters, key=lambda x: x["pts"], reverse=True)[:3]
         print("Top scorers:", ", ".join(f"{p['name']} ({p['pts']})" for p in top))
+    if plb_goalies:
+        print("Goalies:   ", ", ".join(f"{g['name']} ({g['w']}-{g['l']}, {g['gaa']:.2f} GAA)" for g in plb_goalies))
     if upcoming:
         next_g = upcoming[0]
         print(f"Next game: {next_g['date']} {next_g['time']} {'vs' if next_g['is_home'] else 'at'} {next_g['opponent']}")

@@ -790,6 +790,18 @@
     },
     {
       "number": "",
+      "name": "Hayes Hansen",
+      "gp": 1,
+      "g": 0,
+      "a": 1,
+      "pts": 1,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
       "name": "Matt Zagers",
       "gp": 4,
       "g": 1,
@@ -849,6 +861,16 @@
       "gwg": 0
     }
   ],
-  "goalies": [],
+  "goalies": [
+    {
+      "name": "Chris Moore",
+      "gp": 4,
+      "w": 3,
+      "l": 0,
+      "gaa": 3.5,
+      "sv_pct": 0.891,
+      "so": 0
+    }
+  ],
   "last_updated": "2026-06-12"
 }

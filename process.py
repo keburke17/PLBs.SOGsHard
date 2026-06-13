@@ -526,6 +526,8 @@ def load_gamesheet_season(path):
     # Normalize player names
     for p in s.get("skaters", []):
         p["name"] = normalize_name(p.get("name") or "") or p.get("name", "")
+    for g in s.get("goalies", []):
+        g["name"] = normalize_name(g.get("name") or "") or g.get("name", "")
 
     # Remove keys the app doesn't need
     s.pop("all_division_games", None)

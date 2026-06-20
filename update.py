@@ -442,6 +442,27 @@ def main():
     season["schedule"]           = merged
     season["all_division_games"] = all_games
     season["record"]             = record
+
+    # Guard against partial/failed scrapes silently clobbering good data.
+    # A GameSheet page can load fine (no exception, the run stays "green") yet
+    # return a near-empty table. Skaters and standings are written wholesale
+    # below, so without this a 2-of-20 scrape would overwrite the full roster.
+    # The schedule is already merge-protected above; give the roster and
+    # standings the same protection.
+    prev_skaters = len(season.get("skaters", []))
+    if not plb_skaters or (prev_skaters >= 4 and len(plb_skaters) < prev_skaters * 0.5):
+        raise SystemExit(
+            f"ABORT: scraped {len(plb_skaters)} skaters but {prev_skaters} are on file — "
+            f"refusing to overwrite with a partial scrape. The run fails loudly so a "
+            f"later scheduled run can retry; the existing data is left untouched."
+        )
+
+    prev_standings = season.get("standings", [])
+    if prev_standings and len(standings) < len(prev_standings):
+        print(f"⚠  standings scrape returned {len(standings)} rows vs "
+              f"{len(prev_standings)} on file — keeping existing standings.")
+        standings = prev_standings
+
     season["standings"]          = standings
     season["skaters"]            = plb_skaters
     season["goalies"]            = plb_goalies

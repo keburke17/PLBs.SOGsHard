@@ -43,49 +43,41 @@ def load_page(page, url, wait=5000):
 
 
 def parse_schedule(text):
-    """Parse GameSheet schedule text into a list of game dicts."""
+    """Parse the GameSheet schedule (SCHEDULED / upcoming) page.
+
+    Post-redesign layout per game — visitor listed first, like the scores page:
+        <date> / <visitor> / "B2 - Wed/Thu" / <time> / <home> / "B2 - Wed/Thu" /
+        <location> / <game #> / <type>
+    Scheduled games carry no score, so results stay pending; completed results
+    come from parse_scores instead.
+    """
     lines = [l.strip() for l in text.split("\n") if l.strip()]
+    date_re = re.compile(r"^\w+ \d{1,2}, \d{4}$")
+    time_re = re.compile(r"^\d{1,2}:\d{2}\s*[AP]M$", re.I)
     games = []
     i = 0
     while i < len(lines):
-        line = lines[i]
-        date_m = re.match(r"^(\w+ \d{1,2}, \d{4})$", line)
-        if not date_m:
+        if not date_re.match(lines[i]):
             i += 1
             continue
 
-        game_date = date_m.group(1)
-        i += 1
-        time_str  = lines[i] if i < len(lines) else ""; i += 1
-        game_type = lines[i] if i < len(lines) else ""; i += 1
-        if i < len(lines) and "VIEW GAME" in lines[i].upper(): i += 1
-        ot_so_hint = "REG"
-        if i < len(lines) and "FINAL" in lines[i].upper():
-            if "OT" in lines[i].upper(): ot_so_hint = "OT"
-            elif "SO" in lines[i].upper(): ot_so_hint = "SO"
-            i += 1
-
-        home_team = lines[i].strip() if i < len(lines) else ""; i += 1
-        if i < len(lines) and "B2" in lines[i]: i += 1
-
-        home_score = None
-        if i < len(lines) and re.match(r"^\d+$", lines[i]):
-            home_score = int(lines[i]); i += 1
-
-        away_team = lines[i].strip() if i < len(lines) else ""; i += 1
-        if i < len(lines) and "B2" in lines[i]: i += 1
-
-        away_score = None
-        if i < len(lines) and re.match(r"^\d+$", lines[i]):
-            away_score = int(lines[i]); i += 1
-
-        gm_num = ""
-        if i < len(lines) and lines[i].startswith("GM#"):
-            gm_num = lines[i].replace("GM#: ", "").strip(); i += 1
-
+        game_date = lines[i]; j = i + 1
+        visitor = lines[j].strip() if j < len(lines) else ""; j += 1
+        if j < len(lines) and "B2" in lines[j]: j += 1
+        time_str = ""
+        if j < len(lines) and time_re.match(lines[j]):
+            time_str = lines[j]; j += 1
+        home = lines[j].strip() if j < len(lines) else ""; j += 1
+        if j < len(lines) and "B2" in lines[j]: j += 1
         rink = ""
-        if i < len(lines) and "Ice Centre" in lines[i]:
-            rink = lines[i]; i += 1
+        if j < len(lines) and "Ice Centre" in lines[j]:
+            rink = lines[j]; j += 1
+        gm_num = ""
+        if j < len(lines) and re.match(r"^\d+$", lines[j]):
+            gm_num = lines[j]; j += 1
+        game_type = ""
+        if j < len(lines) and "Season" in lines[j]:
+            game_type = lines[j]; j += 1
 
         date_iso = game_date
         for fmt in ("%B %d, %Y", "%b %d, %Y"):
@@ -95,32 +87,26 @@ def parse_schedule(text):
             except ValueError:
                 pass
 
-        is_home    = home_team.lower() == OUR_TEAM
-        is_away    = away_team.lower() == OUR_TEAM
-        is_our     = is_home or is_away
-        opp        = away_team if is_home else home_team
-        our_score  = home_score if is_home else away_score
-        opp_score  = away_score if is_home else home_score
-
-        result = None
-        rtype  = "pending"
-        if home_score is not None and away_score is not None:
-            rtype = ot_so_hint
-            if is_home:
-                result = "W" if home_score > away_score else "L" if home_score < away_score else "T"
-            elif is_away:
-                result = "W" if away_score > home_score else "L" if away_score < home_score else "T"
+        # Both scores and schedule pages list visitor first, home second.
+        away_team, home_team = visitor, home
+        is_home = home_team.lower() == OUR_TEAM
+        is_away = away_team.lower() == OUR_TEAM
+        is_our  = is_home or is_away
+        opp     = away_team if is_home else home_team
 
         games.append({
             "date": date_iso, "date_raw": game_date, "time": time_str,
-            "game_type": game_type, "home_team": home_team, "away_team": away_team,
-            "home_score": home_score, "away_score": away_score,
-            "our_score": our_score, "opp_score": opp_score,
+            "game_type": game_type or "Regular Season",
+            "home_team": home_team, "away_team": away_team,
+            "home_score": None, "away_score": None,
+            "our_score": None, "opp_score": None,
             "gm_num": gm_num, "rink": rink,
             "is_home": is_home, "is_our_game": is_our, "opponent": opp,
-            "result": result, "result_type": rtype,
-            "is_playoff": "playoff" in game_type.lower(), "status": game_type,
+            "result": None, "result_type": "pending",
+            "is_playoff": "playoff" in (game_type or "").lower(),
+            "status": game_type or "Regular Season",
         })
+        i = j
 
     return games
 
@@ -257,28 +243,38 @@ def sanitize_games(games):
 def parse_standings(text):
     """Parse GameSheet standings page into a list of team dicts.
 
-    Each team is a tab-delimited row (sometimes with a leading empty field):
-        [TEAM] GP W L T OTW OTL SOW SOL PTS PCT RW ROW GF GA DIFF STK PIM ...
-    The table is already sorted by rank, so rank = row order.
+    Post-redesign layout: each team spans three lines —
+        <rank> / <TEAM name> / <tab-stats>
+    where the stats line (no team name) is:
+        GP W L T OTW OTL SOW SOL PTS PCT RW ROW GF GA DIFF STK PIM ...
+    Summary cards near the top also list team names, but those are followed by
+    a plain "N PTS"/"N GF" line (no tab), so requiring a tab-delimited next line
+    keeps only real table rows. The table is pre-sorted, so rank = row order.
     """
+    lines = [l.rstrip() for l in text.split("\n")]
     standings = []
-    for raw in text.split("\n"):
-        if "\t" not in raw:
+    for i, l in enumerate(lines):
+        if l.strip() not in TEAMS:
             continue
-        parts = [p.strip() for p in raw.split("\t") if p.strip() != ""]
-        if not parts or parts[0] not in TEAMS:
+        stats = lines[i + 1] if i + 1 < len(lines) else ""
+        if "\t" not in stats:
             continue
+        parts = stats.split("\t")
+        # The rank column renders as a blank leading cell in the full page,
+        # so drop any leading empties to anchor parts[0] on GP.
+        while parts and parts[0].strip() == "":
+            parts.pop(0)
 
         def n(idx, default="0"):
-            return parts[idx] if idx < len(parts) else default
+            return parts[idx].strip() if idx < len(parts) and parts[idx].strip() else default
 
         standings.append({
             "rank":  len(standings) + 1,
-            "team":  parts[0],
+            "team":  l.strip(),
             "teamid": None,
-            "gp":  n(1), "w": n(2), "l": n(3), "t": n(4),
-            "otw": n(5), "otl": n(6), "sow": n(7), "sol": n(8),
-            "pts": n(9), "gf": n(13), "ga": n(14),
+            "gp":  n(0), "w": n(1), "l": n(2), "t": n(3),
+            "otw": n(4), "otl": n(5), "sow": n(6), "sol": n(7),
+            "pts": n(8), "gf": n(12), "ga": n(13),
         })
 
     return standings
@@ -354,14 +350,27 @@ def _anchored_rows(lines, start, end):
 
 
 def parse_players(text):
-    """Parse the GameSheet /players page into PLB skater dicts.
-    Stats line numeric order: GP G A PTS PIM (PPG, ...)."""
+    """Extract PLB skater rows from whatever is currently rendered.
+
+    Post-redesign /players is a virtualized, division-wide leaderboard, so only
+    the visible window is in the DOM at any moment — this is called repeatedly
+    while scrolling and results are unioned by name (see collect_plb_rows).
+    Header-independent: anchors on the PLB team line, name two lines above,
+    tab-delimited stats one line below (GP G A PTS PIM ...). Summary-card blocks
+    (e.g. "GOALS LEADER / <name> / Parking Lot Beers / 9 G") are rejected by
+    requiring >=4 numeric stat fields on the following line.
+    """
     lines = [l.rstrip() for l in text.split("\n")]
-    start, end = _stat_region(lines, "PLAYER", "PTS")
-    if start is None:
-        return []
     players = []
-    for name, nums in _anchored_rows(lines, start, end):
+    for i, l in enumerate(lines):
+        if l.strip() != "Parking Lot Beers":
+            continue
+        name = lines[i - 2].strip() if i >= 2 else ""
+        nums = _row_nums(lines[i + 1]) if i + 1 < len(lines) else []
+        if not name or name in _PLAYER_FLAGS or len(name) <= 1:
+            continue
+        if not re.search(r"[A-Za-z]", name) or name in TEAMS:
+            continue
         if len(nums) < 4:
             continue
         players.append({
@@ -372,6 +381,32 @@ def parse_players(text):
             "pp": 0, "sh": 0, "gwg": 0,
         })
     return players
+
+
+def collect_plb_rows(page, url, parse_fn, max_steps=60):
+    """Scrape a virtualized leaderboard by scrolling incrementally and unioning
+    parsed rows by name. A single inner_text() only sees the rendered window, so
+    we parse at every scroll step until the bottom stops moving."""
+    page.goto(url, wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_timeout(2500)
+    seen = {}
+    prev_y = -1
+    steps = 0
+    for _ in range(max_steps):
+        steps += 1
+        for row in parse_fn(page.locator("body").inner_text()):
+            seen[row["name"].lower()] = row
+        y  = page.evaluate("window.scrollY")
+        h  = page.evaluate("document.body.scrollHeight")
+        ih = page.evaluate("window.innerHeight")
+        if y + ih >= h - 5:
+            if y == prev_y:
+                break
+            prev_y = y
+        page.evaluate("window.scrollBy(0, Math.round(window.innerHeight*0.55))")
+        page.wait_for_timeout(450)
+    print(f"    (scroll-collected over {steps} steps)")
+    return list(seen.values())
 
 
 def parse_goalies(text):
@@ -432,17 +467,8 @@ def main():
         print(f"    {len(standings)} teams in standings")
 
         print("  Fetching player stats...")
-        plb_skaters = []
-        for stats_path in ["players", "scoring-leaders"]:
-            try:
-                player_text = load_page(page, f"{GS_BASE}/{stats_path}?filter[division]={GS_DIVISION}", wait=3000)
-                if "404" not in player_text:
-                    plb_skaters = parse_players(player_text)
-                    if plb_skaters:
-                        print(f"    {len(plb_skaters)} PLB skaters from /{stats_path}")
-                        break
-            except Exception as e:
-                print(f"    /{stats_path} failed: {e}")
+        plb_skaters = collect_plb_rows(page, f"{GS_BASE}/players?filter[division]={GS_DIVISION}", parse_players)
+        print(f"    {len(plb_skaters)} PLB skaters")
 
         print("  Fetching goalie stats...")
         plb_goalies = []

@@ -143,12 +143,18 @@ def parse_scores(text):
     score_re = re.compile(r"^(\d+)-(\d+)$")
     while i < len(lines):
         m = date_re.match(lines[i])
-        if not m or i + 1 >= len(lines) or "FINAL" not in lines[i + 1].upper():
+        # A completed-game block is a date line followed shortly by a
+        # "visitor / division / V-H score" sequence. GameSheet dropped the
+        # old "FINAL" label from this page, so detect the block by the nearby
+        # score token instead of requiring "FINAL".
+        if not m or not any(score_re.match(x) for x in lines[i + 1:i + 6]):
             i += 1
             continue
 
         game_date = m.group(1)
-        j = i + 2
+        j = i + 1
+        if j < len(lines) and "FINAL" in lines[j].upper():
+            j += 1  # legacy layout still had a FINAL line here
         visitor = lines[j].strip() if j < len(lines) else ""; j += 1
         if j < len(lines) and "B2" in lines[j]: j += 1
 
@@ -167,12 +173,14 @@ def parse_scores(text):
         rink = ""
         if j < len(lines) and "Ice Centre" in lines[j]:
             rink = lines[j]; j += 1
+        # Game # and type can appear in either order after the rink.
         game_type = ""
-        if j < len(lines) and "Season" in lines[j]:
-            game_type = lines[j]; j += 1
         gm_num = ""
-        if j < len(lines) and re.match(r"^\d+$", lines[j]):
-            gm_num = lines[j]; j += 1
+        for _ in range(2):
+            if j < len(lines) and re.match(r"^\d+$", lines[j]):
+                gm_num = lines[j]; j += 1
+            elif j < len(lines) and "Season" in lines[j]:
+                game_type = lines[j]; j += 1
 
         date_iso = game_date
         for fmt in ("%B %d, %Y", "%b %d, %Y"):
@@ -209,6 +217,41 @@ def parse_scores(text):
         i = j
 
     return games
+
+
+# A bare time string ("10:45 PM"). Used to detect field-shift parse artifacts
+# where a time value lands in a team-name slot.
+TIME_ONLY_RE = re.compile(r"^\d{1,2}:\d{2}\s*[AP]M$", re.I)
+
+
+def sanitize_games(games):
+    """Drop field-shift parse artifacts and collapse duplicate games.
+
+    GameSheet occasionally serves a schedule row in a variant column order,
+    which the positional parser mis-reads into a shifted record (e.g. a time
+    like '10:45 PM' ends up in a team-name field). Those rows are dropped.
+    Entries sharing the same date + teams are then collapsed, keeping the most
+    complete one (prefers a real result, then a game number, then a rink)."""
+    kept = []
+    for g in games:
+        if (TIME_ONLY_RE.match((g.get("home_team") or "").strip()) or
+                TIME_ONLY_RE.match((g.get("away_team") or "").strip())):
+            print(f"    dropped malformed game row: {g.get('date')} "
+                  f"{g.get('home_team')!r} vs {g.get('away_team')!r}")
+            continue
+        kept.append(g)
+
+    def richness(g):
+        return (g.get("result") is not None, bool(g.get("gm_num")), bool(g.get("rink")))
+
+    best = {}
+    for g in kept:
+        teams = sorted([(g.get("home_team") or "").lower(),
+                        (g.get("away_team") or "").lower()])
+        key = f"{g.get('date')}|{teams[0]}|{teams[1]}"
+        if key not in best or richness(g) > richness(best[key]):
+            best[key] = g
+    return sorted(best.values(), key=lambda g: g.get("date", ""))
 
 
 def parse_standings(text):
@@ -379,7 +422,7 @@ def main():
 
         print("  Fetching schedule (upcoming games)...")
         sched_text = load_page(page, f"{GS_BASE}/schedule?filter[division]={GS_DIVISION}")
-        all_games  = parse_schedule(sched_text)
+        all_games  = sanitize_games(parse_schedule(sched_text))
         plb_games  = [g for g in all_games if g.get("is_our_game")]
         print(f"    {len(all_games)} division games, {len(plb_games)} PLB upcoming games")
 
@@ -435,6 +478,7 @@ def main():
             merged_map[k] = g
 
     merged = sorted(merged_map.values(), key=lambda g: g["date"])
+    merged = sanitize_games(merged)   # drop shifted-field rows, collapse dupes
     print(f"    Merge: {len(old_games)} cached + {len(plb_scored)} scored + {len(plb_games)} upcoming → {len(merged)} total")
 
     # Update season data

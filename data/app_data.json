@@ -8380,14 +8380,14 @@
         "goalies": "https://gamesheetstats.com/seasons/14815/goalies?filter[division]=79347&filter[team]=512204"
       },
       "record": {
-        "gp": 6,
+        "gp": 7,
         "w": 4,
-        "l": 1,
+        "l": 2,
         "otl": 0,
         "sol": 1,
         "pts": 9,
-        "gf": 31,
-        "ga": 25
+        "gf": 33,
+        "ga": 28
       },
       "our_rank": 2,
       "total_teams": 6,
@@ -8522,23 +8522,23 @@
         {
           "date": "2026-07-01",
           "date_raw": "Jul 1, 2026",
-          "time": "7:15 PM",
+          "time": "",
           "game_type": "Regular Season",
-          "home_team": "Parking Lot Beers",
-          "away_team": "Green Belly Hot Sauce",
-          "home_score": null,
-          "away_score": null,
-          "our_score": null,
-          "opp_score": null,
+          "home_team": "Green Belly Hot Sauce",
+          "away_team": "Parking Lot Beers",
+          "home_score": 3,
+          "away_score": 2,
+          "our_score": 2,
+          "opp_score": 3,
           "gm_num": "373",
-          "rink": "Ice Centre at the Promenade Red Rink",
-          "is_home": true,
+          "rink": "Ice Centre - Red Rink",
+          "is_home": false,
           "is_our_game": true,
           "opponent": "Green Belly Hot Sauce",
-          "result": null,
-          "result_type": "pending",
+          "result": "L",
+          "result_type": "REG",
           "is_playoff": false,
-          "status": "Regular Season"
+          "status": "FINAL"
         },
         {
           "date": "2026-07-08",
@@ -8560,27 +8560,6 @@
           "result_type": "pending",
           "is_playoff": false,
           "status": "Regular Season"
-        },
-        {
-          "date": "2026-07-08",
-          "date_raw": "Jul 8, 2026",
-          "time": "Buff Stuff",
-          "game_type": "B2 - Wed/Thu",
-          "home_team": "10:45 PM",
-          "away_team": "Parking Lot Beers",
-          "home_score": null,
-          "away_score": null,
-          "our_score": null,
-          "opp_score": null,
-          "gm_num": "",
-          "rink": "Ice Centre - Green Rink",
-          "is_home": false,
-          "is_our_game": true,
-          "opponent": "10:45 PM",
-          "result": null,
-          "result_type": "pending",
-          "is_playoff": false,
-          "status": "B2 - Wed/Thu"
         },
         {
           "date": "2026-07-15",
@@ -8955,7 +8934,7 @@
           "so": 1
         }
       ],
-      "last_updated": "2026-07-03"
+      "last_updated": "2026-07-04"
     }
   ],
   "career_stats": [
@@ -13007,6 +12986,6 @@
     }
   ],
   "name_transition_season": "Summer 2022",
-  "total_games": 229,
+  "total_games": 228,
   "archive_note": "Raw HTML archived from PointStreak before 5/31/2026 decommission"
 }

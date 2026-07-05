@@ -357,10 +357,12 @@ function renderSeasonBrowser() {
       </table>
     </div>`;
 
-  // Points leaders top 10 (internal data for all seasons)
+  // All skaters who played, sorted by points (internal data for all seasons).
+  // gp > 0 keeps everyone who dressed — including 0-point players — while
+  // dropping roster entries who never played.
   {
-    const top10 = [...(s.skaters || [])].sort((a, b) => b.pts - a.pts).slice(0, 10);
-    const leaderRows = top10.map((p, i) =>
+    const roster = [...(s.skaters || [])].filter(p => (p.gp || 0) > 0).sort((a, b) => b.pts - a.pts);
+    const leaderRows = roster.map((p, i) =>
       `<tr>
         <td style="color:#aaa;font-size:0.8rem;text-align:center">${i + 1}</td>
         <td class="name-cell">${p.name}</td>

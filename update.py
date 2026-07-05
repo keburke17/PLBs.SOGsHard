@@ -312,6 +312,10 @@ def derive_record(plb_games):
 # players merge by lower-cased key in aggregate_career_stats).
 _PLAYER_FLAGS = {"R", "+", "S", "A", "C", "X", "I"}
 
+# GameSheet lists placeholder "players" (e.g. a substitute goalie counted in
+# skater stats) that aren't real roster members — exclude them from the table.
+_NON_PLAYER_NAMES = {"sub goalie"}
+
 
 def _stat_region(lines, *must_have):
     """Return (start, end) line indices of the data region: the line after the
@@ -370,6 +374,8 @@ def parse_players(text):
         if not name or name in _PLAYER_FLAGS or len(name) <= 1:
             continue
         if not re.search(r"[A-Za-z]", name) or name in TEAMS:
+            continue
+        if name.lower() in _NON_PLAYER_NAMES:
             continue
         if len(nums) < 4:
             continue

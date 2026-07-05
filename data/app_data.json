@@ -8888,18 +8888,6 @@
         },
         {
           "number": "",
-          "name": "Sub Goalie",
-          "gp": 1,
-          "g": 0,
-          "a": 0,
-          "pts": 0,
-          "pim": 0,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "",
           "name": "Nicholas Hostovsky",
           "gp": 3,
           "g": 0,
@@ -12952,32 +12940,6 @@
         }
       ],
       "career_gp": 2,
-      "career_g": 0,
-      "career_a": 0,
-      "career_pts": 0,
-      "career_pim": 0,
-      "seasons_count": 1
-    },
-    {
-      "name": "Sub Goalie",
-      "seasons": [
-        {
-          "season": "Summer 2026",
-          "slug": "summer_2026",
-          "team_name": "Parking Lot Beers",
-          "number": "",
-          "name": "Sub Goalie",
-          "gp": 1,
-          "g": 0,
-          "a": 0,
-          "pts": 0,
-          "pim": 0,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        }
-      ],
-      "career_gp": 1,
       "career_g": 0,
       "career_a": 0,
       "career_pts": 0,

@@ -112,13 +112,16 @@ Pulls the latest scores, standings, and player stats from [GameSheet](https://ga
 
 **What it does:**
 1. Launches a headless Chromium browser via Playwright and scrolls each page to trigger lazy-loaded content
-2. Fetches the full division **schedule** — parses game dates, times, scores, and results; filters to PLB games
-3. Fetches division **standings** — extracts all 6 teams' GP/W/L/OTL/SOL/PTS/GF/GA
-4. Fetches division **player stats** — extracts skater stats filtered to PLB players
-5. Calculates PLB's W-L-OTL-SOL record from played games
-6. Saves updated data to `data/summer_2026.json`
-7. Calls `process.py` automatically to regenerate `data/app_data.json`
-8. Prints a summary: record, upcoming games, top scorers
+2. Fetches the division **scores** page — completed games with final scores (visitor-first layout); this is the authoritative source for results
+3. Fetches the division **schedule** page — upcoming/scheduled games (dates, times, matchups)
+4. Merges scores + schedule into the season game list, **preserving cached history** (old games are never dropped) and de-duplicating via `sanitize_games()`, which also discards field-shift parse artifacts
+5. Fetches division **standings** — all 6 teams' GP/W/L/OTL/SOL/PTS/GF/GA
+6. Fetches division **player stats** via `collect_plb_rows()` — scrolls the virtualized, division-wide leaderboard and unions rows by name so the full PLB roster is captured reliably
+7. **Guards against partial scrapes**: aborts with a non-zero exit (so the run fails loudly instead of committing) rather than overwriting a good roster with a near-empty one, and keeps existing standings if a scrape returns fewer rows
+8. Calculates PLB's W-L-OTL-SOL record, saves `data/summer_2026.json`, and calls `process.py` to regenerate `data/app_data.json`
+9. Prints a summary: record, upcoming games, top scorers
+
+> **⚠️ GameSheet layout change (July 2026).** GameSheet rebuilt its stats site (now a Next.js/RSC app), changing the HTML of every page and breaking the original scrapers — scores stopped syncing (the old `FINAL` marker was removed) and schedule rows produced garbled duplicates (an interleaved `B2 - Wed/Thu` division label shifted the fields). The parsers in `update.py` were rewritten to match the new layout: results now come from a separate **scores** page, the **schedule** page is upcoming-only, **standings** rows carry a blank leading rank cell, and **players** is a virtualized leaderboard scraped by incremental scrolling. See commits `d281e94` and `f641b50`. If scraping breaks again, the page layouts likely changed — dump a page with `PYTHONPATH=. python3` importing `update`'s `load_page`, and compare against the parser expectations.
 
 **Usage:**
 ```bash

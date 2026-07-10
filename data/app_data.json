@@ -8834,6 +8834,102 @@
           "pp": 0,
           "sh": 0,
           "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Matt Zagers",
+          "gp": 7,
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Peter Bernardi",
+          "gp": 2,
+          "g": 2,
+          "a": 0,
+          "pts": 2,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Dave Hollingshead",
+          "gp": 4,
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Hayes Hansen",
+          "gp": 1,
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Braden Schmid",
+          "gp": 2,
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Brian Anderson",
+          "gp": 3,
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Sub Goalie",
+          "gp": 1,
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Nicholas Hostovsky",
+          "gp": 3,
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
         }
       ],
       "goalies": [
@@ -8847,7 +8943,7 @@
           "so": 1
         }
       ],
-      "last_updated": "2026-07-09"
+      "last_updated": "2026-07-10"
     }
   ],
   "career_stats": [
@@ -9973,14 +10069,29 @@
           "pp": 1,
           "sh": 0,
           "gwg": 1
+        },
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Peter Bernardi",
+          "gp": 2,
+          "g": 2,
+          "a": 0,
+          "pts": 2,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
         }
       ],
-      "career_gp": 142,
-      "career_g": 104,
+      "career_gp": 144,
+      "career_g": 106,
       "career_a": 73,
-      "career_pts": 177,
-      "career_pim": 38,
-      "seasons_count": 12
+      "career_pts": 179,
+      "career_pim": 40,
+      "seasons_count": 13
     },
     {
       "name": "Braden Schmid",
@@ -10134,14 +10245,29 @@
           "pp": 0,
           "sh": 0,
           "gwg": 1
+        },
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Braden Schmid",
+          "gp": 2,
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
         }
       ],
-      "career_gp": 118,
+      "career_gp": 120,
       "career_g": 68,
-      "career_a": 61,
-      "career_pts": 129,
+      "career_a": 62,
+      "career_pts": 130,
       "career_pim": 60,
-      "seasons_count": 10
+      "seasons_count": 11
     },
     {
       "name": "Andrew Pavlosky",
@@ -11347,14 +11473,29 @@
           "pp": 0,
           "sh": 0,
           "gwg": 0
+        },
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Matt Zagers",
+          "gp": 7,
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
         }
       ],
-      "career_gp": 50,
-      "career_g": 7,
-      "career_a": 34,
-      "career_pts": 41,
+      "career_gp": 57,
+      "career_g": 8,
+      "career_a": 36,
+      "career_pts": 44,
       "career_pim": 32,
-      "seasons_count": 4
+      "seasons_count": 5
     },
     {
       "name": "Jon Sakalas",
@@ -12121,14 +12262,29 @@
           "pp": 0,
           "sh": 0,
           "gwg": 0
+        },
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Brian Anderson",
+          "gp": 3,
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
         }
       ],
-      "career_gp": 53,
+      "career_gp": 56,
       "career_g": 4,
       "career_a": 11,
       "career_pts": 15,
       "career_pim": 83,
-      "seasons_count": 9
+      "seasons_count": 10
     },
     {
       "name": "Jeremy Roberts",
@@ -12218,14 +12374,29 @@
           "pp": 1,
           "sh": 0,
           "gwg": 0
+        },
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Nicholas Hostovsky",
+          "gp": 3,
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
         }
       ],
-      "career_gp": 17,
+      "career_gp": 20,
       "career_g": 2,
       "career_a": 11,
       "career_pts": 13,
       "career_pim": 22,
-      "seasons_count": 2
+      "seasons_count": 3
     },
     {
       "name": "Michael Stork",
@@ -12611,6 +12782,32 @@
       "seasons_count": 1
     },
     {
+      "name": "Dave Hollingshead",
+      "seasons": [
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Dave Hollingshead",
+          "gp": 4,
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        }
+      ],
+      "career_gp": 4,
+      "career_g": 1,
+      "career_a": 1,
+      "career_pts": 2,
+      "career_pim": 2,
+      "seasons_count": 1
+    },
+    {
       "name": "Max Legere",
       "seasons": [
         {
@@ -12650,6 +12847,32 @@
       "career_pts": 1,
       "career_pim": 0,
       "seasons_count": 2
+    },
+    {
+      "name": "Hayes Hansen",
+      "seasons": [
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Hayes Hansen",
+          "gp": 1,
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        }
+      ],
+      "career_gp": 1,
+      "career_g": 0,
+      "career_a": 1,
+      "career_pts": 1,
+      "career_pim": 0,
+      "seasons_count": 1
     },
     {
       "name": "Rafal Rlonski",
@@ -12723,6 +12946,32 @@
         }
       ],
       "career_gp": 2,
+      "career_g": 0,
+      "career_a": 0,
+      "career_pts": 0,
+      "career_pim": 0,
+      "seasons_count": 1
+    },
+    {
+      "name": "Sub Goalie",
+      "seasons": [
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Sub Goalie",
+          "gp": 1,
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        }
+      ],
+      "career_gp": 1,
       "career_g": 0,
       "career_a": 0,
       "career_pts": 0,

@@ -325,7 +325,7 @@
       "our_score": null,
       "opp_score": null,
       "gm_num": "545",
-      "rink": "Ice Centre at the Promenade Green Rink",
+      "rink": "Ice Centre - Green Rink",
       "is_home": true,
       "is_our_game": true,
       "opponent": "Alaskan Bull Worms",
@@ -346,7 +346,7 @@
       "our_score": null,
       "opp_score": null,
       "gm_num": "546",
-      "rink": "Ice Centre at the Promenade Green Rink",
+      "rink": "Ice Centre - Green Rink",
       "is_home": false,
       "is_our_game": false,
       "opponent": "Buff Stuff",
@@ -367,7 +367,7 @@
       "our_score": null,
       "opp_score": null,
       "gm_num": "547",
-      "rink": "Ice Centre at the Promenade Green Rink",
+      "rink": "Ice Centre - Green Rink",
       "is_home": false,
       "is_our_game": false,
       "opponent": "Short Bench",
@@ -388,7 +388,7 @@
       "our_score": null,
       "opp_score": null,
       "gm_num": "613",
-      "rink": "Ice Centre at the Promenade Green Rink",
+      "rink": "Ice Centre - Green Rink",
       "is_home": false,
       "is_our_game": false,
       "opponent": "TBD",
@@ -628,6 +628,102 @@
       "pp": 0,
       "sh": 0,
       "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Matt Zagers",
+      "gp": 7,
+      "g": 1,
+      "a": 2,
+      "pts": 3,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Peter Bernardi",
+      "gp": 2,
+      "g": 2,
+      "a": 0,
+      "pts": 2,
+      "pim": 2,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Dave Hollingshead",
+      "gp": 4,
+      "g": 1,
+      "a": 1,
+      "pts": 2,
+      "pim": 2,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Hayes Hansen",
+      "gp": 1,
+      "g": 0,
+      "a": 1,
+      "pts": 1,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Braden Schmid",
+      "gp": 2,
+      "g": 0,
+      "a": 1,
+      "pts": 1,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Brian Anderson",
+      "gp": 3,
+      "g": 0,
+      "a": 0,
+      "pts": 0,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Sub Goalie",
+      "gp": 1,
+      "g": 0,
+      "a": 0,
+      "pts": 0,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Nick Hostovsky",
+      "gp": 3,
+      "g": 0,
+      "a": 0,
+      "pts": 0,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
     }
   ],
   "goalies": [
@@ -641,5 +737,5 @@
       "so": 1
     }
   ],
-  "last_updated": "2026-07-09"
+  "last_updated": "2026-07-10"
 }

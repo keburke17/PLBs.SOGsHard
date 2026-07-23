@@ -8380,14 +8380,14 @@
         "goalies": "https://gamesheetstats.com/seasons/14815/goalies?filter[division]=79347&filter[team]=512204"
       },
       "record": {
-        "gp": 8,
-        "w": 5,
+        "gp": 9,
+        "w": 6,
         "l": 2,
         "otl": 0,
         "sol": 1,
-        "pts": 11,
-        "gf": 39,
-        "ga": 29
+        "pts": 13,
+        "gf": 45,
+        "ga": 34
       },
       "our_rank": 1,
       "total_teams": 6,
@@ -8564,23 +8564,23 @@
         {
           "date": "2026-07-15",
           "date_raw": "Jul 15, 2026",
-          "time": "9:15 PM",
+          "time": "",
           "game_type": "Regular Season",
-          "home_team": "Parking Lot Beers",
-          "away_team": "Brown Baggers",
-          "home_score": null,
-          "away_score": null,
-          "our_score": null,
-          "opp_score": null,
+          "home_team": "Brown Baggers",
+          "away_team": "Parking Lot Beers",
+          "home_score": 5,
+          "away_score": 6,
+          "our_score": 6,
+          "opp_score": 5,
           "gm_num": "473",
-          "rink": "Ice Centre at the Promenade Red Rink",
-          "is_home": true,
+          "rink": "Ice Centre - Red Rink",
+          "is_home": false,
           "is_our_game": true,
           "opponent": "Brown Baggers",
-          "result": null,
-          "result_type": "pending",
+          "result": "W",
+          "result_type": "SO",
           "is_playoff": false,
-          "status": "Regular Season"
+          "status": "FINAL"
         },
         {
           "date": "2026-07-22",
@@ -8718,11 +8718,35 @@
         {
           "number": "",
           "name": "Jason Hanson",
-          "gp": 5,
-          "g": 5,
+          "gp": 6,
+          "g": 8,
           "a": 5,
-          "pts": 10,
+          "pts": 13,
           "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Nate Jenson",
+          "gp": 7,
+          "g": 4,
+          "a": 3,
+          "pts": 7,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Tim Baumann",
+          "gp": 6,
+          "g": 2,
+          "a": 5,
+          "pts": 7,
+          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -8741,24 +8765,12 @@
         },
         {
           "number": "",
-          "name": "Nate Jenson",
+          "name": "Zach Wilson",
           "gp": 6,
-          "g": 4,
-          "a": 2,
-          "pts": 6,
-          "pim": 0,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "",
-          "name": "Tim Baumann",
-          "gp": 5,
           "g": 2,
-          "a": 3,
-          "pts": 5,
-          "pim": 2,
+          "a": 4,
+          "pts": 6,
+          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -8783,18 +8795,6 @@
           "a": 4,
           "pts": 5,
           "pim": 6,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "",
-          "name": "Zach Wilson",
-          "gp": 5,
-          "g": 2,
-          "a": 3,
-          "pts": 5,
-          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -8849,18 +8849,6 @@
         },
         {
           "number": "",
-          "name": "Peter Bernardi",
-          "gp": 2,
-          "g": 2,
-          "a": 0,
-          "pts": 2,
-          "pim": 2,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "",
           "name": "Dave Hollingshead",
           "gp": 4,
           "g": 1,
@@ -8873,8 +8861,20 @@
         },
         {
           "number": "",
-          "name": "Hayes Hansen",
-          "gp": 1,
+          "name": "Peter Bernardi",
+          "gp": 2,
+          "g": 2,
+          "a": 0,
+          "pts": 2,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Braden Schmid",
+          "gp": 2,
           "g": 0,
           "a": 1,
           "pts": 1,
@@ -8885,8 +8885,8 @@
         },
         {
           "number": "",
-          "name": "Braden Schmid",
-          "gp": 2,
+          "name": "Hayes Hansen",
+          "gp": 1,
           "g": 0,
           "a": 1,
           "pts": 1,
@@ -8909,8 +8909,8 @@
         },
         {
           "number": "",
-          "name": "Sub Goalie",
-          "gp": 1,
+          "name": "Nicholas Hostovsky",
+          "gp": 3,
           "g": 0,
           "a": 0,
           "pts": 0,
@@ -8921,8 +8921,8 @@
         },
         {
           "number": "",
-          "name": "Nicholas Hostovsky",
-          "gp": 3,
+          "name": "Sub Goalie",
+          "gp": 1,
           "g": 0,
           "a": 0,
           "pts": 0,
@@ -8935,15 +8935,15 @@
       "goalies": [
         {
           "name": "Chris Moore",
-          "gp": 8,
+          "gp": 9,
           "w": 2,
           "l": 0,
-          "gaa": 3.5,
-          "sv_pct": 5.0,
+          "gaa": 3.67,
+          "sv_pct": 6.0,
           "so": 1
         }
       ],
-      "last_updated": "2026-07-10"
+      "last_updated": "2026-07-22"
     }
   ],
   "career_stats": [
@@ -9503,20 +9503,20 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Jason Hanson",
-          "gp": 5,
-          "g": 5,
+          "gp": 6,
+          "g": 8,
           "a": 5,
-          "pts": 10,
+          "pts": 13,
           "pim": 0,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 163,
-      "career_g": 102,
+      "career_gp": 164,
+      "career_g": 105,
       "career_a": 120,
-      "career_pts": 222,
+      "career_pts": 225,
       "career_pim": 236,
       "seasons_count": 13
     },
@@ -9870,20 +9870,20 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Nate Jenson",
-          "gp": 6,
+          "gp": 7,
           "g": 4,
-          "a": 2,
-          "pts": 6,
+          "a": 3,
+          "pts": 7,
           "pim": 0,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 161,
+      "career_gp": 162,
       "career_g": 103,
-      "career_a": 81,
-      "career_pts": 184,
+      "career_a": 82,
+      "career_pts": 185,
       "career_pim": 26,
       "seasons_count": 11
     },
@@ -11569,6 +11569,62 @@
       "seasons_count": 4
     },
     {
+      "name": "Zach Wilson",
+      "seasons": [
+        {
+          "season": "Summer 2025",
+          "slug": "summer_2025",
+          "team_name": "Parking Lot Beers",
+          "number": "18",
+          "name": "Zach Wilson",
+          "gp": 11,
+          "g": 4,
+          "a": 1,
+          "pts": 5,
+          "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "season": "Winter 25/26",
+          "slug": "winter_25_26",
+          "team_name": "Parking Lot Beers",
+          "number": "11",
+          "name": "Zach Wilson",
+          "gp": 20,
+          "g": 6,
+          "a": 11,
+          "pts": 17,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 1
+        },
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Zach Wilson",
+          "gp": 6,
+          "g": 2,
+          "a": 4,
+          "pts": 6,
+          "pim": 4,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        }
+      ],
+      "career_gp": 37,
+      "career_g": 12,
+      "career_a": 16,
+      "career_pts": 28,
+      "career_pim": 6,
+      "seasons_count": 3
+    },
+    {
       "name": "Gary Stimson",
       "seasons": [
         {
@@ -11698,62 +11754,6 @@
       "career_pts": 27,
       "career_pim": 28,
       "seasons_count": 8
-    },
-    {
-      "name": "Zach Wilson",
-      "seasons": [
-        {
-          "season": "Summer 2025",
-          "slug": "summer_2025",
-          "team_name": "Parking Lot Beers",
-          "number": "18",
-          "name": "Zach Wilson",
-          "gp": 11,
-          "g": 4,
-          "a": 1,
-          "pts": 5,
-          "pim": 0,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "season": "Winter 25/26",
-          "slug": "winter_25_26",
-          "team_name": "Parking Lot Beers",
-          "number": "11",
-          "name": "Zach Wilson",
-          "gp": 20,
-          "g": 6,
-          "a": 11,
-          "pts": 17,
-          "pim": 2,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 1
-        },
-        {
-          "season": "Summer 2026",
-          "slug": "summer_2026",
-          "team_name": "Parking Lot Beers",
-          "number": "",
-          "name": "Zach Wilson",
-          "gp": 5,
-          "g": 2,
-          "a": 3,
-          "pts": 5,
-          "pim": 4,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        }
-      ],
-      "career_gp": 36,
-      "career_g": 12,
-      "career_a": 15,
-      "career_pts": 27,
-      "career_pim": 6,
-      "seasons_count": 3
     },
     {
       "name": "Andrew Pung",
@@ -12548,6 +12548,32 @@
       "seasons_count": 1
     },
     {
+      "name": "Tim Baumann",
+      "seasons": [
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Tim Baumann",
+          "gp": 6,
+          "g": 2,
+          "a": 5,
+          "pts": 7,
+          "pim": 4,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        }
+      ],
+      "career_gp": 6,
+      "career_g": 2,
+      "career_a": 5,
+      "career_pts": 7,
+      "career_pim": 4,
+      "seasons_count": 1
+    },
+    {
       "name": "Nick Hadayatpour",
       "seasons": [
         {
@@ -12570,32 +12596,6 @@
       "career_g": 2,
       "career_a": 4,
       "career_pts": 6,
-      "career_pim": 2,
-      "seasons_count": 1
-    },
-    {
-      "name": "Tim Baumann",
-      "seasons": [
-        {
-          "season": "Summer 2026",
-          "slug": "summer_2026",
-          "team_name": "Parking Lot Beers",
-          "number": "",
-          "name": "Tim Baumann",
-          "gp": 5,
-          "g": 2,
-          "a": 3,
-          "pts": 5,
-          "pim": 2,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        }
-      ],
-      "career_gp": 5,
-      "career_g": 2,
-      "career_a": 3,
-      "career_pts": 5,
       "career_pim": 2,
       "seasons_count": 1
     },

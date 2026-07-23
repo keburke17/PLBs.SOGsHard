@@ -25,14 +25,14 @@
     "goalies": "https://gamesheetstats.com/seasons/14815/goalies?filter[division]=79347&filter[team]=512204"
   },
   "record": {
-    "gp": 9,
+    "gp": 10,
     "w": 6,
-    "l": 2,
+    "l": 3,
     "otl": 0,
     "sol": 1,
     "pts": 13,
-    "gf": 45,
-    "ga": 34
+    "gf": 47,
+    "ga": 38
   },
   "our_rank": 1,
   "total_teams": 6,
@@ -230,23 +230,23 @@
     {
       "date": "2026-07-22",
       "date_raw": "Jul 22, 2026",
-      "time": "7:45 PM",
+      "time": "",
       "game_type": "Regular Season",
       "home_team": "Parking Lot Beers",
       "away_team": "Alaskan Bull Worms",
-      "home_score": null,
-      "away_score": null,
-      "our_score": null,
-      "opp_score": null,
+      "home_score": 2,
+      "away_score": 4,
+      "our_score": 2,
+      "opp_score": 4,
       "gm_num": "545",
-      "rink": "Ice Centre at the Promenade Green Rink",
+      "rink": "Ice Centre - Green Rink",
       "is_home": true,
       "is_our_game": true,
       "opponent": "Alaskan Bull Worms",
-      "result": null,
-      "result_type": "pending",
+      "result": "L",
+      "result_type": "REG",
       "is_playoff": false,
-      "status": "Regular Season"
+      "status": "FINAL"
     }
   ],
   "all_division_games": [],
@@ -352,10 +352,10 @@
     {
       "number": "",
       "name": "Alec Asensio",
-      "gp": 8,
-      "g": 12,
+      "gp": 9,
+      "g": 13,
       "a": 7,
-      "pts": 19,
+      "pts": 20,
       "pim": 2,
       "pp": 0,
       "sh": 0,
@@ -364,7 +364,7 @@
     {
       "number": "",
       "name": "Jason Hanson",
-      "gp": 6,
+      "gp": 7,
       "g": 8,
       "a": 5,
       "pts": 13,
@@ -376,10 +376,10 @@
     {
       "number": "",
       "name": "Nate Jenson",
-      "gp": 7,
-      "g": 4,
+      "gp": 8,
+      "g": 5,
       "a": 3,
-      "pts": 7,
+      "pts": 8,
       "pim": 0,
       "pp": 0,
       "sh": 0,
@@ -388,7 +388,19 @@
     {
       "number": "",
       "name": "Tim Baumann",
-      "gp": 6,
+      "gp": 7,
+      "g": 2,
+      "a": 5,
+      "pts": 7,
+      "pim": 6,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
+      "name": "Zach Wilson",
+      "gp": 7,
       "g": 2,
       "a": 5,
       "pts": 7,
@@ -400,18 +412,6 @@
     {
       "number": "",
       "name": "Alec Brooks",
-      "gp": 6,
-      "g": 2,
-      "a": 4,
-      "pts": 6,
-      "pim": 4,
-      "pp": 0,
-      "sh": 0,
-      "gwg": 0
-    },
-    {
-      "number": "",
-      "name": "Zach Wilson",
       "gp": 6,
       "g": 2,
       "a": 4,
@@ -581,13 +581,13 @@
   "goalies": [
     {
       "name": "Chris Moore",
-      "gp": 9,
-      "w": 2,
+      "gp": 10,
+      "w": 3,
       "l": 0,
-      "gaa": 3.67,
+      "gaa": 3.7,
       "sv_pct": 6.0,
       "so": 1
     }
   ],
-  "last_updated": "2026-07-22"
+  "last_updated": "2026-07-23"
 }

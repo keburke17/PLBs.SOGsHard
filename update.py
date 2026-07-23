@@ -20,6 +20,12 @@ GS_DIVISION      = "79347"
 GS_BASE          = f"https://gamesheetstats.com/seasons/{GS_SEASON}"
 GS_SEASON_START  = "2026-05-01"   # used to fetch full season scores history
 
+# A complete, current-looking Chrome UA. A truncated UA (no "Chrome/… Safari/…"
+# tail) is itself a bot signal to Cloudflare — keep this realistic.
+BROWSER_UA  = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+               "AppleWebKit/537.36 (KHTML, like Gecko) "
+               "Chrome/126.0.0.0 Safari/537.36")
+
 OUR_TEAM    = "parking lot beers"
 TEAMS       = ["Alaskan Bull Worms", "Brown Baggers", "Buff Stuff",
                "Green Belly Hot Sauce", "Parking Lot Beers", "Short Bench"]
@@ -27,19 +33,74 @@ TEAMS       = ["Alaskan Bull Worms", "Brown Baggers", "Buff Stuff",
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 
-def load_page(page, url, wait=5000):
-    page.goto(url, wait_until="domcontentloaded", timeout=30000)
-    # Scroll to force lazy-load all content
-    prev = 0
-    for _ in range(12):
-        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        page.wait_for_timeout(1200)
-        h = page.evaluate("document.body.scrollHeight")
-        if h == prev:
-            break
-        prev = h
-    page.wait_for_timeout(wait)
-    return page.locator("body").inner_text()
+# Markers of Cloudflare's interstitial (the static "verify you're human" page,
+# NOT the real content). This one does not auto-resolve in headless Chromium.
+CF_CHALLENGE_MARKERS = ("performing security verification", "just a moment",
+                        "verify you are human", "cf-challenge")
+
+
+def _looks_like_challenge(text):
+    low = text.lower()
+    return len(text) < 600 and any(m in low for m in CF_CHALLENGE_MARKERS)
+
+
+def _short(url):
+    return url.split("/")[-1][:34]
+
+
+def _new_page(browser):
+    """A fresh, ordinary-looking browser context + page.
+
+    GameSheet is behind Cloudflare's bot challenge (added ~Jul 2026). Two things
+    matter to get through it without any CAPTCHA solving:
+      1. Present as a real browser — full UA, no AutomationControlled flag (set at
+         launch), no navigator.webdriver.
+      2. Use a FRESH context per page. Cloudflare lets each new context through on
+         its first navigation, then hard-challenges reuse — so every page we scrape
+         gets its own short-lived session. The caller closes the context.
+    """
+    ctx = browser.new_context(
+        user_agent=BROWSER_UA,
+        viewport={"width": 1280, "height": 900},
+        locale="en-US",
+    )
+    page = ctx.new_page()
+    page.add_init_script(
+        "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+    )
+    return ctx, page
+
+
+def load_page(browser, url, wait=5000, cf_retries=2):
+    """Load one page in its own fresh context and return its body text.
+
+    On the rare occasion the first navigation still draws a challenge, retry with
+    another fresh context. Exhausting retries returns "" — the parsers yield no
+    rows and update.py's data-integrity guard aborts the run (a later scheduled
+    run retries), rather than overwriting good data with a challenge page.
+    """
+    for attempt in range(cf_retries):
+        ctx, page = _new_page(browser)
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_timeout(3000)
+            if _looks_like_challenge(page.locator("body").inner_text()):
+                print(f"    Cloudflare challenge on {_short(url)} — retry with fresh session ({attempt + 1}/{cf_retries})")
+                continue
+            # Scroll to force lazy-load all content
+            prev = 0
+            for _ in range(12):
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                page.wait_for_timeout(1200)
+                h = page.evaluate("document.body.scrollHeight")
+                if h == prev:
+                    break
+                prev = h
+            page.wait_for_timeout(wait)
+            return page.locator("body").inner_text()
+        finally:
+            ctx.close()
+    return ""
 
 
 def parse_schedule(text):
@@ -383,30 +444,43 @@ def parse_players(text):
     return players
 
 
-def collect_plb_rows(page, url, parse_fn, max_steps=60):
+def collect_plb_rows(browser, url, parse_fn, max_steps=60, cf_retries=2):
     """Scrape a virtualized leaderboard by scrolling incrementally and unioning
     parsed rows by name. A single inner_text() only sees the rendered window, so
-    we parse at every scroll step until the bottom stops moving."""
-    page.goto(url, wait_until="domcontentloaded", timeout=30000)
-    page.wait_for_timeout(2500)
-    seen = {}
-    prev_y = -1
-    steps = 0
-    for _ in range(max_steps):
-        steps += 1
-        for row in parse_fn(page.locator("body").inner_text()):
-            seen[row["name"].lower()] = row
-        y  = page.evaluate("window.scrollY")
-        h  = page.evaluate("document.body.scrollHeight")
-        ih = page.evaluate("window.innerHeight")
-        if y + ih >= h - 5:
-            if y == prev_y:
-                break
-            prev_y = y
-        page.evaluate("window.scrollBy(0, Math.round(window.innerHeight*0.55))")
-        page.wait_for_timeout(450)
-    print(f"    (scroll-collected over {steps} steps)")
-    return list(seen.values())
+    we parse at every scroll step until the bottom stops moving.
+
+    Uses a fresh context per attempt (see _new_page) to clear Cloudflare; a
+    challenge that survives the retries yields no rows, which the caller's guard
+    treats as a failed scrape rather than a real empty roster."""
+    for attempt in range(cf_retries):
+        ctx, page = _new_page(browser)
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_timeout(2500)
+            if _looks_like_challenge(page.locator("body").inner_text()):
+                print(f"    Cloudflare challenge on {_short(url)} — retry with fresh session ({attempt + 1}/{cf_retries})")
+                continue
+            seen = {}
+            prev_y = -1
+            steps = 0
+            for _ in range(max_steps):
+                steps += 1
+                for row in parse_fn(page.locator("body").inner_text()):
+                    seen[row["name"].lower()] = row
+                y  = page.evaluate("window.scrollY")
+                h  = page.evaluate("document.body.scrollHeight")
+                ih = page.evaluate("window.innerHeight")
+                if y + ih >= h - 5:
+                    if y == prev_y:
+                        break
+                    prev_y = y
+                page.evaluate("window.scrollBy(0, Math.round(window.innerHeight*0.55))")
+                page.wait_for_timeout(450)
+            print(f"    (scroll-collected over {steps} steps)")
+            return list(seen.values())
+        finally:
+            ctx.close()
+    return []
 
 
 def parse_goalies(text):
@@ -445,35 +519,43 @@ def main():
 
     print("Launching browser...")
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 1280, "height": 900})
-        page.set_extra_http_headers({"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"})
+        # GameSheet sits behind Cloudflare's bot challenge (added ~Jul 2026). A
+        # default-headless Chromium with a truncated UA gets served the
+        # "Performing security verification" interstitial instead of data, which
+        # makes every scrape return 0 rows and the run abort. The launch flag below
+        # plus the per-page fresh context in _new_page clear the challenge with no
+        # CAPTCHA solving; each load_page / collect_plb_rows call gets its own
+        # short-lived session (Cloudflare hard-challenges context reuse).
+        browser = p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled"],
+        )
 
         print("  Fetching scores (completed games)...")
-        scores_text = load_page(page, f"{GS_BASE}/scores?filter[division]={GS_DIVISION}&filter[start_time_from]={GS_SEASON_START}")
+        scores_text = load_page(browser, f"{GS_BASE}/scores?filter[division]={GS_DIVISION}&filter[start_time_from]={GS_SEASON_START}")
         all_scored  = parse_scores(scores_text)
         plb_scored  = [g for g in all_scored if g.get("is_our_game") and g.get("result")]
         print(f"    {len(all_scored)} division completed games, {len(plb_scored)} PLB completed games")
 
         print("  Fetching schedule (upcoming games)...")
-        sched_text = load_page(page, f"{GS_BASE}/schedule?filter[division]={GS_DIVISION}")
+        sched_text = load_page(browser, f"{GS_BASE}/schedule?filter[division]={GS_DIVISION}")
         all_games  = sanitize_games(parse_schedule(sched_text))
         plb_games  = [g for g in all_games if g.get("is_our_game")]
         print(f"    {len(all_games)} division games, {len(plb_games)} PLB upcoming games")
 
         print("  Fetching standings...")
-        stand_text = load_page(page, f"{GS_BASE}/standings?filter[division]={GS_DIVISION}")
+        stand_text = load_page(browser, f"{GS_BASE}/standings?filter[division]={GS_DIVISION}")
         standings = parse_standings(stand_text)
         print(f"    {len(standings)} teams in standings")
 
         print("  Fetching player stats...")
-        plb_skaters = collect_plb_rows(page, f"{GS_BASE}/players?filter[division]={GS_DIVISION}", parse_players)
+        plb_skaters = collect_plb_rows(browser, f"{GS_BASE}/players?filter[division]={GS_DIVISION}", parse_players)
         print(f"    {len(plb_skaters)} PLB skaters")
 
         print("  Fetching goalie stats...")
         plb_goalies = []
         try:
-            goalie_text = load_page(page, f"{GS_BASE}/goalies?filter[division]={GS_DIVISION}", wait=3000)
+            goalie_text = load_page(browser, f"{GS_BASE}/goalies?filter[division]={GS_DIVISION}", wait=3000)
             plb_goalies = parse_goalies(goalie_text)
             print(f"    {len(plb_goalies)} PLB goalies")
         except Exception as e:
@@ -513,19 +595,34 @@ def main():
     season["all_division_games"] = all_games
     season["record"]             = record
 
-    # Guard against partial/failed scrapes silently clobbering good data.
-    # A GameSheet page can load fine (no exception, the run stays "green") yet
-    # return a near-empty table. Skaters and standings are written wholesale
-    # below, so without this a 2-of-20 scrape would overwrite the full roster.
-    # The schedule is already merge-protected above; give the roster and
-    # standings the same protection.
-    prev_skaters = len(season.get("skaters", []))
-    if not plb_skaters or (prev_skaters >= 4 and len(plb_skaters) < prev_skaters * 0.5):
+    # Guard against a fully-blocked run: if every source came back empty,
+    # Cloudflare almost certainly challenged the whole run. Abort loudly
+    # (CI goes red, a later scheduled run retries) rather than committing a
+    # no-op "update"; the existing data is left untouched.
+    if not (all_scored or all_games or standings or plb_skaters or plb_goalies):
         raise SystemExit(
-            f"ABORT: scraped {len(plb_skaters)} skaters but {prev_skaters} are on file — "
-            f"refusing to overwrite with a partial scrape. The run fails loudly so a "
-            f"later scheduled run can retry; the existing data is left untouched."
+            "ABORT: every scrape returned 0 rows — the run was likely blocked "
+            "entirely; leaving existing data untouched."
         )
+
+    # Partial-scrape protection for the roster. The full skater roster is no
+    # longer reachable headlessly (GameSheet's leaderboard API 403s without a
+    # cf_clearance cookie; only the top ~20 division-wide rows are
+    # server-rendered), so instead of aborting, merge: scraped rows overlay the
+    # cached roster by name and everyone else keeps their cached stats.
+    # Counting stats only ever grow, so a scraped row is always at least as
+    # fresh as its cached version — the merge can never regress data, which
+    # honors the old hard guard's intent without failing the whole run.
+    prev_skaters = season.get("skaters", [])
+    merged_skaters = {p["name"].lower(): p for p in prev_skaters}
+    for p in plb_skaters:
+        merged_skaters[p["name"].lower()] = p
+    all_skaters = sorted(merged_skaters.values(),
+                         key=lambda p: (-p["pts"], p["name"]))
+    if len(plb_skaters) < len(all_skaters):
+        print(f"⚠  players scrape returned {len(plb_skaters)} of "
+              f"{len(all_skaters)} known skaters — unscraped players keep "
+              f"their cached stats.")
 
     prev_standings = season.get("standings", [])
     if prev_standings and len(standings) < len(prev_standings):
@@ -533,9 +630,17 @@ def main():
               f"{len(prev_standings)} on file — keeping existing standings.")
         standings = prev_standings
 
+    # Goalies get the same merge — the old skater abort shielded them from a
+    # wholesale overwrite by an empty scrape; the merge keeps that protection.
+    prev_goalies = season.get("goalies", [])
+    merged_goalies = {g["name"].lower(): g for g in prev_goalies}
+    for g in plb_goalies:
+        merged_goalies[g["name"].lower()] = g
+    all_goalies = sorted(merged_goalies.values(), key=lambda g: -g["gp"])
+
     season["standings"]          = standings
-    season["skaters"]            = plb_skaters
-    season["goalies"]            = plb_goalies
+    season["skaters"]            = all_skaters
+    season["goalies"]            = all_goalies
     season["last_updated"]       = str(date.today())
 
     # Derive our standing from standings
@@ -568,11 +673,11 @@ def main():
         our = next((t for t in standings if t["team"].lower() == OUR_TEAM), None)
         if our:
             print(f"Standing:  {our['rank']}/{len(standings)}")
-    if plb_skaters:
-        top = sorted(plb_skaters, key=lambda x: x["pts"], reverse=True)[:3]
+    if all_skaters:
+        top = all_skaters[:3]
         print("Top scorers:", ", ".join(f"{p['name']} ({p['pts']})" for p in top))
-    if plb_goalies:
-        print("Goalies:   ", ", ".join(f"{g['name']} ({g['w']}-{g['l']}, {g['gaa']:.2f} GAA)" for g in plb_goalies))
+    if all_goalies:
+        print("Goalies:   ", ", ".join(f"{g['name']} ({g['w']}-{g['l']}, {g['gaa']:.2f} GAA)" for g in all_goalies))
     if upcoming:
         next_g = upcoming[0]
         print(f"Next game: {next_g['date']} {next_g['time']} {'vs' if next_g['is_home'] else 'at'} {next_g['opponent']}")

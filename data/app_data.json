@@ -8380,14 +8380,14 @@
         "goalies": "https://gamesheetstats.com/seasons/14815/goalies?filter[division]=79347&filter[team]=512204"
       },
       "record": {
-        "gp": 10,
+        "gp": 11,
         "w": 6,
         "l": 3,
         "otl": 0,
-        "sol": 1,
-        "pts": 13,
-        "gf": 47,
-        "ga": 38
+        "sol": 2,
+        "pts": 14,
+        "gf": 51,
+        "ga": 43
       },
       "our_rank": 1,
       "total_teams": 6,
@@ -8602,6 +8602,27 @@
           "result_type": "REG",
           "is_playoff": false,
           "status": "FINAL"
+        },
+        {
+          "date": "2026-08-05",
+          "date_raw": "Aug 5, 2026",
+          "time": "",
+          "game_type": "",
+          "home_team": "Parking Lot Beers",
+          "away_team": "Short Bench",
+          "home_score": 4,
+          "away_score": 5,
+          "our_score": 4,
+          "opp_score": 5,
+          "gm_num": "682",
+          "rink": "Ice Centre - Green",
+          "is_home": true,
+          "is_our_game": true,
+          "opponent": "Short Bench",
+          "result": "L",
+          "result_type": "SO",
+          "is_playoff": false,
+          "status": "FINAL"
         }
       ],
       "standings": [
@@ -8706,10 +8727,10 @@
         {
           "number": "",
           "name": "Alec Asensio",
-          "gp": 9,
-          "g": 13,
+          "gp": 10,
+          "g": 14,
           "a": 7,
-          "pts": 20,
+          "pts": 21,
           "pim": 2,
           "pp": 0,
           "sh": 0,
@@ -8723,6 +8744,18 @@
           "a": 5,
           "pts": 13,
           "pim": 0,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Zach Wilson",
+          "gp": 8,
+          "g": 3,
+          "a": 7,
+          "pts": 10,
+          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -8747,18 +8780,6 @@
           "a": 5,
           "pts": 7,
           "pim": 6,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "",
-          "name": "Zach Wilson",
-          "gp": 7,
-          "g": 2,
-          "a": 5,
-          "pts": 7,
-          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -8941,9 +8962,18 @@
           "gaa": 3.7,
           "sv_pct": 6.0,
           "so": 1
+        },
+        {
+          "name": "Sub Goalie",
+          "gp": 1,
+          "w": 0,
+          "l": 0,
+          "gaa": 3.67,
+          "sv_pct": 0.0,
+          "so": 1
         }
       ],
-      "last_updated": "2026-07-31"
+      "last_updated": "2026-08-06"
     }
   ],
   "career_stats": [
@@ -11607,20 +11637,20 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Zach Wilson",
-          "gp": 7,
-          "g": 2,
-          "a": 5,
-          "pts": 7,
+          "gp": 8,
+          "g": 3,
+          "a": 7,
+          "pts": 10,
           "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 38,
-      "career_g": 12,
-      "career_a": 17,
-      "career_pts": 29,
+      "career_gp": 39,
+      "career_g": 13,
+      "career_a": 19,
+      "career_pts": 32,
       "career_pim": 6,
       "seasons_count": 3
     },
@@ -12026,20 +12056,20 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Alec Asensio",
-          "gp": 9,
-          "g": 13,
+          "gp": 10,
+          "g": 14,
           "a": 7,
-          "pts": 20,
+          "pts": 21,
           "pim": 2,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 13,
-      "career_g": 14,
+      "career_gp": 14,
+      "career_g": 15,
       "career_a": 7,
-      "career_pts": 21,
+      "career_pts": 22,
       "career_pim": 2,
       "seasons_count": 2
     },
@@ -12980,6 +13010,6 @@
     }
   ],
   "name_transition_season": "Summer 2022",
-  "total_games": 229,
+  "total_games": 230,
   "archive_note": "Raw HTML archived from PointStreak before 5/31/2026 decommission"
 }

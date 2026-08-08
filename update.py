@@ -103,6 +103,27 @@ def load_page(browser, url, wait=5000, cf_retries=2):
     return ""
 
 
+# Shared row-field matchers for the positional /scores and /schedule parsers.
+# A bare time string ("10:45 PM") also flags field-shift parse artifacts, where a
+# time value lands in a team-name slot (see sanitize_games).
+DATE_RE      = re.compile(r"^(\w+ \d{1,2}, \d{4})$")
+TIME_ONLY_RE = re.compile(r"^\d{1,2}:\d{2}\s*[AP]M$", re.I)
+
+
+def _is_game_type(line):
+    """True if `line` is the trailing "Type" column ("Regular Season", "Playoff", …).
+
+    Matched by exclusion rather than a keyword whitelist: both parsers used to
+    test `"Season" in line`, which recognised "Regular Season" but silently
+    dropped "Playoff" — every postseason game came through with game_type "" and
+    is_playoff False. The Type cell is the last field in a row, so anything there
+    that isn't a date, a time or a bare number is the type, and a label we've
+    never seen before still gets picked up.
+    """
+    return bool(line) and not (DATE_RE.match(line) or TIME_ONLY_RE.match(line)
+                               or line.isdigit())
+
+
 def parse_schedule(text):
     """Parse the GameSheet schedule (SCHEDULED / upcoming) page.
 
@@ -113,12 +134,10 @@ def parse_schedule(text):
     come from parse_scores instead.
     """
     lines = [l.strip() for l in text.split("\n") if l.strip()]
-    date_re = re.compile(r"^\w+ \d{1,2}, \d{4}$")
-    time_re = re.compile(r"^\d{1,2}:\d{2}\s*[AP]M$", re.I)
     games = []
     i = 0
     while i < len(lines):
-        if not date_re.match(lines[i]):
+        if not DATE_RE.match(lines[i]):
             i += 1
             continue
 
@@ -126,7 +145,7 @@ def parse_schedule(text):
         visitor = lines[j].strip() if j < len(lines) else ""; j += 1
         if j < len(lines) and "B2" in lines[j]: j += 1
         time_str = ""
-        if j < len(lines) and time_re.match(lines[j]):
+        if j < len(lines) and TIME_ONLY_RE.match(lines[j]):
             time_str = lines[j]; j += 1
         home = lines[j].strip() if j < len(lines) else ""; j += 1
         if j < len(lines) and "B2" in lines[j]: j += 1
@@ -137,7 +156,7 @@ def parse_schedule(text):
         if j < len(lines) and re.match(r"^\d+$", lines[j]):
             gm_num = lines[j]; j += 1
         game_type = ""
-        if j < len(lines) and "Season" in lines[j]:
+        if j < len(lines) and _is_game_type(lines[j]):
             game_type = lines[j]; j += 1
 
         date_iso = game_date
@@ -186,10 +205,9 @@ def parse_scores(text):
     lines = [l.strip() for l in text.split("\n") if l.strip()]
     games = []
     i = 0
-    date_re  = re.compile(r"^(\w+ \d{1,2}, \d{4})$")
     score_re = re.compile(r"^(\d+)-(\d+)$")
     while i < len(lines):
-        m = date_re.match(lines[i])
+        m = DATE_RE.match(lines[i])
         # A completed-game block is a date line followed shortly by a
         # "visitor / division / V-H score" sequence. GameSheet dropped the
         # old "FINAL" label from this page, so detect the block by the nearby
@@ -226,7 +244,7 @@ def parse_scores(text):
         for _ in range(2):
             if j < len(lines) and re.match(r"^\d+$", lines[j]):
                 gm_num = lines[j]; j += 1
-            elif j < len(lines) and "Season" in lines[j]:
+            elif j < len(lines) and _is_game_type(lines[j]):
                 game_type = lines[j]; j += 1
 
         date_iso = game_date
@@ -264,11 +282,6 @@ def parse_scores(text):
         i = j
 
     return games
-
-
-# A bare time string ("10:45 PM"). Used to detect field-shift parse artifacts
-# where a time value lands in a team-name slot.
-TIME_ONLY_RE = re.compile(r"^\d{1,2}:\d{2}\s*[AP]M$", re.I)
 
 
 def sanitize_games(games):

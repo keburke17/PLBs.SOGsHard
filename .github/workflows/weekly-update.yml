@@ -2,8 +2,16 @@ name: Weekly Stats Update
 
 on:
   schedule:
-    - cron: '0 8 * * 4'   # Thursday 8am UTC = Thursday 4am ET  (catches Wed night results early)
-    - cron: '0 4 * * 5'   # Friday 4am UTC = Thursday 11pm ET   (backup run)
+    # The division is "B2 - Wed/Thu" — it schedules games on BOTH nights, and the
+    # late slot at Ice Centre runs to ~12:15am ET. Every run must therefore land
+    # after the last puck drop of the night it covers, or GameSheet has nothing
+    # posted yet. The old 'Friday 4am UTC' run was midnight ET Friday, i.e. while
+    # a late Thursday game was still being played, so Thursday results were only
+    # ever picked up by the following week's Thursday run.
+    - cron: '0 8 * * 4'    # Thu 08:00 UTC = Thu 04:00 ET — Wednesday night results
+    - cron: '0 10 * * 5'   # Fri 10:00 UTC = Fri 06:00 ET — Thursday night results
+    - cron: '0 10 * * 6'   # Sat 10:00 UTC = Sat 06:00 ET — catch-up for scores
+                           #   entered late, or for a Cloudflare-blocked run
   workflow_dispatch:       # allows manual trigger from GitHub UI
 
 jobs:

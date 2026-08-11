@@ -116,10 +116,11 @@ Pulls the latest scores, standings, and player stats from [GameSheet](https://ga
 3. Fetches the division **schedule** page — upcoming/scheduled games (dates, times, matchups)
 4. Merges scores + schedule into the season game list, **preserving cached history** (old games are never dropped) and de-duplicating via `sanitize_games()`, which also discards field-shift parse artifacts
 5. Fetches division **standings** — all 6 teams' GP/W/L/OTL/SOL/PTS/GF/GA
-6. Fetches division **player stats** via `collect_plb_rows()` — scrolls the virtualized, division-wide leaderboard and unions rows by name so the full PLB roster is captured reliably
-7. **Guards against partial scrapes**: aborts with a non-zero exit (so the run fails loudly instead of committing) rather than overwriting a good roster with a near-empty one, and keeps existing standings if a scrape returns fewer rows
-8. Calculates PLB's W-L-OTL-SOL record, saves `data/summer_2026.json`, and calls `process.py` to regenerate `data/app_data.json`
-9. Prints a summary: record, upcoming games, top scorers
+6. Fetches **skater stats from per-game lineups** via `collect_boxscores()` — the authoritative source. Completed games are enumerated from the *team* schedule (the division `/scores` page only returns roughly the last 18 games), then each game's dressed roster is read from `?tab=lineups` and summed into season totals, with **GP = the number of lineups a player appears in**. Raw lineups cache in `season["boxscores"]` so later runs only fetch newly-played games
+7. Also fetches the division **player leaderboard** via `collect_plb_rows()` — kept only as a fallback, since it server-renders just its top ~20 division-wide rows and loads the rest through a Cloudflare-gated request
+8. **Guards against partial scrapes**: the lineup aggregate is used only when *every* completed game parsed (a missing lineup would undercount), otherwise it falls back to merging leaderboard rows over the cached roster; standings are kept if a scrape returns fewer rows; and a run where every source returns 0 rows aborts non-zero so the failure is loud instead of committed
+9. Calculates PLB's W-L-OTL-SOL record, saves `data/summer_2026.json`, and calls `process.py` to regenerate `data/app_data.json`
+10. Prints a summary: record, upcoming games, top scorers
 
 > **⚠️ GameSheet layout change (July 2026).** GameSheet rebuilt its stats site (now a Next.js/RSC app), changing the HTML of every page and breaking the original scrapers — scores stopped syncing (the old `FINAL` marker was removed) and schedule rows produced garbled duplicates (an interleaved `B2 - Wed/Thu` division label shifted the fields). The parsers in `update.py` were rewritten to match the new layout: results now come from a separate **scores** page, the **schedule** page is upcoming-only, **standings** rows carry a blank leading rank cell, and **players** is a virtualized leaderboard scraped by incremental scrolling. See commits `d281e94` and `f641b50`. If scraping breaks again, the page layouts likely changed — dump a page with `PYTHONPATH=. python3` importing `update`'s `load_page`, and compare against the parser expectations.
 
@@ -150,8 +151,11 @@ Run each Thursday evening after scores are posted. The web app refreshes automat
 
 1. Create a new `data/<slug>.json` with the season metadata (see `summer_2026.json` for format)
 2. Add the filename to the `gs_files` list in `process.py`
-3. Add `update.py` constants: new `GS_SEASON`, `GS_DIVISION`, and `OUR_TEAM` values
-4. Run `python3 update.py` each Thursday to sync live data
+3. Add `update.py` constants: new `GS_SEASON`, `GS_DIVISION`, `GS_TEAM`, `GS_SEASON_START`, and `OUR_TEAM` values
+4. Set the finished season's `"live"` to `false` so it stops being treated as the live season
+5. Run `python3 update.py` each Thursday to sync live data
+
+> **⚠️ When a season ends,** `update.py` keeps pointing at the old `GS_SEASON` and the crons keep scraping it. Nothing is corrupted (an unchanged scrape produces no commit), but the runs are pointless and will start failing once GameSheet retires the season page — the all-sources-empty guard exits non-zero, turning CI red three times a week. Repoint the constants at the new season, or disable the workflow's `schedule` triggers between seasons.
 
 ---
 

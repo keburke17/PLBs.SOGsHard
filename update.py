@@ -17,6 +17,7 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 GS_SEASON        = "14815"
 GS_DIVISION      = "79347"
+GS_TEAM          = "512204"
 GS_BASE          = f"https://gamesheetstats.com/seasons/{GS_SEASON}"
 GS_SEASON_START  = "2026-05-01"   # used to fetch full season scores history
 
@@ -517,6 +518,163 @@ def parse_goalies(text):
     return goalies
 
 
+# ── per-game lineups (the authoritative skater source) ───────────────────────
+#
+# The division-wide /players leaderboard only server-renders its top ~20 rows and
+# fetches the rest through a Cloudflare-gated XHR, so PLB players outside that
+# window could never be refreshed — their cached stats froze (a 6-GP player stayed
+# at 6 GP all season). Per-game lineups fix that at the source: every completed
+# game's page server-renders BOTH teams' dressed rosters with G/A/PTS/PIM, so the
+# full-season table can be summed from them, and GP is simply how many lineups a
+# player appears in.
+#
+# The team's own /schedule page (not /scores) is used to enumerate games: /scores
+# only returns roughly the last 18 division games, which silently drops the early
+# season.
+#
+# NOTE (verified 2026-08-10): the team page's own Stats tab looks like a shortcut
+# but is NOT division-scoped — it aggregates each player across every team they
+# appear on in the season, so it reports GP far above the team's games played.
+# Do not use it; per-game lineups are the only division-correct source.
+
+# Fetched same-origin from an already-loaded page rather than by navigating to each
+# game: one navigation gets a Cloudflare-cleared context, and the subsequent
+# fetches ride its cookies. This is both far lighter on the site (12 XHRs vs 12
+# full page loads) and much less likely to trip bot protection.
+_LINEUPS_JS = """
+async ([ids, teamName, teams, delayMs]) => {
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const out = {}, errors = [];
+
+  // Each table is rendered twice (mobile + desktop layouts) and both teams'
+  // tables share ancestors, so identify a table's team by walking up to the
+  // nearest ancestor that mentions exactly ONE known team name.
+  const teamOf = (table) => {
+    let n = table;
+    for (let d = 0; d < 8 && n; d++) {
+      n = n.parentElement;
+      if (!n) break;
+      const txt = n.textContent || '';
+      const hits = teams.filter(t => txt.includes(t));
+      if (hits.length === 1) return hits[0];
+    }
+    return null;
+  };
+
+  for (const id of ids) {
+    try {
+      const r = await fetch(`/seasons/${SEASON}/games/${id}?tab=lineups`,
+                            {credentials: 'include'});
+      if (r.status !== 200) throw new Error('status ' + r.status);
+      const html = await r.text();
+      if (/Just a moment|security verification/i.test(html)) throw new Error('challenged');
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const game = {skaters: [], goalies: []};
+      const seen = new Set();
+      for (const t of doc.querySelectorAll('table')) {
+        if (teamOf(t) !== teamName) continue;
+        const hdr = [...t.querySelectorAll('thead th, thead td')].map(x => x.textContent.trim());
+        const isSk = hdr.includes('Player'), isG = hdr.includes('Goalie');
+        if (!isSk && !isG) continue;
+        for (const tr of t.querySelectorAll('tbody tr')) {
+          const c = [...tr.querySelectorAll('td')].map(x => x.textContent.trim());
+          if (c.length < 4) continue;
+          const key = (isSk ? 'S' : 'G') + '|' + c[1];
+          if (seen.has(key)) continue;   // drop the duplicate layout's copy
+          seen.add(key);
+          if (isSk) game.skaters.push({num: c[0], name: c[1], pos: c[2],
+                                       g: +c[3] || 0, a: +c[4] || 0,
+                                       pts: +c[5] || 0, pim: +c[6] || 0});
+          else      game.goalies.push({num: c[0], name: c[1],
+                                       sv: +c[2] || 0, sa: +c[3] || 0, ga: +c[4] || 0});
+        }
+      }
+      if (!game.skaters.length) throw new Error('no lineup rows');
+      out[id] = game;
+    } catch (e) {
+      errors.push(id + ': ' + e.message);
+    }
+    await sleep(delayMs);
+  }
+  return {games: out, errors};
+}
+""".replace("${SEASON}", GS_SEASON)
+
+
+def collect_boxscores(browser, cached=None, delay_ms=900):
+    """Scrape each completed team game's lineup.
+
+    Returns (boxscores, complete) where `boxscores` maps game id -> dressed
+    roster and `complete` is True only when every completed game listed on the
+    team schedule has a parsed lineup. Aggregated totals are only trustworthy
+    when complete — a missing game would silently undercount, so the caller must
+    not overwrite good data unless this is True.
+    """
+    cached = dict(cached or {})
+    ctx, page = _new_page(browser)
+    try:
+        url = (f"{GS_BASE}/teams/{GS_TEAM}/schedule"
+               f"?filter[division]={GS_DIVISION}&filter[status]=completed")
+        page.goto(url, wait_until="domcontentloaded", timeout=30000)
+        page.wait_for_timeout(3000)
+        if _looks_like_challenge(page.locator("body").inner_text()):
+            print("    Cloudflare challenge on team schedule — skipping boxscores")
+            return cached, False
+
+        game_ids = page.evaluate("""() => {
+            const s = new Set();
+            document.querySelectorAll('a[href*="/games/"]').forEach(a => {
+                const m = a.getAttribute('href').match(/\\/games\\/(\\d+)/);
+                if (m) s.add(m[1]);
+            });
+            return [...s];
+        }""")
+        if not game_ids:
+            print("    no completed games found on team schedule — skipping boxscores")
+            return cached, False
+
+        todo = [g for g in game_ids if g not in cached]
+        print(f"    {len(game_ids)} completed games ({len(todo)} new to fetch)")
+        if todo:
+            res = page.evaluate(_LINEUPS_JS, [todo, "Parking Lot Beers", TEAMS, delay_ms])
+            cached.update(res.get("games") or {})
+            for err in (res.get("errors") or []):
+                print(f"    lineup fetch failed — {err}")
+
+        complete = all(g in cached for g in game_ids)
+        if not complete:
+            missing = [g for g in game_ids if g not in cached]
+            print(f"⚠  missing lineups for {len(missing)} game(s): {', '.join(missing)}")
+        return cached, complete
+    finally:
+        ctx.close()
+
+
+def aggregate_boxscore_skaters(boxscores):
+    """Sum per-game lineups into full-season skater rows.
+
+    GP is the number of lineups a player appears in, which is what the frozen
+    leaderboard could never tell us. Names are title-cased to match the
+    PointStreak history's convention (see parse_players)."""
+    agg = {}
+    for game in boxscores.values():
+        for s in game.get("skaters", []):
+            key = s["name"].lower()
+            row = agg.setdefault(key, {
+                "number": "", "name": s["name"].title(),
+                "gp": 0, "g": 0, "a": 0, "pts": 0, "pim": 0,
+                "pp": 0, "sh": 0, "gwg": 0,
+            })
+            row["gp"]  += 1
+            row["g"]   += s.get("g", 0)
+            row["a"]   += s.get("a", 0)
+            row["pts"] += s.get("pts", 0)
+            row["pim"] += s.get("pim", 0)
+            if s.get("num"):
+                row["number"] = s["num"]
+    return sorted(agg.values(), key=lambda p: (-p["pts"], p["name"]))
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -574,6 +732,15 @@ def main():
         except Exception as e:
             print(f"    /goalies failed: {e}")
 
+        print("  Fetching per-game lineups (authoritative skater stats)...")
+        boxscores, box_complete = season.get("boxscores") or {}, False
+        try:
+            boxscores, box_complete = collect_boxscores(browser, season.get("boxscores"))
+        except Exception as e:
+            print(f"    boxscore collection failed: {e}")
+        box_skaters = aggregate_boxscore_skaters(boxscores) if box_complete else []
+        print(f"    {len(boxscores)} games cached, {len(box_skaters)} skaters aggregated")
+
         browser.close()
 
     # Merge into a complete game list:
@@ -612,7 +779,8 @@ def main():
     # Cloudflare almost certainly challenged the whole run. Abort loudly
     # (CI goes red, a later scheduled run retries) rather than committing a
     # no-op "update"; the existing data is left untouched.
-    if not (all_scored or all_games or standings or plb_skaters or plb_goalies):
+    if not (all_scored or all_games or standings or plb_skaters or plb_goalies
+            or box_skaters):
         raise SystemExit(
             "ABORT: every scrape returned 0 rows — the run was likely blocked "
             "entirely; leaving existing data untouched."
@@ -628,14 +796,32 @@ def main():
     # honors the old hard guard's intent without failing the whole run.
     prev_skaters = season.get("skaters", [])
     merged_skaters = {p["name"].lower(): p for p in prev_skaters}
-    for p in plb_skaters:
-        merged_skaters[p["name"].lower()] = p
+    if box_skaters:
+        # Preferred path: every completed game's lineup was read, so these totals
+        # are complete for the whole roster — including players the leaderboard
+        # never renders, whose GP used to freeze. Cached-only players are still
+        # kept (never shrink the roster), though a player absent from all lineups
+        # is a strong hint of a name mismatch worth a look.
+        for p in box_skaters:
+            merged_skaters[p["name"].lower()] = p
+        stale = [n for n in {p["name"].lower() for p in prev_skaters}
+                 if n not in {p["name"].lower() for p in box_skaters}]
+        if stale:
+            print(f"⚠  {len(stale)} cached skater(s) appear in no lineup, keeping "
+                  f"cached stats: {', '.join(sorted(stale))}")
+        print(f"✅ skaters aggregated from {len(boxscores)} game lineups")
+    else:
+        # Fallback: the leaderboard merge. Only the top ~20 division-wide rows
+        # render, so this refreshes whoever it can and leaves everyone else on
+        # their cached (possibly stale) numbers rather than clobbering them.
+        for p in plb_skaters:
+            merged_skaters[p["name"].lower()] = p
+        if len(plb_skaters) < len(merged_skaters):
+            print(f"⚠  no complete lineup set; players scrape returned "
+                  f"{len(plb_skaters)} of {len(merged_skaters)} known skaters — "
+                  f"unscraped players keep their cached stats.")
     all_skaters = sorted(merged_skaters.values(),
                          key=lambda p: (-p["pts"], p["name"]))
-    if len(plb_skaters) < len(all_skaters):
-        print(f"⚠  players scrape returned {len(plb_skaters)} of "
-              f"{len(all_skaters)} known skaters — unscraped players keep "
-              f"their cached stats.")
 
     prev_standings = season.get("standings", [])
     if prev_standings and len(standings) < len(prev_standings):
@@ -653,6 +839,10 @@ def main():
 
     season["standings"]          = standings
     season["skaters"]            = all_skaters
+    if boxscores:
+        # Cached so later runs only fetch newly-played games. process.py strips
+        # this key, so it never reaches app_data.json.
+        season["boxscores"]      = boxscores
     season["goalies"]            = all_goalies
     season["last_updated"]       = str(date.today())
 

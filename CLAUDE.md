@@ -49,14 +49,46 @@ existing `main` data was never clobbered (the guard did its job).
   Goalies merge the same way. A run where EVERY source returns 0 rows still
   aborts non-zero (fully-blocked run → CI red, no no-op commit).
 
-**Untested risk:** the fix is validated from a residential Mac only. GitHub
-Actions runs on datacenter IPs, which Cloudflare challenges harder — verify with
-the `workflow_dispatch` manual trigger after pushing. No self-hosted/residential
-runner is planned.
+**Untested risk — RESOLVED 2026-08-10, and it was backwards.** GitHub Actions
+datacenter IPs clear Cloudflare fine (bot commits have landed on schedule ever
+since). The fragile IP is the *local* one: ~9 navigations in ~4 minutes from the
+residential Mac escalated it to a blanket challenge that had not decayed 85
+minutes later. Budget hours, not minutes — and never debug-scrape iteratively
+from this machine. See the 2026-08-10 status below.
 
-**Future optimization (separate commit, not started):** if per-game boxscore
-pages turn out to be server-rendered like /scores, full skater stats could be
-aggregated from boxscores instead of the blocked leaderboard API.
+## STATUS 2026-08-10 — skater stats now aggregated from per-game lineups
+
+The frozen-roster problem is **fixed at the source**, so the leaderboard's ~20-row
+cutoff no longer matters. Every completed game's page server-renders BOTH teams'
+dressed rosters with G/A/PTS/PIM at `?tab=lineups`, so full-season skater totals
+are summed from them and **GP is simply how many lineups a player appears in** —
+the number the leaderboard could never refresh (a 6-GP player sat at 6 GP all
+season while actually playing 8).
+
+- `collect_boxscores()` enumerates completed games from the **team** schedule
+  (`/teams/{GS_TEAM}/schedule?filter[status]=completed`) — *not* `/scores`, which
+  only returns roughly the last 18 division games and silently drops the early
+  season — then pulls each lineup with a **same-origin `fetch` from the already
+  loaded page**. One navigation gets a Cloudflare-cleared context and the fetches
+  ride its cookies: 12 XHRs instead of 12 page loads, far lighter and much less
+  likely to trip bot protection. Results cache in `season["boxscores"]` keyed by
+  game id, so later runs only fetch newly-played games (`process.py` strips the
+  key, so it never reaches `app_data.json`).
+- **Completeness guard:** totals replace the roster only when EVERY completed game
+  has a parsed lineup. One missing game would silently undercount, so a partial
+  set falls back to the old leaderboard merge instead.
+- **Verified:** the four players who *do* render on the leaderboard (Asensio,
+  Wilson, Hanson, Jenson) aggregate to exactly their leaderboard numbers, which is
+  what confirms the method; the 12 rows that changed are all sub-cutoff players.
+  Aggregation also fills in jersey numbers, which were empty before.
+- Goalies still come from `/goalies` (only ~12 division-wide, so no cutoff
+  problem) — lineups carry no W/L.
+
+**Do NOT use the team page's Stats tab as a shortcut.** It looks like the whole
+roster in one request, but it is **not division-scoped** — it aggregates each
+player across every team they appear on in the season (players skate for teams in
+multiple divisions), reporting GP far above the team's games played (e.g. 21 GP in
+a 12-game season). Per-game lineups are the only division-correct source.
 
 **Other findings:** GameSheet has partial clean REST JSON — `/api/standings/{season}`,
 `/api/season-info/{season}`, `/api/season-divisions/{season}` (all divisions; filter
@@ -69,7 +101,8 @@ leaderboard), so it's a dead end.
 
 GameSheet is a Next.js/RSC app with no clean REST JSON. All parsers live in `update.py` and are layout-sensitive. **If scraping breaks, the page HTML almost certainly changed** — dump the page text and compare against the parser's expectations. A ~July 2026 redesign already broke and forced a rewrite of every parser (see `README.md`'s "GameSheet layout change" note and commits `d281e94`, `f641b50`).
 
-- **players** is a *virtualized*, division-wide leaderboard — only visible rows are in the DOM. Must scroll and union rows (`collect_plb_rows()`), never a single read.
+- **players** is a *virtualized*, division-wide leaderboard — only visible rows are in the DOM. Must scroll and union rows (`collect_plb_rows()`), never a single read. It is now only a **fallback**; skater stats come from per-game lineups (see the 2026-08-10 status).
+- **game pages** render each tab's content server-side from a `?tab=` query param (`lineups`, `box-score`, `play-by-play`) — not a path segment. `?tab=lineups` is the roster source; the box score lists only players who recorded a point.
 - **standings** rows have a blank leading rank cell — drop leading empty cells or every stat shifts one column.
 - **scores** page is the authoritative result source (no `FINAL` marker anymore); **schedule** page is upcoming-only, visitor-first.
 - Results/history: the game merge **preserves cached games** (never drops old ones). `sanitize_games()` discards field-shift artifacts and de-dupes.
@@ -77,6 +110,7 @@ GameSheet is a Next.js/RSC app with no clean REST JSON. All parsers live in `upd
 ## Data integrity rules
 
 - **A shrinking roster/standings scrape means a broken parser or a blocked scrape, not a real change.** `update.py` guards against this: skaters and goalies are merged over the cached lists by name (scraped rows win, unscraped players keep cached stats — never a wholesale overwrite), standings are kept if a scrape returns fewer rows, and a run where every source returns 0 rows aborts non-zero (CI fails loudly). Don't defeat these guards to make a run pass.
+- **Lineup-aggregated skater totals are only valid when every completed game was read.** Unlike the leaderboard merge (where counting stats only grow, so a partial scrape can't regress), a missing lineup *undercounts* — so `collect_boxscores()` returns a `complete` flag and the aggregate is used only when it's True. Never relax that to make a run produce numbers.
 - The web app loads `data/app_data.json`. `data/summer_2026.json` is the live season; older season files are archived PointStreak data and should not be re-scraped.
 
 ## GameSheet IDs

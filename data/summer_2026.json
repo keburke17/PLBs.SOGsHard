@@ -392,7 +392,7 @@
   ],
   "skaters": [
     {
-      "number": "",
+      "number": "91",
       "name": "Alec Asensio",
       "gp": 11,
       "g": 14,
@@ -404,7 +404,7 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "11",
       "name": "Zach Wilson",
       "gp": 9,
       "g": 4,
@@ -416,7 +416,7 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "36",
       "name": "Jason Hanson",
       "gp": 7,
       "g": 8,
@@ -428,7 +428,7 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "16",
       "name": "Nate Jenson",
       "gp": 10,
       "g": 8,
@@ -440,21 +440,45 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "49",
       "name": "Tim Baumann",
-      "gp": 7,
-      "g": 2,
+      "gp": 8,
+      "g": 3,
       "a": 5,
-      "pts": 7,
+      "pts": 8,
       "pim": 6,
       "pp": 0,
       "sh": 0,
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "13",
       "name": "Alec Brooks",
-      "gp": 6,
+      "gp": 7,
+      "g": 3,
+      "a": 4,
+      "pts": 7,
+      "pim": 4,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "40",
+      "name": "Andrew Paulosky",
+      "gp": 10,
+      "g": 4,
+      "a": 3,
+      "pts": 7,
+      "pim": 2,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "96",
+      "name": "Dave Hollingshead",
+      "gp": 8,
       "g": 2,
       "a": 4,
       "pts": 6,
@@ -464,45 +488,33 @@
       "gwg": 0
     },
     {
-      "number": "",
-      "name": "Andrew Paulosky",
-      "gp": 6,
-      "g": 2,
-      "a": 3,
+      "number": "29",
+      "name": "Bradley Bowen",
+      "gp": 9,
+      "g": 0,
+      "a": 5,
       "pts": 5,
-      "pim": 2,
+      "pim": 12,
       "pp": 0,
       "sh": 0,
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "50",
       "name": "Jon Salakas",
-      "gp": 6,
+      "gp": 7,
       "g": 1,
       "a": 4,
       "pts": 5,
-      "pim": 6,
-      "pp": 0,
-      "sh": 0,
-      "gwg": 0
-    },
-    {
-      "number": "",
-      "name": "Bradley Bowen",
-      "gp": 6,
-      "g": 0,
-      "a": 4,
-      "pts": 4,
       "pim": 10,
       "pp": 0,
       "sh": 0,
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "17",
       "name": "Kyle Burke",
-      "gp": 6,
+      "gp": 8,
       "g": 2,
       "a": 2,
       "pts": 4,
@@ -512,9 +524,9 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "6",
       "name": "Michael Park",
-      "gp": 4,
+      "gp": 5,
       "g": 1,
       "a": 3,
       "pts": 4,
@@ -524,43 +536,31 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "21",
+      "name": "Peter Bernardi",
+      "gp": 3,
+      "g": 3,
+      "a": 1,
+      "pts": 4,
+      "pim": 2,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "3",
       "name": "Matt Zagers",
-      "gp": 7,
+      "gp": 9,
       "g": 1,
       "a": 2,
       "pts": 3,
-      "pim": 0,
+      "pim": 4,
       "pp": 0,
       "sh": 0,
       "gwg": 0
     },
     {
-      "number": "",
-      "name": "Dave Hollingshead",
-      "gp": 4,
-      "g": 1,
-      "a": 1,
-      "pts": 2,
-      "pim": 2,
-      "pp": 0,
-      "sh": 0,
-      "gwg": 0
-    },
-    {
-      "number": "",
-      "name": "Peter Bernardi",
-      "gp": 2,
-      "g": 2,
-      "a": 0,
-      "pts": 2,
-      "pim": 2,
-      "pp": 0,
-      "sh": 0,
-      "gwg": 0
-    },
-    {
-      "number": "",
+      "number": "14",
       "name": "Braden Schmid",
       "gp": 2,
       "g": 0,
@@ -572,7 +572,7 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "99",
       "name": "Hayes Hansen",
       "gp": 1,
       "g": 0,
@@ -584,9 +584,9 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "10",
       "name": "Brian Anderson",
-      "gp": 3,
+      "gp": 4,
       "g": 0,
       "a": 0,
       "pts": 0,
@@ -596,19 +596,19 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "58",
       "name": "Nick Hostovsky",
-      "gp": 3,
+      "gp": 6,
       "g": 0,
       "a": 0,
       "pts": 0,
-      "pim": 0,
+      "pim": 2,
       "pp": 0,
       "sh": 0,
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "1",
       "name": "Sub Goalie",
       "gp": 1,
       "g": 0,
@@ -640,5 +640,1288 @@
       "so": 1
     }
   ],
-  "last_updated": "2026-08-08"
+  "last_updated": "2026-08-08",
+  "boxscores": {
+    "2888975": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "88",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 0,
+          "a": 2,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "99",
+          "name": "HAYES HANSEN",
+          "pos": "_",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 21,
+          "sa": 24,
+          "ga": 3
+        }
+      ]
+    },
+    "2888991": {
+      "skaters": [
+        {
+          "num": "0",
+          "name": "BRIAN ANDERSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "6",
+          "name": "MICHAEL PARK",
+          "pos": "D",
+          "g": 0,
+          "a": 3,
+          "pts": 3,
+          "pim": 0
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 2,
+          "a": 0,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0
+        },
+        {
+          "num": "50",
+          "name": "JON SALAKAS",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "88",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 20,
+          "sa": 25,
+          "ga": 5
+        }
+      ]
+    },
+    "2889062": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "21",
+          "name": "PETER BERNARDI",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "49",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "50",
+          "name": "JON SALAKAS",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "58",
+          "name": "NICK HOSTOVSKY",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 24,
+          "sa": 26,
+          "ga": 2
+        }
+      ]
+    },
+    "2889709": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "6",
+          "name": "MICHAEL PARK",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "10",
+          "name": "BRIAN ANDERSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 0,
+          "a": 2,
+          "pts": 2,
+          "pim": 4
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "58",
+          "name": "NICK HOSTOVSKY",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 50,
+          "sa": 54,
+          "ga": 4
+        }
+      ]
+    },
+    "2893380": {
+      "skaters": [
+        {
+          "num": "1",
+          "name": "SUB GOALIE",
+          "pos": "_",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "14",
+          "name": "BRADEN SCHMID",
+          "pos": "_",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "21",
+          "name": "PETER BERNARDI",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 2,
+          "a": 0,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "50",
+          "name": "JON SALAKAS",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "58",
+          "name": "NICK HOSTOVSKY",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 3,
+          "a": 1,
+          "pts": 4,
+          "pim": 0
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 24,
+          "sa": 28,
+          "ga": 4
+        }
+      ]
+    },
+    "2898919": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "6",
+          "name": "MICHAEL PARK",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "14",
+          "name": "BRADEN SCHMID",
+          "pos": "_",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 0,
+          "a": 2,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "50",
+          "name": "JON SALAKAS",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 3,
+          "a": 0,
+          "pts": 3,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 21,
+          "sa": 27,
+          "ga": 6
+        }
+      ]
+    },
+    "2898983": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "6",
+          "name": "MICHAEL PARK",
+          "pos": "D",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "10",
+          "name": "BRIAN ANDERSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "49",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "50",
+          "name": "JON SALAKAS",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 13,
+          "sa": 16,
+          "ga": 3
+        }
+      ]
+    },
+    "2899394": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 2,
+          "pts": 2,
+          "pim": 2
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "49",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "50",
+          "name": "JON SALAKAS",
+          "pos": "F",
+          "g": 0,
+          "a": 3,
+          "pts": 3,
+          "pim": 2
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 3,
+          "a": 0,
+          "pts": 3,
+          "pim": 2
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 16,
+          "sa": 17,
+          "ga": 1
+        }
+      ]
+    },
+    "2899451": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "21",
+          "name": "PETER BERNARDI",
+          "pos": "F",
+          "g": 1,
+          "a": 1,
+          "pts": 2,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 3,
+          "a": 0,
+          "pts": 3,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "49",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 0,
+          "a": 2,
+          "pts": 2,
+          "pim": 2
+        },
+        {
+          "num": "58",
+          "name": "NICK HOSTOVSKY",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 2
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 20,
+          "sa": 25,
+          "ga": 5
+        }
+      ]
+    },
+    "2918307": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "10",
+          "name": "BRIAN ANDERSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "49",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "58",
+          "name": "NICK HOSTOVSKY",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 23,
+          "sa": 27,
+          "ga": 4
+        }
+      ]
+    },
+    "2929040": {
+      "skaters": [
+        {
+          "num": "6",
+          "name": "MICHAEL PARK",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 0
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 2
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "58",
+          "name": "NICK HOSTOVSKY",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 0,
+          "a": 3,
+          "pts": 3,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "1",
+          "name": "SUB GOALIE",
+          "sv": 59,
+          "sa": 63,
+          "ga": 4
+        }
+      ]
+    },
+    "2929046": {
+      "skaters": [
+        {
+          "num": "11",
+          "name": "ZACH WILSON",
+          "pos": "F",
+          "g": 1,
+          "a": 3,
+          "pts": 4,
+          "pim": 2
+        },
+        {
+          "num": "16",
+          "name": "NATE JENSON",
+          "pos": "F",
+          "g": 3,
+          "a": 0,
+          "pts": 3,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "49",
+          "name": "TIM BAUMANN",
+          "pos": "D",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "50",
+          "name": "JON SALAKAS",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 4
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 0,
+          "a": 4,
+          "pts": 4,
+          "pim": 0
+        },
+        {
+          "num": "96",
+          "name": "DAVE HOLLINGSHEAD",
+          "pos": "D",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": 18,
+          "sa": 25,
+          "ga": 7
+        }
+      ]
+    }
+  }
 }

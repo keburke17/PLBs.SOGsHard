@@ -1,18 +1,32 @@
 name: Weekly Stats Update
 
 on:
-  schedule:
-    # The division is "B2 - Wed/Thu" — it schedules games on BOTH nights, and the
-    # late slot at Ice Centre runs to ~12:15am ET. Every run must therefore land
-    # after the last puck drop of the night it covers, or GameSheet has nothing
-    # posted yet. The old 'Friday 4am UTC' run was midnight ET Friday, i.e. while
-    # a late Thursday game was still being played, so Thursday results were only
-    # ever picked up by the following week's Thursday run.
-    - cron: '0 8 * * 4'    # Thu 08:00 UTC = Thu 04:00 ET — Wednesday night results
-    - cron: '0 10 * * 5'   # Fri 10:00 UTC = Fri 06:00 ET — Thursday night results
-    - cron: '0 10 * * 6'   # Sat 10:00 UTC = Sat 06:00 ET — catch-up for scores
-                           #   entered late, or for a Cloudflare-blocked run
-  workflow_dispatch:       # allows manual trigger from GitHub UI
+  # ── PAUSED BETWEEN SEASONS (2026-08-10) ────────────────────────────────────
+  # Summer 2026 ended 2026-08-06, so there is nothing left to scrape. The runs
+  # were harmless no-ops (an unchanged scrape produces no commit), but once
+  # GameSheet retires the season page every source returns 0 rows and update.py's
+  # all-sources-empty guard exits non-zero — which would turn this workflow red
+  # three times a week for no real reason, and a red-by-design state is easy to
+  # misread as a genuine breakage months later.
+  #
+  # TO RE-ENABLE for the next season: uncomment the `schedule:` block below, at
+  # the same time as repointing the rollover constants in update.py (GS_SEASON,
+  # GS_DIVISION, GS_TEAM, GS_SEASON_START, SEASON_FILE). Check the cron times
+  # still suit the new division's game nights — the comments below explain why
+  # each one is where it is.
+  #
+  # schedule:
+  #   # The division is "B2 - Wed/Thu" — it schedules games on BOTH nights, and the
+  #   # late slot at Ice Centre runs to ~12:15am ET. Every run must therefore land
+  #   # after the last puck drop of the night it covers, or GameSheet has nothing
+  #   # posted yet. The old 'Friday 4am UTC' run was midnight ET Friday, i.e. while
+  #   # a late Thursday game was still being played, so Thursday results were only
+  #   # ever picked up by the following week's Thursday run.
+  #   - cron: '0 8 * * 4'    # Thu 08:00 UTC = Thu 04:00 ET — Wednesday night results
+  #   - cron: '0 10 * * 5'   # Fri 10:00 UTC = Fri 06:00 ET — Thursday night results
+  #   - cron: '0 10 * * 6'   # Sat 10:00 UTC = Sat 06:00 ET — catch-up for scores
+  #                          #   entered late, or for a Cloudflare-blocked run
+  workflow_dispatch:       # manual trigger from the GitHub UI — still available
 
 jobs:
   update:

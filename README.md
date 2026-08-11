@@ -151,9 +151,10 @@ Run each Thursday evening after scores are posted. The web app refreshes automat
 
 1. Create a new `data/<slug>.json` with the season metadata (see `summer_2026.json` for format)
 2. Add the filename to the `gs_files` list in `process.py`
-3. Add `update.py` constants: new `GS_SEASON`, `GS_DIVISION`, `GS_TEAM`, `GS_SEASON_START`, and `OUR_TEAM` values
+3. Update the **rollover constants** at the top of `update.py` — `GS_SEASON`, `GS_DIVISION`, `GS_TEAM`, `GS_SEASON_START`, `SEASON_FILE` (and `OUR_TEAM` if the team was renamed). **`SEASON_FILE` matters most:** it's the file the scraper writes to, so leaving it on the old season would overwrite an archived one. `update.py` refuses to run if `SEASON_FILE`'s `gs_season_id` doesn't match `GS_SEASON`, which catches exactly that mistake
 4. Set the finished season's `"live"` to `false` so it stops being treated as the live season
-5. Run `python3 update.py` each Thursday to sync live data
+5. Re-enable the `schedule:` triggers in `.github/workflows/weekly-update.yml` if they were turned off at season end
+6. Run `python3 update.py` each Thursday to sync live data
 
 > **⚠️ When a season ends,** `update.py` keeps pointing at the old `GS_SEASON` and the crons keep scraping it. Nothing is corrupted (an unchanged scrape produces no commit), but the runs are pointless and will start failing once GameSheet retires the season page — the all-sources-empty guard exits non-zero, turning CI red three times a week. Repoint the constants at the new season, or disable the workflow's `schedule` triggers between seasons.
 

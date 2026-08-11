@@ -116,3 +116,17 @@ GameSheet is a Next.js/RSC app with no clean REST JSON. All parsers live in `upd
 ## GameSheet IDs
 
 Season `14815` · Division `79347` · PLB Team `512204`
+
+## Season rollover
+
+Summer 2026 ended 2026-08-06 (`"live": false`). For the next season, change the
+**rollover constants together** at the top of `update.py`: `GS_SEASON`,
+`GS_DIVISION`, `GS_TEAM`, `GS_SEASON_START`, `SEASON_FILE`. `SEASON_FILE` is the
+one that bites — it used to be hardcoded inside `main()`, so repointing
+`GS_SEASON` alone would scrape the new season straight over the archived
+`summer_2026.json`. `main()` now aborts when `SEASON_FILE`'s `gs_season_id`
+doesn't match `GS_SEASON`. Also add the new file to `gs_files` in `process.py`.
+
+Note the lineup-fetch path is **unexercised in CI**: every Summer 2026 lineup is
+cached in the season file, so runs make no fetches. The first real test will be
+the next season's first game — watch that run.

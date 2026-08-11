@@ -8,7 +8,7 @@
   "gs_team_id": "512204",
   "divisionid": "79347",
   "seasonid": "14815",
-  "live": true,
+  "live": false,
   "source": "gamesheet",
   "source_urls": {
     "team_home": "https://gamesheetstats.com/seasons/14815/schedule?filter[division]=79347",

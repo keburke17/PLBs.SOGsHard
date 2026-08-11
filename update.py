@@ -15,11 +15,18 @@ from playwright.sync_api import sync_playwright
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 
+# ── season rollover: change these five together ──────────────────────────────
+# SEASON_FILE lives here rather than inline in main() so a rollover can't half
+# happen. Pointing GS_SEASON at a new season while still writing summer_2026.json
+# would scrape the NEW season straight over the ARCHIVED one; the gs_season_id
+# check in main() is the backstop if these ever drift apart anyway.
 GS_SEASON        = "14815"
 GS_DIVISION      = "79347"
 GS_TEAM          = "512204"
-GS_BASE          = f"https://gamesheetstats.com/seasons/{GS_SEASON}"
 GS_SEASON_START  = "2026-05-01"   # used to fetch full season scores history
+SEASON_FILE      = "summer_2026.json"
+
+GS_BASE          = f"https://gamesheetstats.com/seasons/{GS_SEASON}"
 
 # A complete, current-looking Chrome UA. A truncated UA (no "Chrome/… Safari/…"
 # tail) is itself a bot signal to Cloudflare — keep this realistic.
@@ -680,13 +687,24 @@ def aggregate_boxscore_skaters(boxscores):
 def main():
     print(f"=== GameSheet updater — {date.today()} ===")
 
-    season_path = os.path.join(DATA_DIR, "summer_2026.json")
+    season_path = os.path.join(DATA_DIR, SEASON_FILE)
     if not os.path.exists(season_path):
         print(f"ERROR: {season_path} not found. Run scrape.py first.")
         sys.exit(1)
 
     with open(season_path) as f:
         season = json.load(f)
+
+    # Backstop for a half-finished season rollover: if GS_SEASON was pointed at a
+    # new season but SEASON_FILE still names the old one, this run would scrape
+    # the new season over an archived one. Refuse rather than destroy history.
+    file_season = str(season.get("gs_season_id") or "")
+    if file_season and file_season != GS_SEASON:
+        raise SystemExit(
+            f"ABORT: {SEASON_FILE} holds season {file_season} but GS_SEASON is "
+            f"{GS_SEASON}. Point SEASON_FILE at the new season's file (see the "
+            f"rollover constants at the top of this file) before running."
+        )
 
     print("Launching browser...")
     with sync_playwright() as p:

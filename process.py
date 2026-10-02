@@ -547,7 +547,8 @@ def main():
         all_seasons.append(clean)
 
     # Append any GameSheet seasons (not in PointStreak archive)
-    gs_files = ["summer_2026.json"]
+    # Chronological — the app treats the last season as the newest.
+    gs_files = ["summer_2026.json", "winter_26_27.json"]
     for fname in gs_files:
         fpath = os.path.join(DATA_DIR, fname)
         if os.path.exists(fpath):

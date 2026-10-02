@@ -509,12 +509,25 @@ function populateHeader() {
 
 /* ===== SECTION: UPCOMING PLB GAMES ===== */
 function renderUpcomingPLB() {
-  const s26 = APP.seasons.find(s => s.slug === 'summer_2026');
+  // The live GameSheet season (falls back to the newest season between seasons).
+  const s26 = APP.seasons.find(s => s.live) || APP.seasons[APP.seasons.length - 1];
+  const base = s26 && s26.gs_season_id
+    ? `https://gamesheetstats.com/seasons/${s26.gs_season_id}` : null;
+  const embed = '&configuration[secondary-colour]=0077cc&configuration[logo]=false&configuration[navigation]=false&configuration[filters]=false';
+  const title = document.getElementById('current-season-title');
+  if (title && s26) title.textContent = `📅 ${s26.live ? 'Current' : 'Latest'} Season — ${s26.season}`;
+  if (base) {
+    const q = `?filter[division]=${s26.gs_division_id}${embed}`;
+    const st = document.getElementById('live-standings-frame');
+    const pl = document.getElementById('live-players-frame');
+    if (st) st.src = `${base}/standings${q}`;
+    if (pl) pl.src = `${base}/players${q}`;
+  }
   const el = document.getElementById('upcoming-plb-games');
   if (!el) return;
 
   if (!s26) {
-    el.innerHTML = '<div style="padding:12px 24px;color:#aaa">No Summer 2026 data found.</div>';
+    el.innerHTML = '<div style="padding:12px 24px;color:#aaa">No current season data found.</div>';
     return;
   }
 

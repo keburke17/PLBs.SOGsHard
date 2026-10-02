@@ -27,12 +27,13 @@ hockey-team-history/
 ├── app.js              # All interactivity — tables, chart, season browser
 ├── scrape.py           # Step 1: Fetches raw data from PointStreak (seasons 2020–2026)
 ├── process.py          # Step 2: Cleans raw data → app_data.json
-├── update.py           # Weekly updater for live GameSheet seasons (run each Thursday)
+├── update.py           # Updater for the live GameSheet season (run by CI after game nights)
 ├── requirements.txt    # Python dependencies (requests, beautifulsoup4, lxml, playwright)
 ├── data/
 │   ├── app_data.json           # Cleaned data loaded by the web app
 │   ├── all_seasons.json        # Raw parsed JSON (all 12 PointStreak seasons combined)
-│   ├── summer_2026.json        # Live GameSheet season (updated weekly by update.py)
+│   ├── winter_26_27.json       # Live GameSheet season (updated by update.py)
+│   ├── summer_2026.json        # Archived GameSheet season
 │   ├── summer_2020.json        # Per-season raw JSON files (PointStreak)
 │   ├── winter_20_21.json
 │   ├── ...
@@ -112,17 +113,19 @@ Pulls the latest scores, standings, and player stats from [GameSheet](https://ga
 
 **What it does:**
 1. Launches a headless Chromium browser via Playwright and scrolls each page to trigger lazy-loaded content
-2. Fetches the division **scores** page — completed games with final scores (visitor-first layout); this is the authoritative source for results
-3. Fetches the division **schedule** page — upcoming/scheduled games (dates, times, matchups)
+2. Fetches the division **completed games** view (`/games?filter[status]=completed`) — final scores, visitor-first; this is the authoritative source for results
+3. Fetches the division **scheduled games** view (`/games?filter[status]=scheduled`) — upcoming games (dates, times, matchups); the team schedule page adds the rest of PLB's season
 4. Merges scores + schedule into the season game list, **preserving cached history** (old games are never dropped) and de-duplicating via `sanitize_games()`, which also discards field-shift parse artifacts
 5. Fetches division **standings** — all 6 teams' GP/W/L/OTL/SOL/PTS/GF/GA
-6. Fetches **skater stats from per-game lineups** via `collect_boxscores()` — the authoritative source. Completed games are enumerated from the *team* schedule (the division `/scores` page only returns roughly the last 18 games), then each game's dressed roster is read from `?tab=lineups` and summed into season totals, with **GP = the number of lineups a player appears in**. Raw lineups cache in `season["boxscores"]` so later runs only fetch newly-played games
+6. Fetches **skater stats from per-game lineups** via `collect_boxscores()` — the authoritative source. Completed games are enumerated from the *team* schedule (the division list only returned roughly the last 18 games; the team page lists the whole season, so only rows showing a result count), then each game's dressed roster is read from `?tab=lineups` and summed into season totals, with **GP = the number of lineups a player appears in**. Raw lineups cache in `season["boxscores"]` so later runs only fetch newly-played games
 7. Also fetches the division **player leaderboard** via `collect_plb_rows()` — kept only as a fallback, since it server-renders just its top ~20 division-wide rows and loads the rest through a Cloudflare-gated request
 8. **Guards against partial scrapes**: the lineup aggregate is used only when *every* completed game parsed (a missing lineup would undercount), otherwise it falls back to merging leaderboard rows over the cached roster; standings are kept if a scrape returns fewer rows; and a run where every source returns 0 rows aborts non-zero so the failure is loud instead of committed
-9. Calculates PLB's W-L-OTL-SOL record, saves `data/summer_2026.json`, and calls `process.py` to regenerate `data/app_data.json`
+9. Calculates PLB's W-L-OTL-SOL record (points per the `PTS_*` constants — Winter 2026-27 is a 3-point season — overridden by GameSheet's own PTS when standings were scraped), saves `data/winter_26_27.json`, and calls `process.py` to regenerate `data/app_data.json`
 10. Prints a summary: record, upcoming games, top scorers
 
 > **⚠️ GameSheet layout change (July 2026).** GameSheet rebuilt its stats site (now a Next.js/RSC app), changing the HTML of every page and breaking the original scrapers — scores stopped syncing (the old `FINAL` marker was removed) and schedule rows produced garbled duplicates (an interleaved `B2 - Wed/Thu` division label shifted the fields). The parsers in `update.py` were rewritten to match the new layout: results now come from a separate **scores** page, the **schedule** page is upcoming-only, **standings** rows carry a blank leading rank cell, and **players** is a virtualized leaderboard scraped by incremental scrolling. See commits `d281e94` and `f641b50`. If scraping breaks again, the page layouts likely changed — dump a page with `PYTHONPATH=. python3` importing `update`'s `load_page`, and compare against the parser expectations.
+
+> **⚠️ GameSheet layout change (September 2026).** `/scores` and `/schedule` now redirect to `/games?filter[status]=completed|scheduled`. At desktop width the list is the same table as before; narrow viewports get a card layout, which `parse_game_cards()` handles as a fallback. The team schedule page now ignores `filter[status]=completed` and lists every game. See `CLAUDE.md` (STATUS 2026-10-01).
 
 **Usage:**
 ```bash
@@ -131,10 +134,11 @@ playwright install chromium
 python3 update.py
 ```
 
-Run each Thursday evening after scores are posted. The web app refreshes automatically when `app_data.json` is regenerated.
+CI runs it Thu/Fri/Sat mornings (`.github/workflows/weekly-update.yml`). The web app refreshes automatically when `app_data.json` is regenerated.
 
 **GameSheet IDs:**
-- Season: `14815` · Division: `79347` · PLB Team: `512204`
+- Winter 2026-27 (live): Season `15870` · Division `86566` · PLB Team `560174` · League `1148562`
+- Summer 2026 (archived): Season `14815` · Division `79347` · PLB Team `512204`
 
 ---
 
@@ -153,7 +157,8 @@ Run each Thursday evening after scores are posted. The web app refreshes automat
 2. Add the filename to the `gs_files` list in `process.py`
 3. Update the **rollover constants** at the top of `update.py` — `GS_SEASON`, `GS_DIVISION`, `GS_TEAM`, `GS_SEASON_START`, `SEASON_FILE` (and `OUR_TEAM` if the team was renamed). **`SEASON_FILE` matters most:** it's the file the scraper writes to, so leaving it on the old season would overwrite an archived one. `update.py` refuses to run if `SEASON_FILE`'s `gs_season_id` doesn't match `GS_SEASON`, which catches exactly that mistake
 4. Set the finished season's `"live"` to `false` so it stops being treated as the live season
-5. Re-enable the `schedule:` triggers in `.github/workflows/weekly-update.yml` if they were turned off at season end
+5. Re-enable the `schedule:` triggers in `.github/workflows/weekly-update.yml` if they were turned off at season end, and point its `git add` at the new season file
+   - Also set the `PTS_*` constants in `update.py` to the new season's points system. The web app needs no change: it shows whichever season has `"live": true`
 6. Run `python3 update.py` each Thursday to sync live data
 
 > **⚠️ When a season ends,** `update.py` keeps pointing at the old `GS_SEASON` and the crons keep scraping it. Nothing is corrupted (an unchanged scrape produces no commit), but the runs are pointless and will start failing once GameSheet retires the season page — the all-sources-empty guard exits non-zero, turning CI red three times a week. Repoint the constants at the new season, or disable the workflow's `schedule` triggers between seasons.
@@ -177,6 +182,7 @@ Run each Thursday evening after scores are posted. The web app refreshes automat
 | Summer 2025 | Parking Lot Beers | 811691 |
 | Winter 25/26 | Parking Lot Beers | 814840 |
 | Summer 2026 | Parking Lot Beers | 512204 (GameSheet) |
+| Winter 26/27 | Parking Lot Beers | 560174 (GameSheet) |
 
 **Team name history:** The team first used "Parking Lot Beers" in Summer 2022, briefly reverted to "Vinegar Strokes" for Winter 22/23, then permanently switched starting Summer 2023.
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Thursday updater for Summer 2026 season.
-Run weekly (e.g. Thursday evening) to pull latest scores, standings, and stats
-from GameSheet and refresh data/summer_2026.json and data/app_data.json.
+Updater for the live GameSheet season (currently Winter 2026-27).
+Run after game nights to pull latest scores, standings, and stats from GameSheet
+and refresh data/<SEASON_FILE> and data/app_data.json.
 
 Usage:
     python3 update.py
@@ -17,14 +17,22 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 # ── season rollover: change these five together ──────────────────────────────
 # SEASON_FILE lives here rather than inline in main() so a rollover can't half
-# happen. Pointing GS_SEASON at a new season while still writing summer_2026.json
-# would scrape the NEW season straight over the ARCHIVED one; the gs_season_id
-# check in main() is the backstop if these ever drift apart anyway.
-GS_SEASON        = "14815"
-GS_DIVISION      = "79347"
-GS_TEAM          = "512204"
-GS_SEASON_START  = "2026-05-01"   # used to fetch full season scores history
-SEASON_FILE      = "summer_2026.json"
+# happen. Pointing GS_SEASON at a new season while still writing the old season's
+# file would scrape the NEW season straight over the ARCHIVED one; the
+# gs_season_id check in main() is the backstop if these ever drift apart anyway.
+# Winter 2026-27 (rolled over 2026-10-01). Summer 2026 was 14815 / 79347 / 512204.
+GS_SEASON        = "15870"
+GS_DIVISION      = "86566"
+GS_TEAM          = "560174"
+GS_SEASON_START  = "2026-09-24"   # season's first day (informational)
+SEASON_FILE      = "winter_26_27.json"
+
+# Standings points per result. Winter 2026-27 is a "3-point" season (regulation
+# win 3, OT/SO win 2, OT/SO loss 1); Summer 2026 was a flat win = 2. Only used for
+# the fallback record in derive_record() — when the standings scrape has our row,
+# GameSheet's own PTS wins (see main), so a wrong guess here can't stick.
+# A level final score (2-2, GM#48 on 2026-09-30) shows as a tie worth 0 on GameSheet.
+PTS_REG_WIN, PTS_OT_WIN, PTS_OT_LOSS, PTS_TIE = 3, 2, 1, 0
 
 GS_BASE          = f"https://gamesheetstats.com/seasons/{GS_SEASON}"
 
@@ -111,7 +119,7 @@ def load_page(browser, url, wait=5000, cf_retries=2):
     return ""
 
 
-# Shared row-field matchers for the positional /scores and /schedule parsers.
+# Shared row-field matchers for the positional completed/scheduled games parsers.
 # A bare time string ("10:45 PM") also flags field-shift parse artifacts, where a
 # time value lands in a team-name slot (see sanitize_games).
 DATE_RE      = re.compile(r"^(\w+ \d{1,2}, \d{4})$")
@@ -132,15 +140,132 @@ def _is_game_type(line):
                                or line.isdigit())
 
 
-def parse_schedule(text):
-    """Parse the GameSheet schedule (SCHEDULED / upcoming) page.
+def _iso_date(raw):
+    """'Sep 30, 2026' / 'September 30, 2026' / 'WED, SEP 30, 2026' -> ISO date."""
+    raw = re.sub(r"^[A-Za-z]{3},\s*", "", raw.strip()).title()
+    for fmt in ("%B %d, %Y", "%b %d, %Y"):
+        try:
+            return datetime.strptime(raw, fmt).strftime("%Y-%m-%d")
+        except ValueError:
+            pass
+    return raw
 
-    Post-redesign layout per game — visitor listed first, like the scores page:
+
+_TEAM_BY_LOWER = {t.lower(): t for t in TEAMS}
+
+
+def _canon_team(name):
+    """Map a team name to its canonical casing. The narrow "card" layout renders
+    names upper-cased via CSS ("PARKING LOT BEERS"); everything downstream keys
+    on the title-case names."""
+    name = (name or "").strip()
+    return _TEAM_BY_LOWER.get(name.lower(), name)
+
+
+# ── /games "card" layout (narrow viewport) ───────────────────────────────────
+# Since the Sep 2026 redesign /scores and /schedule both redirect to
+# /games?filter[status]=completed|scheduled. At desktop width (which is what
+# _new_page's 1280px viewport gets) that page is the same table the old pages
+# had, so the positional parsers below still apply. Below the `md` breakpoint it
+# renders stacked cards instead, all upper-cased:
+#     WED, SEP 30, 2026                 <- day header (printed twice)
+#     GM#: 51 / ICE CENTRE - BLUE / <visitor> / B2 - WED/THU / <home> / B2 - WED/THU
+#     then  4 / FINAL / 7               (completed: visitor score, status, home score)
+#     or    10:45 PM / SEP 30           (scheduled)
+# Cards carry no game-type column, so playoff games can't be told apart here.
+# parse_scores / parse_schedule fall back to this when the table layout yields
+# nothing, so a viewport or breakpoint change degrades instead of breaking.
+CARD_DAY_RE = re.compile(r"^[A-Za-z]{3}, [A-Za-z]{3,9} \d{1,2}, \d{4}$")
+CARD_GM_RE  = re.compile(r"^GM#:\s*(\S+)$", re.I)
+FINAL_RE    = re.compile(r"^FINAL\b[\s/\-(]*(OT|SO)?", re.I)
+
+
+def _game_record(date_raw, visitor, home, vis_score=None, home_score=None,
+                 rtype="REG", time_str="", gm_num="", rink="", game_type=""):
+    """Build one game dict (visitor = away). Scores None -> a pending game."""
+    away_team, home_team = _canon_team(visitor), _canon_team(home)
+    is_home = home_team.lower() == OUR_TEAM
+    is_our  = is_home or away_team.lower() == OUR_TEAM
+    done    = vis_score is not None and home_score is not None
+    our_score = (home_score if is_home else vis_score) if done else None
+    opp_score = (vis_score if is_home else home_score) if done else None
+    result = None
+    if done and is_our:
+        result = "W" if our_score > opp_score else "L" if our_score < opp_score else "T"
+    if done:
+        result_type = rtype if result else "pending"
+    else:
+        result_type = "pending"
+    return {
+        "date": _iso_date(date_raw), "date_raw": date_raw, "time": time_str,
+        "game_type": game_type or ("" if done else "Regular Season"),
+        "home_team": home_team, "away_team": away_team,
+        "home_score": home_score if done else None,
+        "away_score": vis_score if done else None,
+        "our_score": our_score, "opp_score": opp_score,
+        "gm_num": gm_num, "rink": rink,
+        "is_home": is_home, "is_our_game": is_our,
+        "opponent": away_team if is_home else home_team,
+        "result": result, "result_type": result_type,
+        "is_playoff": "playoff" in (game_type or "").lower(),
+        "status": "FINAL" if done else (game_type or "Regular Season"),
+    }
+
+
+def parse_game_cards(text):
+    """Parse the narrow-viewport card layout of /games (see comment above).
+    Returns completed and scheduled games together; callers filter."""
+    lines = [l.strip() for l in text.split("\n") if l.strip()]
+    games, day = [], ""
+    i = 0
+    while i < len(lines):
+        if CARD_DAY_RE.match(lines[i]):
+            day = lines[i]; i += 1
+            continue
+        m = CARD_GM_RE.match(lines[i])
+        if not m or not day or i + 8 >= len(lines):
+            i += 1
+            continue
+        rink, visitor, home = lines[i + 1], lines[i + 2], lines[i + 4]
+        if "B2" not in lines[i + 3].upper() or "B2" not in lines[i + 5].upper():
+            i += 1
+            continue
+        a, b, c = lines[i + 6], lines[i + 7], lines[i + 8]
+        fm = FINAL_RE.match(b)
+        if a.isdigit() and fm and c.isdigit():
+            games.append(_game_record(day, visitor, home, int(a), int(c),
+                                      rtype=(fm.group(1) or "REG").upper(),
+                                      gm_num=m.group(1), rink=rink.title(),
+                                      game_type="Regular Season"))
+            i += 9
+        elif TIME_ONLY_RE.match(a):
+            games.append(_game_record(day, visitor, home, time_str=a,
+                                      gm_num=m.group(1), rink=rink.title()))
+            i += 8
+        else:
+            i += 1      # in-progress or unknown card shape: skip, don't guess
+    return games
+
+
+def parse_schedule(text):
+    """Parse upcoming games from /games?filter[status]=scheduled (table layout).
+
+    Layout per game — visitor listed first, like the completed view:
         <date> / <visitor> / "B2 - Wed/Thu" / <time> / <home> / "B2 - Wed/Thu" /
         <location> / <game #> / <type>
     Scheduled games carry no score, so results stay pending; completed results
-    come from parse_scores instead.
+    come from parse_scores instead. A block with no time in the 4th slot is not
+    an upcoming game (the team schedule page mixes in completed rows, which show
+    "L 4 - 7" there) and is skipped. Falls back to the card layout when the
+    table yields nothing.
     """
+    games = _parse_schedule_table(text)
+    if not games:
+        games = [g for g in parse_game_cards(text) if g["home_score"] is None]
+    return games
+
+
+def _parse_schedule_table(text):
     lines = [l.strip() for l in text.split("\n") if l.strip()]
     games = []
     i = 0
@@ -152,9 +277,10 @@ def parse_schedule(text):
         game_date = lines[i]; j = i + 1
         visitor = lines[j].strip() if j < len(lines) else ""; j += 1
         if j < len(lines) and "B2" in lines[j]: j += 1
-        time_str = ""
-        if j < len(lines) and TIME_ONLY_RE.match(lines[j]):
-            time_str = lines[j]; j += 1
+        if not (j < len(lines) and TIME_ONLY_RE.match(lines[j])):
+            i += 1          # not an upcoming-game block (see docstring)
+            continue
+        time_str = lines[j]; j += 1
         home = lines[j].strip() if j < len(lines) else ""; j += 1
         if j < len(lines) and "B2" in lines[j]: j += 1
         rink = ""
@@ -167,49 +293,33 @@ def parse_schedule(text):
         if j < len(lines) and _is_game_type(lines[j]):
             game_type = lines[j]; j += 1
 
-        date_iso = game_date
-        for fmt in ("%B %d, %Y", "%b %d, %Y"):
-            try:
-                date_iso = datetime.strptime(game_date, fmt).strftime("%Y-%m-%d")
-                break
-            except ValueError:
-                pass
-
-        # Both scores and schedule pages list visitor first, home second.
-        away_team, home_team = visitor, home
-        is_home = home_team.lower() == OUR_TEAM
-        is_away = away_team.lower() == OUR_TEAM
-        is_our  = is_home or is_away
-        opp     = away_team if is_home else home_team
-
-        games.append({
-            "date": date_iso, "date_raw": game_date, "time": time_str,
-            "game_type": game_type or "Regular Season",
-            "home_team": home_team, "away_team": away_team,
-            "home_score": None, "away_score": None,
-            "our_score": None, "opp_score": None,
-            "gm_num": gm_num, "rink": rink,
-            "is_home": is_home, "is_our_game": is_our, "opponent": opp,
-            "result": None, "result_type": "pending",
-            "is_playoff": "playoff" in (game_type or "").lower(),
-            "status": game_type or "Regular Season",
-        })
+        games.append(_game_record(game_date, visitor, home, time_str=time_str,
+                                  gm_num=gm_num, rink=rink, game_type=game_type))
         i = j
 
     return games
 
 
 def parse_scores(text):
-    """Parse the GameSheet /scores page (COMPLETED games).
+    """Parse completed games from /games?filter[status]=completed (table layout).
 
-    The scores page layout differs from the schedule page:
-      - Visitor team is listed FIRST, home team SECOND (schedule is home-first)
+      - Visitor team is listed FIRST, home team SECOND
       - The score is a single combined token "VIS-HOME" (e.g. "5-3")
-      - OT/SO appears as its own line AFTER the score
+      - OT/SO appears as its own line AFTER the score (not yet re-confirmed on
+        the Sep 2026 /games page — no OT/SO game had been played when it was
+        checked; a level score with no marker is recorded as a tie)
     Layout per game:
-        <date> / FINAL / <visitor> / B2.. / <V-H score> / [OT|SO] /
-        <home> / B2.. / <location> / <type> / <game #>
+        <date> / <visitor> / B2.. / <V-H score> / [OT|SO] /
+        <home> / B2.. / <location> / <game #> / <type>
+    Falls back to the card layout when the table yields nothing.
     """
+    games = _parse_scores_table(text)
+    if not games:
+        games = [g for g in parse_game_cards(text) if g["home_score"] is not None]
+    return games
+
+
+def _parse_scores_table(text):
     lines = [l.strip() for l in text.split("\n") if l.strip()]
     games = []
     i = 0
@@ -255,38 +365,10 @@ def parse_scores(text):
             elif j < len(lines) and _is_game_type(lines[j]):
                 game_type = lines[j]; j += 1
 
-        date_iso = game_date
-        for fmt in ("%B %d, %Y", "%b %d, %Y"):
-            try:
-                date_iso = datetime.strptime(game_date, fmt).strftime("%Y-%m-%d")
-                break
-            except ValueError:
-                pass
-
-        # Visitor = away, home = home
-        away_team, away_score = visitor, vis_score
-        home_team = home
-        is_home = home_team.lower() == OUR_TEAM
-        is_away = away_team.lower() == OUR_TEAM
-        is_our  = is_home or is_away
-        our_score = home_score if is_home else away_score
-        opp_score = away_score if is_home else home_score
-
-        result = None
-        if home_score is not None and away_score is not None and is_our:
-            result = "W" if our_score > opp_score else "L" if our_score < opp_score else "T"
-
-        games.append({
-            "date": date_iso, "date_raw": game_date, "time": "",
-            "game_type": game_type, "home_team": home_team, "away_team": away_team,
-            "home_score": home_score, "away_score": away_score,
-            "our_score": our_score, "opp_score": opp_score,
-            "gm_num": gm_num, "rink": rink,
-            "is_home": is_home, "is_our_game": is_our,
-            "opponent": away_team if is_home else home_team,
-            "result": result, "result_type": rtype if result else "pending",
-            "is_playoff": "playoff" in game_type.lower(), "status": "FINAL",
-        })
+        if vis_score is not None:
+            games.append(_game_record(game_date, visitor, home, vis_score, home_score,
+                                      rtype=rtype, gm_num=gm_num, rink=rink,
+                                      game_type=game_type))
         i = j
 
     return games
@@ -365,6 +447,7 @@ def parse_standings(text):
 def derive_record(plb_games):
     """Calculate W-L-OTL-SOL record from PLB games."""
     w = l = otl = sol = gf = ga = gp = 0
+    pts = 0
     for g in plb_games:
         if g.get("result") is None:
             continue
@@ -373,14 +456,14 @@ def derive_record(plb_games):
         ga += g.get("opp_score") or 0
         r, rt = g["result"], g.get("result_type", "REG")
         if r == "W":
-            if rt == "OT":   otl += 0; w += 1  # we won in OT
-            elif rt == "SO": sol += 0; w += 1
-            else:            w += 1
+            w += 1
+            pts += PTS_OT_WIN if rt in ("OT", "SO") else PTS_REG_WIN
         elif r == "L":
-            if rt == "OT":   otl += 1
-            elif rt == "SO": sol += 1
+            if rt == "OT":   otl += 1; pts += PTS_OT_LOSS
+            elif rt == "SO": sol += 1; pts += PTS_OT_LOSS
             else:            l += 1
-    pts = w * 2 + otl + sol
+        elif r == "T":
+            pts += PTS_TIE
     return {"gp": gp, "w": w, "l": l, "otl": otl, "sol": sol,
             "pts": pts, "gf": gf, "ga": ga}
 
@@ -417,7 +500,10 @@ def _stat_region(lines, *must_have):
 
 def _row_nums(line):
     """Numeric fields (ints/floats) from a tab-delimited stats line, in order."""
-    return [t.strip() for t in line.split("\t") if re.match(r"^-?\d+\.?\d*$", t.strip())]
+    # Leading-dot decimals count too: SV% renders as ".857", and dropping it shifted
+    # every goalie column after it (W read as SV%, L as W, T as L).
+    return [t.strip() for t in line.split("\t")
+            if re.match(r"^-?(\d+\.?\d*|\.\d+)$", t.strip())]
 
 
 def _anchored_rows(lines, start, end):
@@ -535,9 +621,15 @@ def parse_goalies(text):
 # full-season table can be summed from them, and GP is simply how many lineups a
 # player appears in.
 #
-# The team's own /schedule page (not /scores) is used to enumerate games: /scores
-# only returns roughly the last 18 division games, which silently drops the early
-# season.
+# The team's own /schedule page (not the division games list) is used to enumerate
+# games: the division list only returned roughly the last 18 games in Summer 2026,
+# which silently drops the early season.
+#
+# Since the Sep 2026 redesign that page IGNORES filter[status]=completed and lists
+# the whole season, upcoming games included. Only rows showing a result
+# ("L 4 - 7") are completed, so ids are filtered by those rows' dates — otherwise
+# every unplayed game would be fetched, fail with "no lineup rows", and the
+# completeness guard would never let the aggregate through.
 #
 # NOTE (verified 2026-08-10): the team page's own Stats tab looks like a shortcut
 # but is NOT division-scoped — it aggregates each player across every team they
@@ -608,14 +700,32 @@ async ([ids, teamName, teams, delayMs]) => {
 """.replace("${SEASON}", GS_SEASON)
 
 
+# A completed row on the team schedule shows the result where an upcoming row
+# shows the puck-drop time: "L 4 - 7", "W 5 - 3", possibly with an OT/SO tag.
+TEAM_RESULT_RE = re.compile(r"^(?:[A-Z]{1,3}\s+)?\d+\s*-\s*\d+(?:\s+\S+)?$")
+
+
+def team_completed_dates(text):
+    """ISO dates of the completed games on the team schedule page."""
+    lines = [l.strip() for l in text.split("\n") if l.strip()]
+    dates = set()
+    for i, l in enumerate(lines):
+        if (DATE_RE.match(l) and i + 3 < len(lines) and "B2" in lines[i + 2]
+                and TEAM_RESULT_RE.match(lines[i + 3])
+                and not TIME_ONLY_RE.match(lines[i + 3])):
+            dates.add(_iso_date(l))
+    return dates
+
+
 def collect_boxscores(browser, cached=None, delay_ms=900):
     """Scrape each completed team game's lineup.
 
-    Returns (boxscores, complete) where `boxscores` maps game id -> dressed
-    roster and `complete` is True only when every completed game listed on the
-    team schedule has a parsed lineup. Aggregated totals are only trustworthy
-    when complete — a missing game would silently undercount, so the caller must
-    not overwrite good data unless this is True.
+    Returns (boxscores, complete, team_text) where `boxscores` maps game id ->
+    dressed roster, `complete` is True only when every completed game listed on
+    the team schedule has a parsed lineup, and `team_text` is the page text (the
+    full-season PLB schedule, which main() mines for upcoming games). Aggregated
+    totals are only trustworthy when complete — a missing game would silently
+    undercount, so the caller must not overwrite good data unless this is True.
     """
     cached = dict(cached or {})
     ctx, page = _new_page(browser)
@@ -624,21 +734,34 @@ def collect_boxscores(browser, cached=None, delay_ms=900):
                f"?filter[division]={GS_DIVISION}&filter[status]=completed")
         page.goto(url, wait_until="domcontentloaded", timeout=30000)
         page.wait_for_timeout(3000)
-        if _looks_like_challenge(page.locator("body").inner_text()):
+        team_text = page.locator("body").inner_text()
+        if _looks_like_challenge(team_text):
             print("    Cloudflare challenge on team schedule — skipping boxscores")
-            return cached, False
+            return cached, False, ""
+        try:        # the list is filled in by the client; give it time to appear
+            page.wait_for_selector('a[href*="/games/"]', timeout=10000)
+        except Exception:
+            pass
+        team_text = page.locator("body").inner_text()
 
-        game_ids = page.evaluate("""() => {
-            const s = new Set();
-            document.querySelectorAll('a[href*="/games/"]').forEach(a => {
+        # Each game link's own text is that row's date ("Sep 30, 2026").
+        links = page.evaluate("""() =>
+            [...document.querySelectorAll('a[href*="/games/"]')].map(a => {
                 const m = a.getAttribute('href').match(/\\/games\\/(\\d+)/);
-                if (m) s.add(m[1]);
-            });
-            return [...s];
-        }""")
-        if not game_ids:
-            print("    no completed games found on team schedule — skipping boxscores")
-            return cached, False
+                return m ? [m[1], (a.textContent || '').trim()] : null;
+            }).filter(Boolean)""")
+        done_dates = team_completed_dates(team_text)
+        game_ids = []
+        for gid, label in links:
+            if DATE_RE.match(label) and _iso_date(label) in done_dates \
+                    and gid not in game_ids:
+                game_ids.append(gid)
+        if not game_ids or len(game_ids) != len(done_dates):
+            # Two completed games on one date would also land here (ids can't be
+            # told apart by date) — refuse rather than fetch the wrong set.
+            print(f"    team schedule: {len(done_dates)} completed date(s) but "
+                  f"{len(game_ids)} game id(s) — skipping boxscores")
+            return cached, False, team_text
 
         todo = [g for g in game_ids if g not in cached]
         print(f"    {len(game_ids)} completed games ({len(todo)} new to fetch)")
@@ -652,7 +775,7 @@ def collect_boxscores(browser, cached=None, delay_ms=900):
         if not complete:
             missing = [g for g in game_ids if g not in cached]
             print(f"⚠  missing lineups for {len(missing)} game(s): {', '.join(missing)}")
-        return cached, complete
+        return cached, complete, team_text
     finally:
         ctx.close()
 
@@ -721,13 +844,13 @@ def main():
         )
 
         print("  Fetching scores (completed games)...")
-        scores_text = load_page(browser, f"{GS_BASE}/scores?filter[division]={GS_DIVISION}&filter[start_time_from]={GS_SEASON_START}")
+        scores_text = load_page(browser, f"{GS_BASE}/games?filter[division]={GS_DIVISION}&filter[status]=completed")
         all_scored  = parse_scores(scores_text)
         plb_scored  = [g for g in all_scored if g.get("is_our_game") and g.get("result")]
         print(f"    {len(all_scored)} division completed games, {len(plb_scored)} PLB completed games")
 
         print("  Fetching schedule (upcoming games)...")
-        sched_text = load_page(browser, f"{GS_BASE}/schedule?filter[division]={GS_DIVISION}")
+        sched_text = load_page(browser, f"{GS_BASE}/games?filter[division]={GS_DIVISION}&filter[status]=scheduled")
         all_games  = sanitize_games(parse_schedule(sched_text))
         plb_games  = [g for g in all_games if g.get("is_our_game")]
         print(f"    {len(all_games)} division games, {len(plb_games)} PLB upcoming games")
@@ -751,11 +874,19 @@ def main():
             print(f"    /goalies failed: {e}")
 
         print("  Fetching per-game lineups (authoritative skater stats)...")
-        boxscores, box_complete = season.get("boxscores") or {}, False
+        boxscores, box_complete, team_text = season.get("boxscores") or {}, False, ""
         try:
-            boxscores, box_complete = collect_boxscores(browser, season.get("boxscores"))
+            boxscores, box_complete, team_text = collect_boxscores(browser, season.get("boxscores"))
         except Exception as e:
             print(f"    boxscore collection failed: {e}")
+        # The division list only shows the next few weeks; the team page lists
+        # PLB's whole season, so take the upcoming games it adds.
+        seen_up = {(g["date"], g["gm_num"]) for g in plb_games}
+        team_up = [g for g in sanitize_games(parse_schedule(team_text))
+                   if g.get("is_our_game") and (g["date"], g["gm_num"]) not in seen_up]
+        if team_up:
+            print(f"    +{len(team_up)} upcoming PLB games from the team schedule")
+            plb_games += team_up
         box_skaters = aggregate_boxscore_skaters(boxscores) if box_complete else []
         print(f"    {len(boxscores)} games cached, {len(box_skaters)} skaters aggregated")
 
@@ -763,10 +894,10 @@ def main():
 
     # Merge into a complete game list:
     #   1. Start from cached games (never lose history)
-    #   2. Overlay completed games from /scores (authoritative — includes full season)
-    #   3. Add any new upcoming games from /schedule not already present
+    #   2. Overlay completed games from the completed-games view (authoritative)
+    #   3. Add any new upcoming games from the scheduled view / team schedule
     # Key by date + sorted team names so home/away orientation and differing
-    # game-number schemes between the /scores and /schedule pages still collide.
+    # game-number schemes between the two views still collide.
     def game_key(g):
         teams = sorted([(g.get("home_team") or "").lower(),
                         (g.get("away_team") or "").lower()])
@@ -869,6 +1000,11 @@ def main():
         if t["team"].lower() == OUR_TEAM:
             season["our_rank"]    = t["rank"]
             season["total_teams"] = len(standings)
+            # GameSheet's own PTS is authoritative for the season's points system
+            # (it changes between seasons); only trust it when it covers the same
+            # games our record was derived from.
+            if str(t.get("gp")) == str(record["gp"]) and str(t.get("pts", "")).isdigit():
+                record["pts"] = int(t["pts"])
             break
 
     with open(season_path, "w") as f:

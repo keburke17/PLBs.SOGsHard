@@ -624,11 +624,11 @@
     {
       "name": "Chris Moore",
       "gp": 11,
-      "w": 4,
-      "l": 0,
+      "w": 6,
+      "l": 4,
       "gaa": 4.01,
-      "sv_pct": 6.0,
-      "so": 1
+      "sv_pct": 0.85,
+      "so": 0
     },
     {
       "name": "Sub Goalie",
@@ -636,8 +636,8 @@
       "w": 0,
       "l": 0,
       "gaa": 3.67,
-      "sv_pct": 0.0,
-      "so": 1
+      "sv_pct": 0.937,
+      "so": 0
     }
   ],
   "last_updated": "2026-08-08",

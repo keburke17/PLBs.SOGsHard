@@ -531,9 +531,11 @@ function renderUpcomingPLB() {
     return;
   }
 
-  const today = new Date().toISOString().slice(0, 10);
-  const upcoming = (s26.schedule || []).filter(g => g.date >= today);
-  const played   = (s26.schedule || []).filter(g => g.date < today && g.result);
+  // Split on whether a result exists, not on the date: a date cutoff (UTC via
+  // toISOString) dropped a same-night game from both lists once UTC passed
+  // midnight, and any played game awaiting the next scrape vanished too.
+  const upcoming = (s26.schedule || []).filter(g => !g.result);
+  const played   = (s26.schedule || []).filter(g => g.result);
 
   if (!upcoming.length && !played.length) {
     el.innerHTML = '<div style="padding:12px 24px;color:#aaa;font-size:0.88rem">No games scheduled yet.</div>';

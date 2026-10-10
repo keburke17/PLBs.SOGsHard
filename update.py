@@ -592,7 +592,8 @@ def collect_plb_rows(browser, url, parse_fn, max_steps=60, cf_retries=2):
 
 def parse_goalies(text):
     """Parse the GameSheet /goalies page into PLB goalie dicts.
-    Stats line numeric order: GP GS SA GA GAA SV% W L T OTL PPGA SHGA SO ..."""
+    Stats line numeric order: GP GS SA GA GAA SV% W L T SOL OTL PPGA SHGA SO MIN ...
+    (Winter 2026-27 header; SO used to be read one column early, from SHGA.)"""
     lines = [l.rstrip() for l in text.split("\n")]
     start, end = _stat_region(lines, "GOALIE", "GAA")
     if start is None:
@@ -606,7 +607,7 @@ def parse_goalies(text):
             "name": name.title(),
             "gp": int(f(0)), "w": int(f(6)), "l": int(f(7)),
             "gaa": f(4), "sv_pct": f(5),
-            "so": int(f(12)) if len(nums) > 12 else 0,
+            "so": int(f(13)) if len(nums) > 13 else 0,
         })
     return goalies
 
@@ -640,11 +641,8 @@ def parse_goalies(text):
 # game: one navigation gets a Cloudflare-cleared context, and the subsequent
 # fetches ride its cookies. This is both far lighter on the site (12 XHRs vs 12
 # full page loads) and much less likely to trip bot protection.
-_LINEUPS_JS = """
-async ([ids, teamName, teams, delayMs]) => {
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-  const out = {}, errors = [];
-
+_LINEUP_PARSE_JS = """
+(doc, teamName, teams) => {
   // Each table is rendered twice (mobile + desktop layouts) and both teams'
   // tables share ancestors, so identify a table's team by walking up to the
   // nearest ancestor that mentions exactly ONE known team name.
@@ -659,6 +657,35 @@ async ([ids, teamName, teams, delayMs]) => {
     }
     return null;
   };
+  const game = {skaters: [], goalies: []};
+  const seen = new Set();
+  for (const t of doc.querySelectorAll('table')) {
+    if (teamOf(t) !== teamName) continue;
+    const hdr = [...t.querySelectorAll('thead th, thead td')].map(x => x.textContent.trim());
+    const isSk = hdr.includes('Player'), isG = hdr.includes('Goalie');
+    if (!isSk && !isG) continue;
+    for (const tr of t.querySelectorAll('tbody tr')) {
+      const c = [...tr.querySelectorAll('td')].map(x => x.textContent.trim());
+      if (c.length < 4) continue;
+      const key = (isSk ? 'S' : 'G') + '|' + c[1];
+      if (seen.has(key)) continue;   // drop the duplicate layout's copy
+      seen.add(key);
+      if (isSk) game.skaters.push({num: c[0], name: c[1], pos: c[2],
+                                   g: +c[3] || 0, a: +c[4] || 0,
+                                   pts: +c[5] || 0, pim: +c[6] || 0});
+      else      game.goalies.push({num: c[0], name: c[1],
+                                   sv: +c[2] || 0, sa: +c[3] || 0, ga: +c[4] || 0});
+    }
+  }
+  return game;
+}
+"""
+
+_LINEUPS_JS = """
+async ([ids, teamName, teams, delayMs]) => {
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const parse = ${PARSE};
+  const out = {}, errors = [];
 
   for (const id of ids) {
     try {
@@ -667,27 +694,8 @@ async ([ids, teamName, teams, delayMs]) => {
       if (r.status !== 200) throw new Error('status ' + r.status);
       const html = await r.text();
       if (/Just a moment|security verification/i.test(html)) throw new Error('challenged');
-      const doc = new DOMParser().parseFromString(html, 'text/html');
-      const game = {skaters: [], goalies: []};
-      const seen = new Set();
-      for (const t of doc.querySelectorAll('table')) {
-        if (teamOf(t) !== teamName) continue;
-        const hdr = [...t.querySelectorAll('thead th, thead td')].map(x => x.textContent.trim());
-        const isSk = hdr.includes('Player'), isG = hdr.includes('Goalie');
-        if (!isSk && !isG) continue;
-        for (const tr of t.querySelectorAll('tbody tr')) {
-          const c = [...tr.querySelectorAll('td')].map(x => x.textContent.trim());
-          if (c.length < 4) continue;
-          const key = (isSk ? 'S' : 'G') + '|' + c[1];
-          if (seen.has(key)) continue;   // drop the duplicate layout's copy
-          seen.add(key);
-          if (isSk) game.skaters.push({num: c[0], name: c[1], pos: c[2],
-                                       g: +c[3] || 0, a: +c[4] || 0,
-                                       pts: +c[5] || 0, pim: +c[6] || 0});
-          else      game.goalies.push({num: c[0], name: c[1],
-                                       sv: +c[2] || 0, sa: +c[3] || 0, ga: +c[4] || 0});
-        }
-      }
+      const game = parse(new DOMParser().parseFromString(html, 'text/html'),
+                         teamName, teams);
       if (!game.skaters.length) throw new Error('no lineup rows');
       out[id] = game;
     } catch (e) {
@@ -697,12 +705,119 @@ async ([ids, teamName, teams, delayMs]) => {
   }
   return {games: out, errors};
 }
-""".replace("${SEASON}", GS_SEASON)
+""".replace("${SEASON}", GS_SEASON).replace("${PARSE}", _LINEUP_PARSE_JS.strip())
+
+# Same parser run against a game page we navigated to (see fetch_lineup_by_nav).
+_LINEUP_DOM_JS = ("([teamName, teams]) => (" + _LINEUP_PARSE_JS.strip()
+                  + ")(document, teamName, teams)")
+
+
+def fetch_lineup_by_nav(browser, gid, cf_retries=2):
+    """Fallback for a lineup the same-origin fetch couldn't get: load the game
+    page itself in a fresh context. In CI the fetch 403'd on the first new game
+    of Winter 2026-27 (2026-10-08) while fresh-context navigations got through,
+    so this trades one extra page load per new game for a second way in."""
+    url = f"{GS_BASE}/games/{gid}?tab=lineups"
+    for _ in range(cf_retries):
+        ctx, page = _new_page(browser)
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            page.wait_for_timeout(3000)
+            if _looks_like_challenge(page.locator("body").inner_text()):
+                continue
+            try:
+                page.wait_for_selector("table tbody tr", timeout=10000)
+            except Exception:
+                pass
+            game = page.evaluate(_LINEUP_DOM_JS, ["Parking Lot Beers", TEAMS])
+            if game.get("skaters"):
+                return game
+        finally:
+            ctx.close()
+    return None
+
+
+# /api/standings/{season} is plain JSON for every division; fetched same-origin
+# from the loaded team page as a fallback when the standings page is challenged.
+_STANDINGS_API_JS = """
+async ([season, divisionId]) => {
+  try {
+    const r = await fetch(`/api/standings/${season}`, {credentials: 'include'});
+    if (r.status !== 200) return {error: 'status ' + r.status};
+    const div = ((await r.json()).data || []).find(d => String(d.divisionId) === divisionId);
+    return {rows: div ? div.standings.map(s => ({rank: s.rank, team: s.team.title, stats: s.stats})) : []};
+  } catch (e) {
+    return {error: e.message};
+  }
+}
+"""
+
+
+def standings_from_api(rows):
+    """/api/standings rows -> the same dicts parse_standings() produces."""
+    out = []
+    for r in sorted(rows, key=lambda r: r.get("rank") or 99):
+        st = r.get("stats") or {}
+        n = lambda k: str(st.get(k, 0))
+        out.append({
+            "rank": len(out) + 1, "team": _canon_team(r.get("team")), "teamid": None,
+            "gp": n("GP"), "w": n("W"), "l": n("L"), "t": n("T"),
+            "otw": n("OTW"), "otl": n("OTL"), "sow": n("SOW"), "sol": n("SOL"),
+            "pts": n("PTS"), "gf": n("GF"), "ga": n("GA"),
+        })
+    return out
 
 
 # A completed row on the team schedule shows the result where an upcoming row
 # shows the puck-drop time: "L 4 - 7", "W 5 - 3", possibly with an OT/SO tag.
 TEAM_RESULT_RE = re.compile(r"^(?:[A-Z]{1,3}\s+)?\d+\s*-\s*\d+(?:\s+\S+)?$")
+
+
+TEAM_SCORE_RE  = re.compile(r"^([WLT])\s+(\d+)\s*-\s*(\d+)(?:\s+\(?(OT|SO)\)?)?$", re.I)
+
+
+def parse_team_results(text):
+    """Completed PLB games from the team schedule page.
+
+    Backup result source for when the division's completed-games view yields
+    nothing (it came back empty in CI on 2026-10-08/09 while this page loaded
+    fine, so the 10/7 win never landed). Same row layout as the division table,
+    but the score cell reads from OUR side — "W 5 - 4" is PLB 5, opponent 4,
+    whether PLB is the visitor or the home team. An OT/SO tag has not been seen
+    here yet; it is accepted inline or on the following line.
+    """
+    lines = [l.strip() for l in text.split("\n") if l.strip()]
+    games = []
+    for i, l in enumerate(lines):
+        if not (DATE_RE.match(l) and i + 5 < len(lines) and "B2" in lines[i + 2]):
+            continue
+        m = TEAM_SCORE_RE.match(lines[i + 3])
+        if not m:
+            continue
+        visitor, j = lines[i + 1], i + 4
+        rtype = (m.group(4) or "REG").upper()
+        if lines[j].upper() in ("OT", "SO"):
+            rtype = lines[j].upper(); j += 1
+        home = lines[j] if j < len(lines) else ""; j += 1
+        if j < len(lines) and "B2" in lines[j]: j += 1
+        rink = gm_num = game_type = ""
+        if j < len(lines) and "Ice Centre" in lines[j]:
+            rink = lines[j]; j += 1
+        if j < len(lines) and lines[j].isdigit():
+            gm_num = lines[j]; j += 1
+        if j < len(lines) and _is_game_type(lines[j]):
+            game_type = lines[j]
+        ours, theirs = int(m.group(2)), int(m.group(3))
+        if _canon_team(home).lower() == OUR_TEAM:
+            vis_score, home_score = theirs, ours
+        elif _canon_team(visitor).lower() == OUR_TEAM:
+            vis_score, home_score = ours, theirs
+        else:
+            continue
+        games.append(_game_record(l, visitor, home, vis_score, home_score,
+                                  rtype=rtype, gm_num=gm_num, rink=rink,
+                                  game_type=game_type))
+    return games
 
 
 def team_completed_dates(text):
@@ -717,7 +832,7 @@ def team_completed_dates(text):
     return dates
 
 
-def collect_boxscores(browser, cached=None, delay_ms=900):
+def collect_boxscores(browser, cached=None, delay_ms=900, extras=None):
     """Scrape each completed team game's lineup.
 
     Returns (boxscores, complete, team_text) where `boxscores` maps game id ->
@@ -726,6 +841,9 @@ def collect_boxscores(browser, cached=None, delay_ms=900):
     full-season PLB schedule, which main() mines for upcoming games). Aggregated
     totals are only trustworthy when complete — a missing game would silently
     undercount, so the caller must not overwrite good data unless this is True.
+    If `extras` is a dict, extras["standings"] gets the /api/standings rows for
+    our division when that fetch works (main()'s fallback for a challenged
+    standings page).
     """
     cached = dict(cached or {})
     ctx, page = _new_page(browser)
@@ -743,6 +861,13 @@ def collect_boxscores(browser, cached=None, delay_ms=900):
         except Exception:
             pass
         team_text = page.locator("body").inner_text()
+
+        if extras is not None:
+            api = page.evaluate(_STANDINGS_API_JS, [GS_SEASON, GS_DIVISION])
+            if api.get("rows"):
+                extras["standings"] = standings_from_api(api["rows"])
+            else:
+                print(f"    standings API fallback unavailable: {api.get('error') or 'no rows'}")
 
         # Each game link's own text is that row's date ("Sep 30, 2026").
         links = page.evaluate("""() =>
@@ -770,6 +895,11 @@ def collect_boxscores(browser, cached=None, delay_ms=900):
             cached.update(res.get("games") or {})
             for err in (res.get("errors") or []):
                 print(f"    lineup fetch failed — {err}")
+            for gid in [g for g in todo if g not in cached]:
+                game = fetch_lineup_by_nav(browser, gid)
+                if game:
+                    print(f"    lineup {gid} recovered by loading the game page")
+                    cached[gid] = game
 
         complete = all(g in cached for g in game_ids)
         if not complete:
@@ -848,6 +978,10 @@ def main():
         all_scored  = parse_scores(scores_text)
         plb_scored  = [g for g in all_scored if g.get("is_our_game") and g.get("result")]
         print(f"    {len(all_scored)} division completed games, {len(plb_scored)} PLB completed games")
+        if not all_scored:
+            # Leave a trace in the CI log of what the page actually held.
+            print(f"    ⚠  nothing parsed from the completed view ({len(scores_text)} chars): "
+                  f"{' | '.join(scores_text.split())[:300]!r}")
 
         print("  Fetching schedule (upcoming games)...")
         sched_text = load_page(browser, f"{GS_BASE}/games?filter[division]={GS_DIVISION}&filter[status]=scheduled")
@@ -875,10 +1009,23 @@ def main():
 
         print("  Fetching per-game lineups (authoritative skater stats)...")
         boxscores, box_complete, team_text = season.get("boxscores") or {}, False, ""
+        extras = {}
         try:
-            boxscores, box_complete, team_text = collect_boxscores(browser, season.get("boxscores"))
+            boxscores, box_complete, team_text = collect_boxscores(
+                browser, season.get("boxscores"), extras=extras)
         except Exception as e:
             print(f"    boxscore collection failed: {e}")
+        if not standings and extras.get("standings"):
+            standings = extras["standings"]
+            print(f"    standings: {len(standings)} teams from /api/standings (page was blocked)")
+        # The team page also carries PLB's results; use them for any game the
+        # completed view didn't return (it has come back empty in CI).
+        seen_done = {(g["date"], g["opponent"]) for g in plb_scored}
+        team_done = [g for g in parse_team_results(team_text)
+                     if (g["date"], g["opponent"]) not in seen_done]
+        if team_done:
+            print(f"    +{len(team_done)} PLB result(s) from the team schedule")
+            plb_scored += team_done
         # The division list only shows the next few weeks; the team page lists
         # PLB's whole season, so take the upcoming games it adds.
         seen_up = {(g["date"], g["gm_num"]) for g in plb_games}
@@ -928,8 +1075,8 @@ def main():
     # Cloudflare almost certainly challenged the whole run. Abort loudly
     # (CI goes red, a later scheduled run retries) rather than committing a
     # no-op "update"; the existing data is left untouched.
-    if not (all_scored or all_games or standings or plb_skaters or plb_goalies
-            or box_skaters):
+    if not (all_scored or plb_scored or all_games or standings or plb_skaters
+            or plb_goalies or box_skaters):
         raise SystemExit(
             "ABORT: every scrape returned 0 rows — the run was likely blocked "
             "entirely; leaving existing data untouched."

@@ -22,6 +22,31 @@ Local Playwright + Chromium are installed and work for debugging scrapes. To dum
 - **`git pull --rebase` before starting work**, to avoid conflicts on `data/winter_26_27.json` / `data/app_data.json`.
 - **Do not push. The user pushes to the remote manually.** Commit locally and leave commits staged for them.
 
+## STATUS 2026-10-09 — first CI runs of the season missed the 10/7 game
+
+Both bot runs (10/8, 10/9) went green but landed no result: the completed view
+parsed **0 games** (cause unknown — the same page parses fine from the in-app
+browser at 1280px, 6 games), the standings page was Cloudflare-challenged, and the
+same-origin lineup fetch for game 3009087 got **403**. Only the team schedule page
+and `/players` / `/goalies` came through. The 10/7 game (W 5-4 vs Alaskan Bull
+Worms), standings and that lineup were seeded by hand from the in-app browser.
+
+`update.py` now has a second way in for each of those, all hung off the team
+schedule page (the one page that loaded in CI both times):
+- `parse_team_results()` reads PLB results from it. **The score cell there is from
+  OUR side** (`W 5 - 4` = PLB 5, opp 4, home or away), unlike the visitor-home
+  `4-5` on `/games`. Verified equal to `parse_scores` output for both games.
+- `fetch_lineup_by_nav()` loads the game page in a fresh context when the fetch
+  fails. **Unproven in CI.**
+- `/api/standings/{season}` is fetched same-origin when the standings page yields
+  nothing. **Unproven in CI** (it may 403 like the lineup fetch did).
+- An empty completed view now prints the first 300 chars of what the page held —
+  read that in the next CI log to find out why it is empty.
+
+Also: an SO result on `/games` (table) is the old own-line `SO` after the score
+(GM#48, `3-2` / `SO`) — the existing parser handles it. Goalie `so` was read from
+the SHGA column (header is `… W L T SOL OTL PPGA SHGA SO MIN …`); fixed.
+
 ## STATUS 2026-10-01 — rolled over to Winter 2026-27; /games redesign
 
 GameSheet redesigned again (~Sep 2026). What changed and what `update.py` does now:

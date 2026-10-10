@@ -25,16 +25,16 @@
     "goalies": "https://gamesheetstats.com/seasons/15870/goalies?filter[division]=86566"
   },
   "record": {
-    "gp": 1,
-    "w": 0,
+    "gp": 2,
+    "w": 1,
     "l": 1,
     "otl": 0,
     "sol": 0,
-    "pts": 0,
-    "gf": 4,
-    "ga": 7
+    "pts": 3,
+    "gf": 9,
+    "ga": 11
   },
-  "our_rank": 6,
+  "our_rank": 3,
   "total_teams": 6,
   "leaders": {},
   "schedule": [
@@ -62,23 +62,23 @@
     {
       "date": "2026-10-07",
       "date_raw": "Oct 7, 2026",
-      "time": "10:45 PM",
+      "time": "",
       "game_type": "Regular Season",
       "home_team": "Parking Lot Beers",
       "away_team": "Alaskan Bull Worms",
-      "home_score": null,
-      "away_score": null,
-      "our_score": null,
-      "opp_score": null,
+      "home_score": 5,
+      "away_score": 4,
+      "our_score": 5,
+      "opp_score": 4,
       "gm_num": "108",
       "rink": "Ice Centre - Blue",
       "is_home": true,
       "is_our_game": true,
       "opponent": "Alaskan Bull Worms",
-      "result": null,
-      "result_type": "pending",
+      "result": "W",
+      "result_type": "REG",
       "is_playoff": false,
-      "status": "Regular Season"
+      "status": "FINAL"
     },
     {
       "date": "2026-10-14",
@@ -760,102 +760,102 @@
       "rank": 1,
       "team": "Short Bench",
       "teamid": null,
-      "gp": "1",
-      "w": "1",
+      "gp": "2",
+      "w": "2",
       "l": "0",
       "t": "0",
       "otw": "0",
       "otl": "0",
       "sow": "0",
       "sol": "0",
-      "pts": "3",
-      "gf": "4",
-      "ga": "2"
+      "pts": "6",
+      "gf": "8",
+      "ga": "5"
     },
     {
       "rank": 2,
       "team": "Brown Baggers",
       "teamid": null,
-      "gp": "1",
-      "w": "1",
+      "gp": "2",
+      "w": "2",
       "l": "0",
+      "t": "0",
+      "otw": "0",
+      "otl": "0",
+      "sow": "0",
+      "sol": "0",
+      "pts": "6",
+      "gf": "14",
+      "ga": "6"
+    },
+    {
+      "rank": 3,
+      "team": "Parking Lot Beers",
+      "teamid": null,
+      "gp": "2",
+      "w": "1",
+      "l": "1",
       "t": "0",
       "otw": "0",
       "otl": "0",
       "sow": "0",
       "sol": "0",
       "pts": "3",
-      "gf": "7",
-      "ga": "4"
-    },
-    {
-      "rank": 3,
-      "team": "Buff Stuff",
-      "teamid": null,
-      "gp": "1",
-      "w": "0",
-      "l": "0",
-      "t": "1",
-      "otw": "0",
-      "otl": "0",
-      "sow": "0",
-      "sol": "0",
-      "pts": "0",
-      "gf": "2",
-      "ga": "2"
+      "gf": "9",
+      "ga": "11"
     },
     {
       "rank": 4,
-      "team": "Green Belly Hot Sauce",
+      "team": "Buff Stuff",
       "teamid": null,
-      "gp": "1",
-      "w": "0",
-      "l": "0",
-      "t": "1",
+      "gp": "2",
+      "w": "1",
+      "l": "1",
+      "t": "0",
       "otw": "0",
       "otl": "0",
-      "sow": "0",
+      "sow": "1",
       "sol": "0",
-      "pts": "0",
-      "gf": "2",
-      "ga": "2"
+      "pts": "2",
+      "gf": "5",
+      "ga": "9"
     },
     {
       "rank": 5,
-      "team": "Alaskan Bull Worms",
+      "team": "Green Belly Hot Sauce",
       "teamid": null,
-      "gp": "1",
+      "gp": "2",
       "w": "0",
       "l": "1",
       "t": "0",
       "otw": "0",
       "otl": "0",
       "sow": "0",
-      "sol": "0",
-      "pts": "0",
-      "gf": "2",
-      "ga": "4"
+      "sol": "1",
+      "pts": "1",
+      "gf": "5",
+      "ga": "7"
     },
     {
       "rank": 6,
-      "team": "Parking Lot Beers",
+      "team": "Alaskan Bull Worms",
       "teamid": null,
-      "gp": "1",
+      "gp": "2",
       "w": "0",
-      "l": "1",
+      "l": "2",
       "t": "0",
       "otw": "0",
       "otl": "0",
       "sow": "0",
       "sol": "0",
       "pts": "0",
-      "gf": "4",
-      "ga": "7"
+      "gf": "6",
+      "ga": "9"
     }
   ],
   "skaters": [
     {
-      "number": "",
+      "number": "50",
       "name": "Jon Sakalas",
       "gp": 2,
       "g": 2,
@@ -867,7 +867,7 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "91",
       "name": "Alec Asensio",
       "gp": 2,
       "g": 1,
@@ -879,7 +879,7 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "29",
       "name": "Bradley Bowen",
       "gp": 2,
       "g": 1,
@@ -891,7 +891,7 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "36",
       "name": "Jason Hanson",
       "gp": 2,
       "g": 2,
@@ -903,13 +903,37 @@
       "gwg": 0
     },
     {
-      "number": "",
+      "number": "49",
       "name": "Tim Baumann",
       "gp": 1,
       "g": 0,
       "a": 2,
       "pts": 2,
       "pim": 2,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "13",
+      "name": "Alec Brooks",
+      "gp": 2,
+      "g": 0,
+      "a": 1,
+      "pts": 1,
+      "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "40",
+      "name": "Andrew Paulosky",
+      "gp": 1,
+      "g": 1,
+      "a": 0,
+      "pts": 1,
+      "pim": 0,
       "pp": 0,
       "sh": 0,
       "gwg": 0
@@ -927,13 +951,25 @@
       "gwg": 0
     },
     {
-      "number": "13",
-      "name": "Alec Brooks",
+      "number": "17",
+      "name": "Kyle Burke",
       "gp": 1,
       "g": 0,
-      "a": 0,
-      "pts": 0,
+      "a": 1,
+      "pts": 1,
       "pim": 0,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "3",
+      "name": "Matt Zagers",
+      "gp": 2,
+      "g": 0,
+      "a": 1,
+      "pts": 1,
+      "pim": 2,
       "pp": 0,
       "sh": 0,
       "gwg": 0
@@ -953,30 +989,6 @@
     {
       "number": "96",
       "name": "Dave Hollingshead",
-      "gp": 1,
-      "g": 0,
-      "a": 0,
-      "pts": 0,
-      "pim": 0,
-      "pp": 0,
-      "sh": 0,
-      "gwg": 0
-    },
-    {
-      "number": "",
-      "name": "Kyle Burke",
-      "gp": 0,
-      "g": 0,
-      "a": 0,
-      "pts": 0,
-      "pim": 0,
-      "pp": 0,
-      "sh": 0,
-      "gwg": 0
-    },
-    {
-      "number": "3",
-      "name": "Matt Zagers",
       "gp": 1,
       "g": 0,
       "a": 0,
@@ -1031,7 +1043,7 @@
       "l": 1,
       "gaa": 5.5,
       "sv_pct": 0.593,
-      "so": 1
+      "so": 0
     }
   ],
   "last_updated": "2026-10-09",
@@ -1145,6 +1157,91 @@
           "sv": 17,
           "sa": 24,
           "ga": 7
+        }
+      ]
+    },
+    "3009087": {
+      "skaters": [
+        {
+          "num": "3",
+          "name": "MATT ZAGERS",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "13",
+          "name": "ALEC BROOKS",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "17",
+          "name": "KYLE BURKE",
+          "pos": "F",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "29",
+          "name": "BRADLEY BOWEN",
+          "pos": "D",
+          "g": 0,
+          "a": 1,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "36",
+          "name": "JASON HANSON",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 2
+        },
+        {
+          "num": "40",
+          "name": "ANDREW PAULOSKY",
+          "pos": "F",
+          "g": 1,
+          "a": 0,
+          "pts": 1,
+          "pim": 0
+        },
+        {
+          "num": "50",
+          "name": "JON SAKALAS",
+          "pos": "F",
+          "g": 2,
+          "a": 1,
+          "pts": 3,
+          "pim": 2
+        },
+        {
+          "num": "91",
+          "name": "ALEC ASENSIO",
+          "pos": "F",
+          "g": 0,
+          "a": 0,
+          "pts": 0,
+          "pim": 0
+        }
+      ],
+      "goalies": [
+        {
+          "num": "33",
+          "name": "CHRIS MOORE",
+          "sv": -1,
+          "sa": 3,
+          "ga": 4
         }
       ]
     }

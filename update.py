@@ -804,16 +804,25 @@ def parse_team_results(text):
     for i, l in enumerate(lines):
         if not (DATE_RE.match(l) and i + 5 < len(lines) and "B2" in lines[i + 2]):
             continue
+        looks_done = (TEAM_RESULT_RE.match(lines[i + 3])
+                      and not TIME_ONLY_RE.match(lines[i + 3]))
+        def skip(why):
+            if looks_done:
+                print(f"    ⚠  team-schedule result on {l} not read ({why}): "
+                      f"{' | '.join(lines[i:i + 9])!r}")
         m = TEAM_SCORE_RE.match(lines[i + 3])
         if not m:
-            if TEAM_RESULT_RE.match(lines[i + 3]) and not TIME_ONLY_RE.match(lines[i + 3]):
-                print(f"    ⚠  unparsed team-schedule result on {l}: "
-                      f"{' | '.join(lines[i:i + 8])!r}")
+            skip("score cell")
             continue
         visitor, j = lines[i + 1], i + 4
-        rtype = _team_rtype(m.group(1), m.group(4))
-        if lines[j].upper() in ("OT", "SO"):
-            rtype = lines[j].upper(); j += 1
+        # The home team should follow the score directly, but tolerate a status
+        # line in between ("OT", "SO", "FINAL", "F/SO", "Shootout", ...).
+        tags = [m.group(1), m.group(4)]
+        while j < len(lines) - 1 and j < i + 7 and _canon_team(lines[j]) not in TEAMS:
+            tags.append(lines[j]); j += 1
+        tags = [("SO" if t and "SHOOT" in t.upper() else
+                 "OT" if t and "OVERTIME" in t.upper() else t) for t in tags]
+        rtype = _team_rtype(*tags)
         home = lines[j] if j < len(lines) else ""; j += 1
         if j < len(lines) and "B2" in lines[j]: j += 1
         rink = gm_num = game_type = ""
@@ -829,6 +838,7 @@ def parse_team_results(text):
         elif _canon_team(visitor).lower() == OUR_TEAM:
             vis_score, home_score = ours, theirs
         else:
+            skip("teams")
             continue
         games.append(_game_record(l, visitor, home, vis_score, home_score,
                                   rtype=rtype, gm_num=gm_num, rink=rink,

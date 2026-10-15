@@ -723,7 +723,9 @@ def fetch_lineup_by_nav(browser, gid, cf_retries=2):
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=30000)
             page.wait_for_timeout(3000)
-            if _looks_like_challenge(page.locator("body").inner_text()):
+            text = page.locator("body").inner_text()
+            if _looks_like_challenge(text):
+                print(f"    lineup {gid} by navigation: Cloudflare challenge")
                 continue
             try:
                 page.wait_for_selector("table tbody tr", timeout=10000)
@@ -732,6 +734,8 @@ def fetch_lineup_by_nav(browser, gid, cf_retries=2):
             game = page.evaluate(_LINEUP_DOM_JS, ["Parking Lot Beers", TEAMS])
             if game.get("skaters"):
                 return game
+            print(f"    lineup {gid} by navigation: no PLB skaters parsed "
+                  f"({' | '.join(text.split())[:200]!r})")
         finally:
             ctx.close()
     return None
@@ -773,7 +777,16 @@ def standings_from_api(rows):
 TEAM_RESULT_RE = re.compile(r"^(?:[A-Z]{1,3}\s+)?\d+\s*-\s*\d+(?:\s+\S+)?$")
 
 
-TEAM_SCORE_RE  = re.compile(r"^([WLT])\s+(\d+)\s*-\s*(\d+)(?:\s+\(?(OT|SO)\)?)?$", re.I)
+# The outcome tag before the score is only used for OT/SO — W/L comes from the
+# score itself. Accept the 3-point labels ("OTW", "SOL", "W/OT") as well as a
+# bare "W"; on 2026-10-15 a row TEAM_RESULT_RE saw as completed failed the old
+# W/L/T-only pattern, so the 10/14 game was never recorded.
+TEAM_SCORE_RE  = re.compile(r"^(?:([A-Z/]{1,4})\s+)?(\d+)\s*-\s*(\d+)(?:\s+\(?([A-Z/]{2,5})\)?)?$", re.I)
+
+
+def _team_rtype(*tags):
+    tag = "".join(t for t in tags if t).upper()
+    return "SO" if "SO" in tag else "OT" if "OT" in tag else "REG"
 
 
 def parse_team_results(text):
@@ -793,9 +806,12 @@ def parse_team_results(text):
             continue
         m = TEAM_SCORE_RE.match(lines[i + 3])
         if not m:
+            if TEAM_RESULT_RE.match(lines[i + 3]) and not TIME_ONLY_RE.match(lines[i + 3]):
+                print(f"    ⚠  unparsed team-schedule result on {l}: "
+                      f"{' | '.join(lines[i:i + 8])!r}")
             continue
         visitor, j = lines[i + 1], i + 4
-        rtype = (m.group(4) or "REG").upper()
+        rtype = _team_rtype(m.group(1), m.group(4))
         if lines[j].upper() in ("OT", "SO"):
             rtype = lines[j].upper(); j += 1
         home = lines[j] if j < len(lines) else ""; j += 1

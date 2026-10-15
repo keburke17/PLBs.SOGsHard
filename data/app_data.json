@@ -9494,21 +9494,33 @@
       ],
       "skaters": [
         {
-          "number": "50",
+          "number": "",
           "name": "Jon Sakalas",
-          "gp": 2,
-          "g": 2,
-          "a": 2,
-          "pts": 4,
-          "pim": 2,
+          "gp": 3,
+          "g": 3,
+          "a": 3,
+          "pts": 6,
+          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         },
         {
-          "number": "91",
+          "number": "",
+          "name": "Jason Hanson",
+          "gp": 3,
+          "g": 2,
+          "a": 1,
+          "pts": 3,
+          "pim": 4,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
           "name": "Alec Asensio",
-          "gp": 2,
+          "gp": 3,
           "g": 1,
           "a": 1,
           "pts": 2,
@@ -9518,9 +9530,9 @@
           "gwg": 0
         },
         {
-          "number": "29",
+          "number": "",
           "name": "Bradley Bowen",
-          "gp": 2,
+          "gp": 3,
           "g": 1,
           "a": 1,
           "pts": 2,
@@ -9530,19 +9542,7 @@
           "gwg": 0
         },
         {
-          "number": "36",
-          "name": "Jason Hanson",
-          "gp": 2,
-          "g": 2,
-          "a": 0,
-          "pts": 2,
-          "pim": 4,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "49",
+          "number": "",
           "name": "Tim Baumann",
           "gp": 1,
           "g": 0,
@@ -9677,15 +9677,15 @@
       "goalies": [
         {
           "name": "Chris Moore",
-          "gp": 2,
+          "gp": 3,
           "w": 1,
           "l": 1,
-          "gaa": 5.5,
-          "sv_pct": 0.593,
+          "gaa": 4.33,
+          "sv_pct": 0.75,
           "so": 0
         }
       ],
-      "last_updated": "2026-10-10"
+      "last_updated": "2026-10-15"
     }
   ],
   "career_stats": [
@@ -10273,22 +10273,22 @@
           "season": "Winter 26/27",
           "slug": "winter_26_27",
           "team_name": "Parking Lot Beers",
-          "number": "36",
+          "number": "",
           "name": "Jason Hanson",
-          "gp": 2,
+          "gp": 3,
           "g": 2,
-          "a": 0,
-          "pts": 2,
+          "a": 1,
+          "pts": 3,
           "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 167,
+      "career_gp": 168,
       "career_g": 107,
-      "career_a": 120,
-      "career_pts": 227,
+      "career_a": 121,
+      "career_pts": 228,
       "career_pim": 240,
       "seasons_count": 14
     },
@@ -12426,23 +12426,23 @@
           "season": "Winter 26/27",
           "slug": "winter_26_27",
           "team_name": "Parking Lot Beers",
-          "number": "50",
+          "number": "",
           "name": "Jon Sakalas",
-          "gp": 2,
-          "g": 2,
-          "a": 2,
-          "pts": 4,
-          "pim": 2,
+          "gp": 3,
+          "g": 3,
+          "a": 3,
+          "pts": 6,
+          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 37,
-      "career_g": 17,
-      "career_a": 20,
-      "career_pts": 37,
-      "career_pim": 30,
+      "career_gp": 38,
+      "career_g": 18,
+      "career_a": 21,
+      "career_pts": 39,
+      "career_pim": 32,
       "seasons_count": 5
     },
     {
@@ -12538,9 +12538,9 @@
           "season": "Winter 26/27",
           "slug": "winter_26_27",
           "team_name": "Parking Lot Beers",
-          "number": "91",
+          "number": "",
           "name": "Alec Asensio",
-          "gp": 2,
+          "gp": 3,
           "g": 1,
           "a": 1,
           "pts": 2,
@@ -12550,7 +12550,7 @@
           "gwg": 0
         }
       ],
-      "career_gp": 17,
+      "career_gp": 18,
       "career_g": 16,
       "career_a": 12,
       "career_pts": 28,
@@ -13450,7 +13450,7 @@
           "season": "Winter 26/27",
           "slug": "winter_26_27",
           "team_name": "Parking Lot Beers",
-          "number": "49",
+          "number": "",
           "name": "Tim Baumann",
           "gp": 1,
           "g": 0,
@@ -13517,9 +13517,9 @@
           "season": "Winter 26/27",
           "slug": "winter_26_27",
           "team_name": "Parking Lot Beers",
-          "number": "29",
+          "number": "",
           "name": "Bradley Bowen",
-          "gp": 2,
+          "gp": 3,
           "g": 1,
           "a": 1,
           "pts": 2,
@@ -13529,7 +13529,7 @@
           "gwg": 0
         }
       ],
-      "career_gp": 11,
+      "career_gp": 12,
       "career_g": 1,
       "career_a": 6,
       "career_pts": 7,

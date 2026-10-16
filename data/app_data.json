@@ -9023,14 +9023,14 @@
         "goalies": "https://gamesheetstats.com/seasons/15870/goalies?filter[division]=86566"
       },
       "record": {
-        "gp": 2,
+        "gp": 3,
         "w": 1,
         "l": 1,
         "otl": 0,
-        "sol": 0,
-        "pts": 3,
-        "gf": 9,
-        "ga": 11
+        "sol": 1,
+        "pts": 4,
+        "gf": 11,
+        "ga": 14
       },
       "our_rank": 3,
       "total_teams": 6,
@@ -9081,23 +9081,23 @@
         {
           "date": "2026-10-14",
           "date_raw": "Oct 14, 2026",
-          "time": "9:00 PM",
+          "time": "",
           "game_type": "Regular Season",
           "home_team": "Parking Lot Beers",
           "away_team": "Buff Stuff",
-          "home_score": null,
-          "away_score": null,
-          "our_score": null,
-          "opp_score": null,
+          "home_score": 2,
+          "away_score": 3,
+          "our_score": 2,
+          "opp_score": 3,
           "gm_num": "162",
           "rink": "Ice Centre - Green",
           "is_home": true,
           "is_our_game": true,
           "opponent": "Buff Stuff",
-          "result": null,
-          "result_type": "pending",
+          "result": "L",
+          "result_type": "SO",
           "is_playoff": false,
-          "status": "Regular Season"
+          "status": "FINAL"
         },
         {
           "date": "2026-10-21",
@@ -9685,7 +9685,7 @@
           "so": 0
         }
       ],
-      "last_updated": "2026-10-15"
+      "last_updated": "2026-10-16"
     }
   ],
   "career_stats": [

@@ -904,6 +904,18 @@
     },
     {
       "number": "",
+      "name": "Matt Zagers",
+      "gp": 3,
+      "g": 1,
+      "a": 1,
+      "pts": 2,
+      "pim": 4,
+      "pp": 0,
+      "sh": 0,
+      "gwg": 0
+    },
+    {
+      "number": "",
       "name": "Tim Baumann",
       "gp": 1,
       "g": 0,
@@ -915,7 +927,7 @@
       "gwg": 0
     },
     {
-      "number": "13",
+      "number": "",
       "name": "Alec Brooks",
       "gp": 2,
       "g": 0,
@@ -951,25 +963,13 @@
       "gwg": 0
     },
     {
-      "number": "17",
+      "number": "",
       "name": "Kyle Burke",
       "gp": 1,
       "g": 0,
       "a": 1,
       "pts": 1,
       "pim": 0,
-      "pp": 0,
-      "sh": 0,
-      "gwg": 0
-    },
-    {
-      "number": "3",
-      "name": "Matt Zagers",
-      "gp": 2,
-      "g": 0,
-      "a": 1,
-      "pts": 1,
-      "pim": 2,
       "pp": 0,
       "sh": 0,
       "gwg": 0
@@ -1046,7 +1046,7 @@
       "so": 0
     }
   ],
-  "last_updated": "2026-10-16",
+  "last_updated": "2026-10-17",
   "boxscores": {
     "3009030": {
       "skaters": [

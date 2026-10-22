@@ -9023,14 +9023,14 @@
         "goalies": "https://gamesheetstats.com/seasons/15870/goalies?filter[division]=86566"
       },
       "record": {
-        "gp": 3,
+        "gp": 4,
         "w": 1,
-        "l": 1,
+        "l": 2,
         "otl": 0,
         "sol": 1,
         "pts": 4,
-        "gf": 11,
-        "ga": 14
+        "gf": 13,
+        "ga": 21
       },
       "our_rank": 3,
       "total_teams": 6,
@@ -9102,23 +9102,23 @@
         {
           "date": "2026-10-21",
           "date_raw": "Oct 21, 2026",
-          "time": "9:15 PM",
+          "time": "",
           "game_type": "Regular Season",
           "home_team": "Short Bench",
           "away_team": "Parking Lot Beers",
-          "home_score": null,
-          "away_score": null,
-          "our_score": null,
-          "opp_score": null,
+          "home_score": 7,
+          "away_score": 2,
+          "our_score": 2,
+          "opp_score": 7,
           "gm_num": "221",
           "rink": "Ice Centre - Red",
           "is_home": false,
           "is_our_game": true,
           "opponent": "Short Bench",
-          "result": null,
-          "result_type": "pending",
+          "result": "L",
+          "result_type": "REG",
           "is_playoff": false,
-          "status": "Regular Season"
+          "status": "FINAL"
         },
         {
           "date": "2026-10-28",
@@ -9496,11 +9496,11 @@
         {
           "number": "",
           "name": "Jon Sakalas",
-          "gp": 3,
+          "gp": 4,
           "g": 3,
-          "a": 3,
-          "pts": 6,
-          "pim": 4,
+          "a": 4,
+          "pts": 7,
+          "pim": 6,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -9508,11 +9508,23 @@
         {
           "number": "",
           "name": "Jason Hanson",
-          "gp": 3,
-          "g": 2,
+          "gp": 4,
+          "g": 3,
           "a": 1,
-          "pts": 3,
+          "pts": 4,
           "pim": 4,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Matt Zagers",
+          "gp": 4,
+          "g": 1,
+          "a": 3,
+          "pts": 4,
+          "pim": 6,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -9537,18 +9549,6 @@
           "a": 1,
           "pts": 2,
           "pim": 2,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "",
-          "name": "Matt Zagers",
-          "gp": 3,
-          "g": 1,
-          "a": 1,
-          "pts": 2,
-          "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -9685,7 +9685,7 @@
           "so": 0
         }
       ],
-      "last_updated": "2026-10-17"
+      "last_updated": "2026-10-22"
     }
   ],
   "career_stats": [
@@ -10275,20 +10275,20 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Jason Hanson",
-          "gp": 3,
-          "g": 2,
+          "gp": 4,
+          "g": 3,
           "a": 1,
-          "pts": 3,
+          "pts": 4,
           "pim": 4,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 168,
-      "career_g": 107,
+      "career_gp": 169,
+      "career_g": 108,
       "career_a": 121,
-      "career_pts": 228,
+      "career_pts": 229,
       "career_pim": 240,
       "seasons_count": 14
     },
@@ -12342,21 +12342,21 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Matt Zagers",
-          "gp": 3,
+          "gp": 4,
           "g": 1,
-          "a": 1,
-          "pts": 2,
-          "pim": 4,
+          "a": 3,
+          "pts": 4,
+          "pim": 6,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 62,
+      "career_gp": 63,
       "career_g": 9,
-      "career_a": 37,
-      "career_pts": 46,
-      "career_pim": 40,
+      "career_a": 39,
+      "career_pts": 48,
+      "career_pim": 42,
       "seasons_count": 6
     },
     {
@@ -12428,21 +12428,21 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Jon Sakalas",
-          "gp": 3,
+          "gp": 4,
           "g": 3,
-          "a": 3,
-          "pts": 6,
-          "pim": 4,
+          "a": 4,
+          "pts": 7,
+          "pim": 6,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 38,
+      "career_gp": 39,
       "career_g": 18,
-      "career_a": 21,
-      "career_pts": 39,
-      "career_pim": 32,
+      "career_a": 22,
+      "career_pts": 40,
+      "career_pim": 34,
       "seasons_count": 5
     },
     {

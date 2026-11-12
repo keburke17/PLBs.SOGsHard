@@ -9023,14 +9023,14 @@
         "goalies": "https://gamesheetstats.com/seasons/15870/goalies?filter[division]=86566"
       },
       "record": {
-        "gp": 6,
+        "gp": 7,
         "w": 3,
-        "l": 2,
+        "l": 3,
         "otl": 0,
         "sol": 1,
         "pts": 10,
-        "gf": 23,
-        "ga": 26
+        "gf": 28,
+        "ga": 32
       },
       "our_rank": 3,
       "total_teams": 6,
@@ -9165,23 +9165,23 @@
         {
           "date": "2026-11-11",
           "date_raw": "Nov 11, 2026",
-          "time": "7:30 PM",
+          "time": "",
           "game_type": "Regular Season",
           "home_team": "Alaskan Bull Worms",
           "away_team": "Parking Lot Beers",
-          "home_score": null,
-          "away_score": null,
-          "our_score": null,
-          "opp_score": null,
+          "home_score": 6,
+          "away_score": 5,
+          "our_score": 5,
+          "opp_score": 6,
           "gm_num": "395",
           "rink": "Ice Centre - Green",
           "is_home": false,
           "is_our_game": true,
           "opponent": "Alaskan Bull Worms",
-          "result": null,
-          "result_type": "pending",
+          "result": "L",
+          "result_type": "REG",
           "is_playoff": false,
-          "status": "Regular Season"
+          "status": "FINAL"
         },
         {
           "date": "2026-11-18",
@@ -9496,7 +9496,7 @@
         {
           "number": "",
           "name": "Jon Sakalas",
-          "gp": 5,
+          "gp": 6,
           "g": 4,
           "a": 4,
           "pts": 8,
@@ -9508,23 +9508,11 @@
         {
           "number": "",
           "name": "Alec Asensio",
-          "gp": 6,
+          "gp": 7,
           "g": 4,
           "a": 3,
           "pts": 7,
-          "pim": 0,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "number": "",
-          "name": "Jason Hanson",
-          "gp": 5,
-          "g": 3,
-          "a": 3,
-          "pts": 6,
-          "pim": 4,
+          "pim": 2,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -9532,11 +9520,35 @@
         {
           "number": "",
           "name": "Alec Brooks",
-          "gp": 5,
+          "gp": 6,
           "g": 3,
-          "a": 2,
-          "pts": 5,
-          "pim": 0,
+          "a": 3,
+          "pts": 6,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Hank Hathaway",
+          "gp": 4,
+          "g": 2,
+          "a": 4,
+          "pts": 6,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "number": "",
+          "name": "Jason Hanson",
+          "gp": 6,
+          "g": 3,
+          "a": 3,
+          "pts": 6,
+          "pim": 6,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -9544,11 +9556,11 @@
         {
           "number": "",
           "name": "Matt Zagers",
-          "gp": 6,
-          "g": 1,
+          "gp": 7,
+          "g": 2,
           "a": 4,
-          "pts": 5,
-          "pim": 8,
+          "pts": 6,
+          "pim": 10,
           "pp": 0,
           "sh": 0,
           "gwg": 0
@@ -9567,11 +9579,11 @@
         },
         {
           "number": "",
-          "name": "Hank Hathaway",
-          "gp": 3,
-          "g": 1,
-          "a": 2,
-          "pts": 3,
+          "name": "Nate Jenson",
+          "gp": 5,
+          "g": 3,
+          "a": 1,
+          "pts": 4,
           "pim": 0,
           "pp": 0,
           "sh": 0,
@@ -9592,10 +9604,10 @@
         {
           "number": "",
           "name": "Tim Baumann",
-          "gp": 1,
-          "g": 0,
+          "gp": 4,
+          "g": 1,
           "a": 2,
-          "pts": 2,
+          "pts": 3,
           "pim": 2,
           "pp": 0,
           "sh": 0,
@@ -9638,18 +9650,6 @@
           "gwg": 0
         },
         {
-          "number": "16",
-          "name": "Nate Jenson",
-          "gp": 1,
-          "g": 0,
-          "a": 0,
-          "pts": 0,
-          "pim": 0,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
           "number": "21",
           "name": "Nick Ligocki",
           "gp": 1,
@@ -9677,15 +9677,15 @@
       "goalies": [
         {
           "name": "Chris Moore",
-          "gp": 4,
+          "gp": 5,
           "w": 2,
-          "l": 1,
-          "gaa": 4.0,
-          "sv_pct": 0.795,
+          "l": 2,
+          "gaa": 4.42,
+          "sv_pct": 0.788,
           "so": 0
         }
       ],
-      "last_updated": "2026-11-07"
+      "last_updated": "2026-11-12"
     }
   ],
   "career_stats": [
@@ -10054,21 +10054,21 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Alec Brooks",
-          "gp": 5,
+          "gp": 6,
           "g": 3,
-          "a": 2,
-          "pts": 5,
-          "pim": 0,
+          "a": 3,
+          "pts": 6,
+          "pim": 2,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 180,
+      "career_gp": 181,
       "career_g": 119,
-      "career_a": 123,
-      "career_pts": 242,
-      "career_pim": 249,
+      "career_a": 124,
+      "career_pts": 243,
+      "career_pim": 251,
       "seasons_count": 14
     },
     {
@@ -10275,21 +10275,21 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Jason Hanson",
-          "gp": 5,
+          "gp": 6,
           "g": 3,
           "a": 3,
           "pts": 6,
-          "pim": 4,
+          "pim": 6,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 170,
+      "career_gp": 171,
       "career_g": 108,
       "career_a": 123,
       "career_pts": 231,
-      "career_pim": 240,
+      "career_pim": 242,
       "seasons_count": 14
     },
     {
@@ -10655,22 +10655,22 @@
           "season": "Winter 26/27",
           "slug": "winter_26_27",
           "team_name": "Parking Lot Beers",
-          "number": "16",
+          "number": "",
           "name": "Nate Jenson",
-          "gp": 1,
-          "g": 0,
-          "a": 0,
-          "pts": 0,
+          "gp": 5,
+          "g": 3,
+          "a": 1,
+          "pts": 4,
           "pim": 0,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 166,
-      "career_g": 107,
-      "career_a": 83,
-      "career_pts": 190,
+      "career_gp": 170,
+      "career_g": 110,
+      "career_a": 84,
+      "career_pts": 194,
       "career_pim": 26,
       "seasons_count": 12
     },
@@ -12342,21 +12342,21 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Matt Zagers",
-          "gp": 6,
-          "g": 1,
+          "gp": 7,
+          "g": 2,
           "a": 4,
-          "pts": 5,
-          "pim": 8,
+          "pts": 6,
+          "pim": 10,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 65,
-      "career_g": 9,
+      "career_gp": 66,
+      "career_g": 10,
       "career_a": 40,
-      "career_pts": 49,
-      "career_pim": 44,
+      "career_pts": 50,
+      "career_pim": 46,
       "seasons_count": 6
     },
     {
@@ -12428,7 +12428,7 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Jon Sakalas",
-          "gp": 5,
+          "gp": 6,
           "g": 4,
           "a": 4,
           "pts": 8,
@@ -12438,7 +12438,7 @@
           "gwg": 0
         }
       ],
-      "career_gp": 40,
+      "career_gp": 41,
       "career_g": 19,
       "career_a": 22,
       "career_pts": 41,
@@ -12540,21 +12540,21 @@
           "team_name": "Parking Lot Beers",
           "number": "",
           "name": "Alec Asensio",
-          "gp": 6,
+          "gp": 7,
           "g": 4,
           "a": 3,
           "pts": 7,
-          "pim": 0,
+          "pim": 2,
           "pp": 0,
           "sh": 0,
           "gwg": 0
         }
       ],
-      "career_gp": 21,
+      "career_gp": 22,
       "career_g": 19,
       "career_a": 14,
       "career_pts": 33,
-      "career_pim": 2,
+      "career_pim": 4,
       "seasons_count": 3
     },
     {
@@ -13388,6 +13388,47 @@
       "seasons_count": 2
     },
     {
+      "name": "Tim Baumann",
+      "seasons": [
+        {
+          "season": "Summer 2026",
+          "slug": "summer_2026",
+          "team_name": "Parking Lot Beers",
+          "number": "49",
+          "name": "Tim Baumann",
+          "gp": 8,
+          "g": 3,
+          "a": 5,
+          "pts": 8,
+          "pim": 6,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        },
+        {
+          "season": "Winter 26/27",
+          "slug": "winter_26_27",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Tim Baumann",
+          "gp": 4,
+          "g": 1,
+          "a": 2,
+          "pts": 3,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        }
+      ],
+      "career_gp": 12,
+      "career_g": 4,
+      "career_a": 7,
+      "career_pts": 11,
+      "career_pim": 8,
+      "seasons_count": 2
+    },
+    {
       "name": "Tom Maxwell",
       "seasons": [
         {
@@ -13426,47 +13467,6 @@
       "career_a": 3,
       "career_pts": 10,
       "career_pim": 13,
-      "seasons_count": 2
-    },
-    {
-      "name": "Tim Baumann",
-      "seasons": [
-        {
-          "season": "Summer 2026",
-          "slug": "summer_2026",
-          "team_name": "Parking Lot Beers",
-          "number": "49",
-          "name": "Tim Baumann",
-          "gp": 8,
-          "g": 3,
-          "a": 5,
-          "pts": 8,
-          "pim": 6,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        },
-        {
-          "season": "Winter 26/27",
-          "slug": "winter_26_27",
-          "team_name": "Parking Lot Beers",
-          "number": "",
-          "name": "Tim Baumann",
-          "gp": 1,
-          "g": 0,
-          "a": 2,
-          "pts": 2,
-          "pim": 2,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        }
-      ],
-      "career_gp": 9,
-      "career_g": 3,
-      "career_a": 7,
-      "career_pts": 10,
-      "career_pim": 8,
       "seasons_count": 2
     },
     {
@@ -13604,6 +13604,32 @@
       "seasons_count": 2
     },
     {
+      "name": "Hank Hathaway",
+      "seasons": [
+        {
+          "season": "Winter 26/27",
+          "slug": "winter_26_27",
+          "team_name": "Parking Lot Beers",
+          "number": "",
+          "name": "Hank Hathaway",
+          "gp": 4,
+          "g": 2,
+          "a": 4,
+          "pts": 6,
+          "pim": 2,
+          "pp": 0,
+          "sh": 0,
+          "gwg": 0
+        }
+      ],
+      "career_gp": 4,
+      "career_g": 2,
+      "career_a": 4,
+      "career_pts": 6,
+      "career_pim": 2,
+      "seasons_count": 1
+    },
+    {
       "name": "Jon Salakas",
       "seasons": [
         {
@@ -13731,32 +13757,6 @@
       "career_a": 3,
       "career_pts": 3,
       "career_pim": 2,
-      "seasons_count": 1
-    },
-    {
-      "name": "Hank Hathaway",
-      "seasons": [
-        {
-          "season": "Winter 26/27",
-          "slug": "winter_26_27",
-          "team_name": "Parking Lot Beers",
-          "number": "",
-          "name": "Hank Hathaway",
-          "gp": 3,
-          "g": 1,
-          "a": 2,
-          "pts": 3,
-          "pim": 0,
-          "pp": 0,
-          "sh": 0,
-          "gwg": 0
-        }
-      ],
-      "career_gp": 3,
-      "career_g": 1,
-      "career_a": 2,
-      "career_pts": 3,
-      "career_pim": 0,
       "seasons_count": 1
     },
     {
